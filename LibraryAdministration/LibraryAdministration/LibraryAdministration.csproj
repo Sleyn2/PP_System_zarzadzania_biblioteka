@@ -10,10 +10,12 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <StartupObject>LibraryAdministration.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Avassy.NetCore.Global.Geo" Version="2.1.2.3001" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.6" />
