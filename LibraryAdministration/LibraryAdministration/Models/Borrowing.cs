@@ -21,7 +21,11 @@ namespace LibraryAdministration.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual Customer Customer { get; set; }
+
+        //Status: 1 - ongoing, 2 - reserved, 3 - finished
+        public int Status { get; set; }
         public DateTime CheckoutDate { get; set; }
         public DateTime FinishDate { get; set; }
+        public DateTime CheckInDate { get; set; }
     }
 }

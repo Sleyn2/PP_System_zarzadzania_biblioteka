@@ -12,7 +12,9 @@ namespace LibraryAdministration.Models
     {
         [Key]
         public string UserId { get; set; }
-
+        [Required]
+        [StringLength(10)]
+        public string CardNumber { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
     }

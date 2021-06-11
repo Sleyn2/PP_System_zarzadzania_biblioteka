@@ -7,18 +7,15 @@ using System.Threading.Tasks;
 
 namespace LibraryAdministration.Models
 {
-    public class Book
+    public class ProlongationRequest
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int AuthorId { get; set; }
-        [ForeignKey("AuthorId")]
-        public virtual Author Author { get; set; }
-        [Required]
-        [MaxLength(16), MinLength(3)]
-        public string Name { get; set; }
-        [Required]
-        public int Count { get; set; }
+
+        public int BorrowingId;
+        [ForeignKey("BorrowingId")]
+        public virtual Borrowing Borrowing { get; set; }
+        public DateTime NewFinishDate { get; set; }
     }
 }
