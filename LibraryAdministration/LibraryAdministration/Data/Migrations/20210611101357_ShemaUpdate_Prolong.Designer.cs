@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryAdministration.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(LibraryAdmContext))]
     [Migration("20210611101357_ShemaUpdate_Prolong")]
     partial class ShemaUpdate_Prolong
     {

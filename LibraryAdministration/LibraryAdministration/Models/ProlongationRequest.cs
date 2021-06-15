@@ -13,7 +13,7 @@ namespace LibraryAdministration.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int BorrowingId;
+        public int BorrowingId { get; set; }
         [ForeignKey("BorrowingId")]
         public virtual Borrowing Borrowing { get; set; }
         public DateTime NewFinishDate { get; set; }

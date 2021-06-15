@@ -16,10 +16,12 @@ namespace LibraryAdministration.Models
         [StringLength(10)]
         public string CardNumber { get; set; }
         [ForeignKey("UserId")]
+        [Required]
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
     public class ApplicationUser : IdentityUser
     {
+        
         public virtual Customer Customer { get; set; }
     }
 }
