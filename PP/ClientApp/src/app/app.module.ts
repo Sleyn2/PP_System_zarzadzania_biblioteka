@@ -31,10 +31,9 @@ import { BookDetailCardComponent } from './book-details/book-detail-card/book-de
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'book-details', component: BookDetailsComponent },
+      { path: '', component: BooksListComponent, pathMatch: 'full' },
+      // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
+      //{ path: 'counter', component: CounterComponent }, 
     ])
   ],
   providers: [],
