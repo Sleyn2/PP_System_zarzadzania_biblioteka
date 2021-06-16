@@ -20,6 +20,7 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
+<<<<<<< Updated upstream
           <li
             class="nav-item"
             [routerLinkActive]="['link-active']"
@@ -37,6 +38,25 @@
               >Fetch data</a
             >
           </li>
+=======
+          <li class="nav-item"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/']">Katalog książek</a>
+          </li>
+
+          <li class="nav-item"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/']">Profil</a>
+          </li>
+          <!-- ***PRZYKLAD JAK DODAWAC PRZYCISK DO MENU (to co robi okreslone w app.components)***
+    <li class="nav-item" [routerLinkActive]="['link-active']">
+    <a class="nav-link text-dark" [routerLink]="['/counter']"
+      >Counter</a
+    >
+  </li> -->
+>>>>>>> Stashed changes
         </ul>
       </div>
     </div>
