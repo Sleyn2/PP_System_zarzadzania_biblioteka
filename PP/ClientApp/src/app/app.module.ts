@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BooksListComponent } from './books-list/books-list.component';
 import { BooksListFormComponent } from './books-list/books-list-form/books-list-form.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
+import { BookDetailCardComponent } from './book-details/book-detail-card/book-detail-card.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,9 @@ import { BookDetailsComponent } from './book-details/book-details.component';
     CounterComponent,
     FetchDataComponent,
     BooksListComponent,
-    BooksListFormComponent
-    FetchDataComponent,
-    BookDetailsComponent
+    BooksListFormComponent,
+    BookDetailsComponent,
+    BookDetailCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,9 +34,12 @@ import { BookDetailsComponent } from './book-details/book-details.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'book-details', component: BookDetailsComponent },
     ])
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// { path: 'book-details/:bookId', component: BookDetailsComponent },
