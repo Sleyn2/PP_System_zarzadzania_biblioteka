@@ -27,9 +27,9 @@ import { BooksListFormComponent } from './books-list/books-list-form/books-list-
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: '', component: BooksListComponent, pathMatch: 'full' },
+      // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
+      //{ path: 'counter', component: CounterComponent }, 
     ])
   ],
   providers: [],
