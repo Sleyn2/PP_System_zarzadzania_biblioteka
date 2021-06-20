@@ -27,15 +27,17 @@ const routes: Routes = [
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent,
-    BooksListComponent,
-    BooksListFormComponent
+    FetchDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot([
+      { path: '', component: BooksListComponent, pathMatch: 'full' },
+      // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
+      //{ path: 'counter', component: CounterComponent }, 
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
