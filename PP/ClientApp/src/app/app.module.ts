@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -11,9 +11,15 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BooksListComponent } from './books-list/books-list.component';
 import { BooksListFormComponent } from './books-list/books-list-form/books-list-form.component';
-import { LoginComponent } from './user/login/login.component';
-import { UserComponent } from './user/user.component';
-import { RegistrationComponent } from './user/registration/registration.component';
+
+
+
+const routes: Routes = [
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'counter', component: CounterComponent },
+  { path: 'fetch-data', component: FetchDataComponent },
+]
+
 
 @NgModule({
   declarations: [
@@ -23,20 +29,13 @@ import { RegistrationComponent } from './user/registration/registration.componen
     CounterComponent,
     FetchDataComponent,
     BooksListComponent,
-    BooksListFormComponent,
-    LoginComponent,
-    UserComponent,
-    RegistrationComponent
+    BooksListFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
