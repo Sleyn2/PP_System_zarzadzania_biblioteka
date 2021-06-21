@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BooksList } from './books-list.model';
+import { Book } from './books-list.model';
 import { HttpClient } from '@angular/common/http'
 
 @Injectable({
@@ -9,10 +9,14 @@ export class BooksListService {
 
   constructor(private http:HttpClient) { }
 
-  formData: BooksList = new BooksList();
-  readonly baseUrl = 'https://localhost:44326'
+  formData: Book = new Book();
+  readonly baseUrl = 'https://localhost:44326/api/Book'
+  list: Book[];
 
-  // getBook(){
-  //   this.http.get(this.baseUrl, this.formData);
-  // }
+  getSearchedBooks()
+  {
+    this.http.get(this.baseUrl)
+    .toPromise()
+    .then(res => this.list = res as Book[]);
+  }
 }
