@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Book } from './books-list.model';
+import { Book } from './book.model';
 import { HttpClient } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
 })
-export class BooksListService {
+export class BookService {
 
   constructor(private http:HttpClient) { }
 
@@ -13,7 +13,7 @@ export class BooksListService {
   readonly baseUrl = 'https://localhost:44326/api/Book'
   list: Book[];
 
-  getSearchedBooks()
+  getAllBooks()
   {
     this.http.get(this.baseUrl)
     .toPromise()
