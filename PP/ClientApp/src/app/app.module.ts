@@ -34,6 +34,7 @@ import { BookDetailCardComponent } from './book-details/book-detail-card/book-de
       { path: '', component: BooksListComponent, pathMatch: 'full' },
       // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
       //{ path: 'counter', component: CounterComponent }, 
+      { path: 'book-details', component: BookDetailsComponent }
     ])
   ],
   providers: [],

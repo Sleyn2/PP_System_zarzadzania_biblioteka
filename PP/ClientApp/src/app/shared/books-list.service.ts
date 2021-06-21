@@ -10,7 +10,7 @@ export class BooksListService {
   constructor(private http:HttpClient) { }
 
   formData: BooksList = new BooksList();
-  readonly baseUrl = 'https://localhost:44326'
+  readonly baseUrl = 'https://localhost:44326/api/Book';
 
   // getBook(){
   //   this.http.get(this.baseUrl, this.formData);
