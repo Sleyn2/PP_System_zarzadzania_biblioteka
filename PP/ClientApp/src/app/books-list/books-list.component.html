@@ -5,5 +5,19 @@
 </div>
 
 <app-books-list-form></app-books-list-form>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>Tytuł książki</th>
+            <th>Autor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let b of service.list">
+            <td>{{b.title}}</td>
+            <td>{{b.authorId}}</td>
+        </tr>
+    </tbody>
+</table>
 
 <a routerLink='reg'><button type="submit" class="btn btn-info" >Strona rejestracji</button></a>
