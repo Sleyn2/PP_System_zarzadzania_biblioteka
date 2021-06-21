@@ -65,7 +65,7 @@ namespace PP.Controllers
                     {
                         new Claim("UserID",user.Id.ToString())
                     }),
-                    Expires = DateTime.UtcNow.AddDays(1),
+                    Expires = DateTime.UtcNow.AddMinutes(10),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)),
                     SecurityAlgorithms.HmacSha256Signature)
                 };
