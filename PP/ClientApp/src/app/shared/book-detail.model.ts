@@ -1,8 +1,8 @@
 export class BookDetail {
 
-    Id:number=1;
-    AuthorId:number=0;
-    Title:string='';
-    Count:number=0;
+    id: number = 0;
+    authorId: number = 0;
+    title: string = "";
+    count: number = 0;
 
 }

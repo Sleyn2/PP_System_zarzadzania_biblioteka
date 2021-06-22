@@ -1,23 +1,19 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import {BookDetail} from './book-detail.model'
+import { BookDetail } from './book-detail.model'
 @Injectable({
   providedIn: 'root'
 })
 export class BookDetailService {
 
-  constructor(private http:HttpClient) { }
-  
-  cardData: BookDetail = new BookDetail();
-  readonly baseURL = 'https://localhost:44326'
+  constructor(private http: HttpClient) { }
 
-  
-  getBook(id: number): Observable<BookDetail>{
-    const url = '${this.baseURL}/${id}';
-    return this.http.get<BookDetail>(url)
-
+  getBook(id: number) {
+    const idUrl = 'https://localhost:44326/api/Book/' + id;
+    return this.http.get<BookDetail>(idUrl);
   }
-  
 
 }
+
+
+

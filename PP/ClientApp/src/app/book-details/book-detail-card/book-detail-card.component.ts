@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { BookDetail } from 'src/app/shared/book-detail.model';
 import { BookDetailService } from 'src/app/shared/book-detail.service';
 
@@ -10,10 +9,10 @@ import { BookDetailService } from 'src/app/shared/book-detail.service';
 })
 export class BookDetailCardComponent implements OnInit {
 
-  constructor(public service:BookDetailService) { }
-  ngOnInit() {
-    this.service.getBook(1);
-    
-  }
+  constructor(private service: BookDetailService) { }
 
+  cardData: BookDetail = new BookDetail();
+  ngOnInit() {
+    this.service.getBook(2).toPromise().then(book => this.cardData = book);
+  }
 }
