@@ -1,6 +1,6 @@
-export class BooksList {
+export class Book {
     id:number=0;
     authorId:number=0;
-    tittle:string='';
+    title:string="";
     count:number=0;
 }
