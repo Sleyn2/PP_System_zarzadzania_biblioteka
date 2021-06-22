@@ -17,6 +17,8 @@ import { UserService } from './shared/user.service';
 import { LoginComponent } from './user/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { BookDetailsComponent } from './book-details/book-details.component';
+import { BookDetailCardComponent } from './book-details/book-detail-card/book-detail-card.component';
 
 
 
@@ -34,7 +36,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     BooksListFormComponent,
     UserComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    BookDetailsComponent,
+    BookDetailCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,9 +54,10 @@ import { AuthInterceptor } from './auth/auth.interceptor';
           { path: 'login', component: LoginComponent }
         ]
       },
-      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
       // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
       //{ path: 'counter', component: CounterComponent }, 
+      { path: 'book-details', component: BookDetailsComponent }
     ])
   ],
   providers: [UserService, {
