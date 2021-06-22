@@ -36,8 +36,7 @@ import { BookDetailCardComponent } from './book-details/book-detail-card/book-de
     BooksListFormComponent,
     UserComponent,
     RegistrationComponent,
-    LoginComponent
-    BooksListFormComponent,
+    LoginComponent,
     BookDetailsComponent,
     BookDetailCardComponent
   ],
@@ -55,7 +54,7 @@ import { BookDetailCardComponent } from './book-details/book-detail-card/book-de
           { path: 'login', component: LoginComponent }
         ]
       },
-      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
       // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
       //{ path: 'counter', component: CounterComponent }, 
       { path: 'book-details', component: BookDetailsComponent }
