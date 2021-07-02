@@ -17,8 +17,6 @@ namespace PP.Models
         //[ForeignKey("BookId")]
         public Book Book { get; set; }
 
-        
-        public int UserId { get; set; }
         //[ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
