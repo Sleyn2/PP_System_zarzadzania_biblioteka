@@ -13,14 +13,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -29,20 +30,26 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\register\**" />
+    <Compile Remove="ClientApp\src\app\user\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\register\**" />
+    <Content Remove="ClientApp\src\app\user\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\register\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\user\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\register\**" />
+    <None Remove="ClientApp\src\app\user\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\about-user\about-user-form\about-user-form.component.ts" />
-    <None Remove="ClientApp\src\app\about-user\about-user.component.ts" />
-    <None Remove="ClientApp\src\app\shared\about-user.model.ts" />
-    <None Remove="ClientApp\src\app\shared\about-user.service.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\about-user\about-user.component.ts" />
+    <None Remove="ClientApp\src\app\user\login\login.component.html" />
+    <None Remove="ClientApp\src\app\user\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\user\registration\registration.component.html" />
+    <None Remove="ClientApp\src\app\user\registration\registration.component.ts" />
+    <None Remove="ClientApp\src\app\user\user.component.html" />
+    <None Remove="ClientApp\src\app\user\user.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

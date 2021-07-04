@@ -22,14 +22,14 @@ namespace PP.Controllers
 
         // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<ApplicationUser>>> GetUser()
         {
             return await _context.User.ToListAsync();
         }
 
         // GET: api/User/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<ApplicationUser>> GetUser(int id)
         {
             var user = await _context.User.FindAsync(id);
 
@@ -44,13 +44,14 @@ namespace PP.Controllers
         // PUT: api/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(string id, ApplicationUser user)
         {
+            //TODO poprawic na stringi
             if (id != user.Id)
             {
                 return BadRequest();
             }
-
+            
             _context.Entry(user).State = EntityState.Modified;
 
             try
@@ -75,7 +76,7 @@ namespace PP.Controllers
         // POST: api/User
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<ApplicationUser>> PostUser(ApplicationUser user)
         {
             _context.User.Add(user);
             await _context.SaveChangesAsync();
@@ -99,7 +100,7 @@ namespace PP.Controllers
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(string id)
         {
             return _context.User.Any(e => e.Id == id);
         }
