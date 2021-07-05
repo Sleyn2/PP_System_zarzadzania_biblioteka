@@ -9,7 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using PP.Models;
+using System;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PP
 {
@@ -53,7 +55,6 @@ namespace PP
             //JWT auth
 
             var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JWT_Secret"].ToString());
-
             services.AddAuthentication(x=> 
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -75,12 +76,13 @@ namespace PP
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseCors(options => 
             options.WithOrigins("https://localhost:44326")
             .AllowAnyMethod()
             .AllowAnyHeader());
+            CreateRoles(serviceProvider);
 
             if (env.IsDevelopment())
             {
@@ -111,6 +113,8 @@ namespace PP
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -130,6 +134,38 @@ namespace PP
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string[] roleNames = { "Admin", "User", "Bibliotekarz" };
+            IdentityResult roleResult;
+
+            foreach(var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if(!roleExist)
+                {
+                    //tworzenie roli
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+                var powerUser = new ApplicationUser
+                {
+                    UserName = "admin",
+                    Email = "admin@mail.com"
+                };
+                string userPWD = "admin";
+                var _user = await UserManager.FindByEmailAsync("admin@mail.com");
+                if(_user == null)
+                {
+                    var createPoweruser = await UserManager.CreateAsync(powerUser, userPWD);
+                    if(createPoweruser.Succeeded)
+                    {
+                        await UserManager.AddToRoleAsync(powerUser, "Admin");
+                    }
+                }
+            }
         }
     }
 }
