@@ -34,6 +34,8 @@ namespace PP.Controllers
         //POST : /api/ApplicationUser/Register
         public async Task<Object> PostApplicationUser(ApplicationUserModel model)
         {
+            //Domyślna rola użytkownika
+            model.Role = "User";
             var applicationUser = new ApplicationUser()
             {
                 UserName = model.UserName,
@@ -42,7 +44,10 @@ namespace PP.Controllers
             };
             try
             {
+                //Tworzenie użytkownika
                 var result = await _userManager.CreateAsync(applicationUser, model.Password);
+                //Dodawanie roli user
+                await _userManager.AddToRoleAsync(applicationUser, model.Role);
                 return Ok(result);
             }
             catch(Exception ex)
@@ -59,11 +64,16 @@ namespace PP.Controllers
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
+                //pobranie roli użytkownika
+                var role = await _userManager.GetRolesAsync(user);
+                IdentityOptions _options = new IdentityOptions();
+
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim("UserID",user.Id.ToString())
+                        new Claim("UserID", user.Id.ToString()),
+                        new Claim(_options.ClaimsIdentity.RoleClaimType, role.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(10),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)),
