@@ -41,7 +41,10 @@ namespace PP
 
             services.AddDbContext<MyContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
-            services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<MyContext>();
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<MyContext>();
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequiredLength = 4;
@@ -82,7 +85,6 @@ namespace PP
             options.WithOrigins("https://localhost:44326")
             .AllowAnyMethod()
             .AllowAnyHeader());
-            CreateRoles(serviceProvider);
 
             if (env.IsDevelopment())
             {
@@ -134,38 +136,6 @@ namespace PP
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-        }
-        private async Task CreateRoles(IServiceProvider serviceProvider)
-        {
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            string[] roleNames = { "Admin", "User", "Bibliotekarz" };
-            IdentityResult roleResult;
-
-            foreach(var roleName in roleNames)
-            {
-                var roleExist = await RoleManager.RoleExistsAsync(roleName);
-                if(!roleExist)
-                {
-                    //tworzenie roli
-                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-                }
-                var powerUser = new ApplicationUser
-                {
-                    UserName = "admin",
-                    Email = "admin@mail.com"
-                };
-                string userPWD = "admin";
-                var _user = await UserManager.FindByEmailAsync("admin@mail.com");
-                if(_user == null)
-                {
-                    var createPoweruser = await UserManager.CreateAsync(powerUser, userPWD);
-                    if(createPoweruser.Succeeded)
-                    {
-                        await UserManager.AddToRoleAsync(powerUser, "Admin");
-                    }
-                }
-            }
         }
     }
 }
