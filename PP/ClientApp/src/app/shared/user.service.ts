@@ -6,7 +6,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http"
   providedIn: 'root'
 })
 export class UserService {
-
+  isLoggedIn = false;
+  isAdmin = false;
   constructor(private fb: FormBuilder, private http: HttpClient) { }
   readonly BaseURL = 'https://localhost:44326/api';
 
@@ -60,5 +61,13 @@ export class UserService {
       }
     });
     return isMatch;
+  }
+  roleMatchSingle(allowedRole): boolean{
+    var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+    var userRole = payLoad.role;
+    if(userRole == allowedRole){
+      return true;
+    }
+    return false;
   }
 }

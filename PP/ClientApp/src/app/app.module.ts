@@ -20,6 +20,23 @@ import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookDetailCardComponent } from './book-details/book-detail-card/book-detail-card.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { config } from 'rxjs';
+
+const routes: Routes = [
+  { path: '', component: BooksListComponent, pathMatch: 'full' },
+  {
+    path: 'user', component: UserComponent, children: [
+      { path: 'registration', component: RegistrationComponent },
+      { path: 'login', component: LoginComponent }
+    ]
+  },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'forbidden', component: ForbiddenComponent },
+  { path: 'adminpanel', component: AdminPanelComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
+  //{ path: 'counter', component: CounterComponent }, 
+  { path: 'book-details', component: BookDetailsComponent }
+]
 
 @NgModule({
   declarations: [
@@ -43,22 +60,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: BooksListComponent, pathMatch: 'full' },
-      { path: 'reg', redirectTo: '/user/registration', pathMatch: 'full' },
-      {
-        path: 'user', component: UserComponent, children: [
-          { path: 'registration', component: RegistrationComponent },
-          { path: 'login', component: LoginComponent }
-        ]
-      },
-      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-      { path: 'forbidden', component: ForbiddenComponent },
-      { path: 'adminpanel', component: AdminPanelComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
-      // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
-      //{ path: 'counter', component: CounterComponent }, 
-      { path: 'book-details', component: BookDetailsComponent }
-    ])
+    RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})
   ],
   providers: [UserService, {
     provide: HTTP_INTERCEPTORS,
