@@ -9,10 +9,25 @@ import { BookDetailService } from 'src/app/shared/book-detail.service';
 })
 export class BookDetailCardComponent implements OnInit {
 
-  constructor(private service: BookDetailService) { }
-
+  constructor(private bookService: BookDetailService) { }
+  bookId: number = 2;
   cardData: BookDetail = new BookDetail();
   ngOnInit() {
-    this.service.getBook(2).toPromise().then(book => this.cardData = book);
+    this.bookService.getBook(this.bookId).toPromise().then(book => this.cardData = book);
+  }
+
+
+  reserveBook(): void
+  {
+    if(this.cardData)
+    {
+      if(this.cardData.count>=1)
+      {
+        this.cardData.count = this.cardData.count-1;
+        this.bookService.updateBook(this.cardData).subscribe();
+      }
+      else{
+      }
+    }
   }
 }
