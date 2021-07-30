@@ -10,12 +10,14 @@
         <tr>
             <th>Tytuł książki</th>
             <th>Autor</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let b of service.list">
             <td>{{b.title}}</td>
             <td>{{b.authorId}}</td>
+            <td><button class="btn btn-block" (click)="bookDetails(b.id)">Szczegóły</button></td>
         </tr>
     </tbody>
 </table>

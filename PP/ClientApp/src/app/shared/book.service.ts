@@ -19,4 +19,11 @@ export class BookService {
     .toPromise()
     .then(res => this.list = res as Book[]);
   }
+
+  getBooks(tittle:string)
+  {
+    this.http.get(this.baseUrl+'/'+tittle)
+    .toPromise()
+    .then(res => this.list = res as Book[]);
+  }
 }

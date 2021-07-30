@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BookService } from 'src/app/shared/book.service';
+import { BooksListComponent } from '../books-list.component';
 
 @Component({
   selector: 'app-books-list-form',
@@ -11,10 +12,11 @@ export class BooksListFormComponent implements OnInit {
 
   constructor(public service:BookService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.service.getAllBooks();
   }
 
   onSubmit(form:NgForm){
-    
+    this.service.getBooks(form.controls['tittle'].value);
   }
 }
