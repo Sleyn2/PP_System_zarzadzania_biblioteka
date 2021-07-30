@@ -28,7 +28,7 @@ namespace PP.Controllers
         }
 
         // GET: api/Book/title
-        [HttpGet("{title}")]
+        [HttpGet("t/{title}")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBook(string title)
         {
             return await _context.Book.Where(x => x.Title==title).ToListAsync();
