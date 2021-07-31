@@ -1,19 +1,12 @@
 <form novalidate #form="ngForm" (submit)= "onSubmit(form)">
     <input type="hidden" name="id" [value]="service.formData.id" />
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Szukaj książki po tytule</label>
-            <input class="form-control form-control-lg" placeholder="Tytuł" name="tittle" #tittle="ngModel"
-                [(ngModel)]=service.formData.tittle>
-        </div>
-        <div class="form-group col-md-6">
-            <label>Szukaj książki po autorze (tymczasowo po ID)</label>
-            <input class="form-control form-control-lg" placeholder="Autor" name="authorId" #authorId="ngModel"
-                [(ngModel)]=service.formData.authorId>
-        </div>
+    <div class="form-group">
+        <label>Szukaj książki</label>
+        <input class="form-control form-control-lg" placeholder="Tytuł" name="tittle" #tittle="ngModel"
+            [(ngModel)]=service.formData.tittle>
     </div>
     <div class="form-group">
         <button class="btn btn-info btn-lg btn-block" type="submit">Szukaj</button>
     </div>
     <input type="hidden" name="count" [value]="service.formData.count" />
-</form> 
+</form>  
