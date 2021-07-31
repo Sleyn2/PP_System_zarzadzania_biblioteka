@@ -9,7 +9,10 @@
             <li class="list-group-item"><b>Tytuł książki:</b> {{cardData.id}}</li>
             <li class="list-group-item"><b>Autor książki:</b> {{cardData.title}} </li>
             <li class="list-group-item"><b>Liczba dostępnych egzemplarzy:</b> {{cardData.count}} </li>
-            <li class="list-group-item text-center"><button (click)=reserveBook() class="btn btn-primary">Zarezerwuj książkę</button> </li>
+            <li class="list-group-item text-center">
+                <button (click)=reserveBook() class="btn btn-primary" *ngIf="this.isUser">Zarezerwuj książkę</button> 
+                <button (click)=editBook() class="btn btn-primary" *ngIf="this.canEditBook">Edytuj książkę</button>
+            </li>
         </ul>
     </div>
 </div>

@@ -4,6 +4,10 @@ using PP.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PP.Models;
 
 namespace PP.Controllers
 {
@@ -12,10 +16,12 @@ namespace PP.Controllers
     public class BorrowingController : ControllerBase
     {
         private readonly MyContext _context;
+        private UserManager<ApplicationUser> _userManager;
 
-        public BorrowingController(MyContext context)
+        public BorrowingController(MyContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Borrowing
@@ -75,9 +81,11 @@ namespace PP.Controllers
         [HttpPost]
         public async Task<ActionResult<Borrowing>> PostBorrowing(Borrowing borrowing)
         {
+            var userId = User.Claims.First(u => u.Type == "UserID").Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            borrowing.User = user;
             _context.Borrowing.Add(borrowing);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetBorrowing", new { id = borrowing.Id }, borrowing);
         }
 
