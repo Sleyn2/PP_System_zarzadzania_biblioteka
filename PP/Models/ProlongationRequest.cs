@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PP.Models
 {
@@ -13,7 +10,7 @@ namespace PP.Models
         public int Id { get; set; }
 
         //[ForeignKey("BorrowingId")]
-        public int BorrowingId {get; set;}
+        public int BorrowingId { get; set; }
         public Borrowing Borrowing { get; set; }
 
         [Column(TypeName = "Date")]

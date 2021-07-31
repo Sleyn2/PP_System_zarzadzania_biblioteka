@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PP.Models
 {
@@ -12,7 +10,7 @@ namespace PP.Models
         [Key]
         public int Id { get; set; }
 
-        
+
         public int BookId { get; set; }
         //[ForeignKey("BookId")]
         public Book Book { get; set; }
@@ -23,7 +21,7 @@ namespace PP.Models
         //Status: 1 - ongoing, 2 - reserved, 3 - finished
         public int Status { get; set; }
 
-        [Column(TypeName= "Date")]
+        [Column(TypeName = "Date")]
         public DateTime CheckoutDate { get; set; }
 
         [Column(TypeName = "Date")]

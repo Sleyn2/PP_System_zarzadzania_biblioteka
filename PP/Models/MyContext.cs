@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Identity;
+using System;
+using System.Threading.Tasks;
 
 namespace PP.Models
 {
@@ -18,6 +16,7 @@ namespace PP.Models
         public DbSet<Author> Author { get; set; }
         public DbSet<Borrowing> Borrowing { get; set; }
         public DbSet<ApplicationUser> User { get; set; }
+        public DbSet<LibInfo> libInfos { get; set; }
         public DbSet<ProlongationRequest> ProlongationRequest { get; set; }
 
         public async Task CreateRoles(IServiceProvider serviceProvider)
