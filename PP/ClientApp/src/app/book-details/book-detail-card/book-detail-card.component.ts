@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BookDetail } from 'src/app/shared/book-detail.model';
-import { BookDetailService } from 'src/app/shared/book-detail.service';
-import { Borrowing } from 'src/app/shared/borrowing.model';
-import { BorrowingService } from 'src/app/shared/borrowing.service';
-import { UserService } from 'src/app/shared/user.service';
+import { BookDetail } from 'src/app/shared/models/book-detail.model';
+import { BookDetailService } from 'src/app/shared/services/book-detail.service';
+import { Borrowing } from 'src/app/shared/models/borrowing.model';
+import { BorrowingService } from 'src/app/shared/services/borrowing.service';
+import { UserService } from 'src/app/shared/services/user.service';
+
 
 @Component({
   selector: 'app-book-detail-card',
@@ -16,15 +17,16 @@ export class BookDetailCardComponent implements OnInit {
     this.isUser=auth.roleMatchSingle("User");
     this.canEditBook=auth.roleMatch(this.permitedRoles);
   }
+
   permitedRoles = ["Admin","Bibliotekarz"];
   isUser = false;
   canEditBook = false;
   bookId: number = 2;
   cardData: BookDetail = new BookDetail();
+
   ngOnInit() {
     this.bookService.getBook(this.bookId).toPromise().then(book => this.cardData = book);
   }
-
 
   reserveBook(): void
   {

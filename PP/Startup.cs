@@ -11,7 +11,6 @@ using Microsoft.IdentityModel.Tokens;
 using PP.Models;
 using System;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PP
 {
@@ -58,12 +57,12 @@ namespace PP
             //JWT auth
 
             var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JWT_Secret"].ToString());
-            services.AddAuthentication(x=> 
+            services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x=>
+            }).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = false;
@@ -81,7 +80,7 @@ namespace PP
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
-            app.UseCors(options => 
+            app.UseCors(options =>
             options.WithOrigins("https://localhost:44326")
             .AllowAnyMethod()
             .AllowAnyHeader());
@@ -96,26 +95,26 @@ namespace PP
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
-            
+
+
             app.UseHttpsRedirection();
-            
+
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
-            
+
             app.UseCors(builder =>
-            
+
             builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
             .AllowAnyHeader()
             .AllowAnyMethod());
-            
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
 
             app.UseEndpoints(endpoints =>
             {

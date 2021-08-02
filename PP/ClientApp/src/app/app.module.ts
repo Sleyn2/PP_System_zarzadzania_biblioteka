@@ -12,7 +12,6 @@ import { BooksListComponent } from './books-list/books-list.component';
 import { BooksListFormComponent } from './books-list/books-list-form/books-list-form.component';
 import { UserComponent } from './user/user.component';
 import { RegistrationComponent } from './user/registration/registration.component';
-import { UserService } from './shared/user.service';
 import { LoginComponent } from './user/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
@@ -20,7 +19,8 @@ import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookDetailCardComponent } from './book-details/book-detail-card/book-detail-card.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-import { config } from 'rxjs';
+import { UserService } from './shared/services/user.service';
+import { LibInfoService } from './shared/services/libInfo.service';
 
 const routes: Routes = [
   { path: '', component: BooksListComponent, pathMatch: 'full' },
@@ -62,7 +62,7 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})
   ],
-  providers: [UserService, {
+  providers: [LibInfoService, UserService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

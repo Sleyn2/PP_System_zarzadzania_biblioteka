@@ -62,10 +62,11 @@ export class UserService {
     });
     return isMatch;
   }
-  roleMatchSingle(allowedRole): boolean{
+
+  roleMatchSingle(allowedRole): boolean {
     var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
     var userRole = payLoad.role;
-    if(userRole == allowedRole){
+    if (userRole == allowedRole) {
       return true;
     }
     return false;

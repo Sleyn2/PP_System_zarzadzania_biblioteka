@@ -19,6 +19,22 @@ namespace PP.Models
         public DbSet<LibInfo> libInfos { get; set; }
         public DbSet<ProlongationRequest> ProlongationRequest { get; set; }
 
+        public async Task CreateLibraryInfo()
+        {
+            var libInfo = await this.libInfos.ToListAsync();
+            if (libInfo.Count == 0)
+            {
+                this.libInfos.Add(new LibInfo
+                {
+                    Name = "Miejska Biblioteka Publiczna w Gliwicach",
+                    Adress = "Akademicka 112,",
+                    Adress2 = "44-100 Gliwice",
+                    EmailAdress = "library@gmail.com",
+                    Phone = "12 34 567 89"
+                });
+                await this.SaveChangesAsync();
+            }
+        }
         public async Task CreateRoles(IServiceProvider serviceProvider)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();

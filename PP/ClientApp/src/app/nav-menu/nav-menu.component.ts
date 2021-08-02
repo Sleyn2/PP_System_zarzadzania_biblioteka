@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { UserService } from 'src/app/shared/user.service';
+import { Observable } from 'rxjs';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-nav-menu',

@@ -11,13 +11,16 @@ namespace PP.Models
         [Column(TypeName = "nvarchar(50)")]
         public string Name { get; set; }
         [Required]
-        [Column(TypeName = "nvarchar(150)")]
+        [Column(TypeName = "nvarchar(100)")]
         public string Adress { get; set; }
+        [Required]
+        [Column(TypeName = "nvarchar(100)")]
+        public string Adress2 { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string EmailAdress { get; set; }
         [Required]
-        [Column(TypeName = "nvarchar(10)")]
+        [Column(TypeName = "nvarchar(12)")]
         public string Phone { get; set; }
     }
 }

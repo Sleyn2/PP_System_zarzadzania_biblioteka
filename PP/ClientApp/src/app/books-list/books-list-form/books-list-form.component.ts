@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { BookService } from 'src/app/shared/book.service';
+import { BookService } from 'src/app/shared/services/book.service';
 
 @Component({
   selector: 'app-books-list-form',
