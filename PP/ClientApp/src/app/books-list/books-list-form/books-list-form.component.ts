@@ -16,6 +16,6 @@ export class BooksListFormComponent implements OnInit {
   }
 
   onSubmit(form:NgForm){
-    this.service.getBooks(form.controls['tittle'].value);
+    this.service.getBooks(form.controls['title'].value);
   }
 }
