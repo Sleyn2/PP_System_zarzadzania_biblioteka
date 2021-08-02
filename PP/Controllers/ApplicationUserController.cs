@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PP.Models;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -21,7 +19,7 @@ namespace PP.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _singInManager;
         private readonly ApplicationSettings _appSettings;
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, 
+        public ApplicationUserController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager, IOptions<ApplicationSettings> appSettings)
         {
             _userManager = userManager;
@@ -50,7 +48,7 @@ namespace PP.Controllers
                 await _userManager.AddToRoleAsync(applicationUser, model.Role);
                 return Ok(result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

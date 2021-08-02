@@ -17,6 +17,11 @@ export class NavMenuComponent {
     this.isExpanded = false;
   }
 
+  ngOnInit(){
+    this.auth.isLoggedIn = this.auth.roleMatch(["Admin", "User", "Bibliotekarz"]);
+    this.auth.isAdmin = this.auth.roleMatchSingle("Admin");
+  }
+
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
