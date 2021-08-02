@@ -11,7 +11,11 @@ export class BooksListComponent implements OnInit {
   constructor(public service: BookService) { }
 
   ngOnInit(): void {
-    this.service.getAllBooks();
+
   }
 
+  bookDetails(id)
+  {
+    console.log(id);
+  }
 }

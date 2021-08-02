@@ -25,6 +25,13 @@ namespace PP.Controllers
             return await _context.Book.ToListAsync();
         }
 
+        // GET: api/Book/title
+        [HttpGet("t/{title}")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBook(string title)
+        {
+            return await _context.Book.Where(x => x.Title==title).ToListAsync();
+        }
+
         // GET: api/Book/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)

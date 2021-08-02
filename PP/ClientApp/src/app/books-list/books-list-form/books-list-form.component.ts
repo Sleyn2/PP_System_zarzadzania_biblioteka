@@ -11,10 +11,11 @@ export class BooksListFormComponent implements OnInit {
 
   constructor(public service:BookService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.service.getAllBooks();
   }
 
   onSubmit(form:NgForm){
-    
+    this.service.getBooks(form.controls['tittle'].value);
   }
 }
