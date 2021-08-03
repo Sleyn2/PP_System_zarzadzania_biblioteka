@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BookDetail } from 'src/app/shared/models/book-detail.model';
-import { BookDetailService } from 'src/app/shared/services/book-detail.service';
+import { Book } from 'src/app/shared/models/book.model';
 import { Borrowing } from 'src/app/shared/models/borrowing.model';
+import { BookService } from 'src/app/shared/services/book.service';
 import { BorrowingService } from 'src/app/shared/services/borrowing.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -13,7 +13,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class BookDetailCardComponent implements OnInit {
 
-  constructor(private bookService: BookDetailService, private borrowingService: BorrowingService, private auth: UserService) { 
+  constructor(private bookService: BookService, private borrowingService: BorrowingService, private auth: UserService) { 
     this.isUser=auth.roleMatchSingle("User");
     this.canEditBook=auth.roleMatch(this.permitedRoles);
   }
@@ -22,7 +22,7 @@ export class BookDetailCardComponent implements OnInit {
   isUser = false;
   canEditBook = false;
   bookId: number = 2;
-  cardData: BookDetail = new BookDetail();
+  cardData: Book = new Book();
 
   ngOnInit() {
     this.bookService.getBook(this.bookId).toPromise().then(book => this.cardData = book);
