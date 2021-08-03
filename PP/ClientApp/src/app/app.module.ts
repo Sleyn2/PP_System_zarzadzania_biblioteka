@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent, NgbdModalContent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BooksListComponent } from './books-list/books-list.component';
@@ -26,6 +26,7 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
 const routes: Routes = [
   { path: '', component: BooksListComponent, pathMatch: 'full' },
   {
@@ -41,7 +42,9 @@ const routes: Routes = [
   //{ path: 'counter', component: CounterComponent }, 
   { path: 'book-details', component: BookDetailsComponent }
 ]
-
+  //********************************** */
+  //Tutaj dodajemy wszsytkie komponenty
+  //********************************** */
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +60,8 @@ const routes: Routes = [
     BookDetailsComponent,
     BookDetailCardComponent,
     ForbiddenComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    NgbdModalContent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -75,6 +79,12 @@ const routes: Routes = [
     useClass: AuthInterceptor,
     multi: true
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  //********************************** */
+  //Tutaj dodajemy komponenty dla modala
+  //********************************** */
+  entryComponents:[
+    NgbdModalContent
+  ]
 })
 export class AppModule { }

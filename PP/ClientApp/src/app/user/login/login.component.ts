@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   showSuccess() {
-    this.toastr.success('Success!', 'Loaded app!', {timeOut: 0});
+    this.toastr.success('Success!', 'Loaded app!', {timeOut: 5000});
   }
 
   onSubmit(form:NgForm){
