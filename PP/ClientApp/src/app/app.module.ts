@@ -24,6 +24,7 @@ import { LibInfoService } from './shared/services/libInfo.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   { path: '', component: BooksListComponent, pathMatch: 'full' },
@@ -66,7 +67,8 @@ const routes: Routes = [
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})
+    RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
+    NgbModule
   ],
   providers: [LibInfoService, UserService, {
     provide: HTTP_INTERCEPTORS,
