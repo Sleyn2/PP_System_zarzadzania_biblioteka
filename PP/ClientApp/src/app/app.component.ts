@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { info } from 'console';
 import { LibInfo } from './shared/models/libInfo.model';
 import { LibInfoService } from './shared/services/libInfo.service';
 

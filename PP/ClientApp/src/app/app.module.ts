@@ -21,6 +21,9 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { UserService } from './shared/services/user.service';
 import { LibInfoService } from './shared/services/libInfo.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 const routes: Routes = [
   { path: '', component: BooksListComponent, pathMatch: 'full' },
@@ -60,6 +63,9 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
     RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})
   ],
   providers: [LibInfoService, UserService, {
