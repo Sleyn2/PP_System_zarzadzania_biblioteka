@@ -14,8 +14,15 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class BookDetailsComponent implements OnInit {
   constructor(private bookService: BookService, private borrowingService: BorrowingService, private auth: UserService, private route: ActivatedRoute) { 
+    if (localStorage.getItem('token') != null)
+    {
     this.isUser=auth.roleMatchSingle("User");
     this.canEditBook=auth.roleMatch(this.permitedRoles);
+    }
+    else{
+      this.isUser=false;
+      this.canEditBook=false;
+    }
   }
 
   @Input() bookId: number;
