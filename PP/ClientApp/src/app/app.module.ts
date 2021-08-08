@@ -16,7 +16,6 @@ import { LoginComponent } from './user/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { BookDetailsComponent } from './book-details/book-details.component';
-import { BookDetailCardComponent } from './book-details/book-detail-card/book-detail-card.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { UserService } from './shared/services/user.service';
@@ -40,7 +39,8 @@ const routes: Routes = [
   { path: 'adminpanel', component: AdminPanelComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
   //{ path: 'counter', component: CounterComponent }, 
-  { path: 'book-details', component: BookDetailsComponent }
+  { path: 'book-details', component: BookDetailsComponent },
+  { path: 'book-details/:bookId', component: BookDetailsComponent}
 ]
   //********************************** */
   //Tutaj dodajemy wszsytkie komponenty
@@ -58,7 +58,6 @@ const routes: Routes = [
     RegistrationComponent,
     LoginComponent,
     BookDetailsComponent,
-    BookDetailCardComponent,
     ForbiddenComponent,
     AdminPanelComponent,
     NgbdModalContent
