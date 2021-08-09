@@ -29,7 +29,7 @@ import { UserService } from '../shared/services/user.service';
 export class NgbdModalContent {
   @Input() UserDetails;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal) { }
 }
 
 
@@ -44,11 +44,6 @@ export class HomeComponent {
 
   constructor(private service: UserService, private modalService: NgbModal) { }
 
-  open() {
-    const modalRef = this.modalService.open(NgbdModalContent);
-    modalRef.componentInstance.UserDetails = this.userDetails;
-  }
-  
   ngOnInit() {
     this.service.getUserProfile().subscribe(
       res => {
@@ -58,5 +53,10 @@ export class HomeComponent {
         console.log(err)
       }
     );
+  }
+
+  open() {
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.UserDetails = this.userDetails;
   }
 }

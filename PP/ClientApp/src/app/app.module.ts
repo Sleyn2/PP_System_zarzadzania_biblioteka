@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FooterModalContent } from './admin-panel/footer-editor/footer-editor.component';
 
 
 const routes: Routes = [
@@ -60,7 +61,8 @@ const routes: Routes = [
     BookDetailsComponent,
     ForbiddenComponent,
     AdminPanelComponent,
-    NgbdModalContent
+    NgbdModalContent,
+    FooterModalContent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -83,7 +85,8 @@ const routes: Routes = [
   //Tutaj dodajemy komponenty dla modala
   //********************************** */
   entryComponents:[
-    NgbdModalContent
+    NgbdModalContent,
+    FooterModalContent
   ]
 })
 export class AppModule { }

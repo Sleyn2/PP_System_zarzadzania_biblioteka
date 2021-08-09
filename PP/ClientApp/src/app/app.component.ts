@@ -17,6 +17,6 @@ export class AppComponent {
   libInfo: LibInfo = new LibInfo();
 
   ngOnInit(){
-    this.service.getInfo().toPromise().then(info => this.libInfo = info);
+    this.service.getInfo().toPromise().then(data => this.libInfo = data);
   }
 }

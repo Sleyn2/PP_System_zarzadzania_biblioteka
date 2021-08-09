@@ -18,6 +18,9 @@ code {
 body{
   background-color: #ffc107;;
 }
+modal-content{
+  background-color: #ffc107;;
+}
 
 input.form-control,input.form-control:focus{
   background-color: #ffc107;
