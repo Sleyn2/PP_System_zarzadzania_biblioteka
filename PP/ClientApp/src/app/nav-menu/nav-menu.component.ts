@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,12 +9,26 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  isLoggedIn$: Observable<boolean>;
+
+  constructor(private auth: UserService) { }
 
   collapse() {
     this.isExpanded = false;
   }
 
+  ngOnInit(){
+    this.auth.isLoggedIn = this.auth.roleMatch(["Admin", "User", "Bibliotekarz"]);
+    this.auth.isAdmin = this.auth.roleMatchSingle("Admin");
+  }
+
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  onLogout() {
+    localStorage.removeItem('token');
+    this.auth.isLoggedIn = false;
+    this.auth.isAdmin = false;
   }
 }

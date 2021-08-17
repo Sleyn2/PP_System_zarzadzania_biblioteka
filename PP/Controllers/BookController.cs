@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PP.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PP.Models;
 
 namespace PP.Controllers
 {
@@ -25,6 +23,13 @@ namespace PP.Controllers
         public async Task<ActionResult<IEnumerable<Book>>> GetBook()
         {
             return await _context.Book.ToListAsync();
+        }
+
+        // GET: api/Book/title
+        [HttpGet("t/{title}")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBook(string title)
+        {
+            return await _context.Book.Where(x => x.Title==title).ToListAsync();
         }
 
         // GET: api/Book/5
