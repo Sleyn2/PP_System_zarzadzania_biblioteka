@@ -44,6 +44,7 @@ namespace PP.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(string id, ApplicationUser user)
         {
+            //TODO poprawic na stringi
             if (id != user.Id)
             {
                 return BadRequest();
