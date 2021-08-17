@@ -19,22 +19,22 @@ namespace PP.Controllers
 
         private bool InfoExists(int id)
         {
-            return _context.libInfos.Any(e => e.Id == id);
+            return _context.LibraryInformation.Any(e => e.Id == id);
         }
 
         [HttpGet]
         public async Task<ActionResult<LibInfo>> GetInfo()
         {
-            var list = await _context.libInfos.ToListAsync();
+            var list = await _context.LibraryInformation.ToListAsync();
             return list[0];
         }
 
         [HttpPut]
         public async Task<ActionResult<LibInfo>> PostInfo(LibInfo newInfo)
         {
-            var oldInfo = await _context.libInfos.ToListAsync();
+            var oldInfo = await _context.LibraryInformation.ToListAsync();
             if (newInfo.Id != oldInfo[0].Id) return BadRequest();
-            _context.libInfos.Remove(oldInfo[0]);
+            _context.LibraryInformation.Remove(oldInfo[0]);
             _context.Entry(newInfo).State = EntityState.Modified;
 
             try
