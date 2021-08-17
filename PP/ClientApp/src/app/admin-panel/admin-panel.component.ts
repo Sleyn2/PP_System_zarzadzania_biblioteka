@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { libInfo } from '../app.component';
+import { LibInfo } from '../shared/models/libInfo.model';
+import { LibInfoService } from '../shared/services/libInfo.service';
 import { FooterModalContent } from './footer-editor/footer-editor.component';
 
 @Component({
@@ -10,21 +11,16 @@ import { FooterModalContent } from './footer-editor/footer-editor.component';
 })
 export class AdminPanelComponent implements OnInit {
 
-  @Output() messageEvent = new EventEmitter<string>();
+  constructor(private info: LibInfoService, private modalService: NgbModal) { }
 
-  constructor(private modalService: NgbModal) { }
+  libInfo: LibInfo = new LibInfo();
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.info.getInfo().toPromise().then(data => this.libInfo = data);
+  }
 
   open() {
-    const modalRef = this.modalService.open(FooterModalContent, { size: 'lg' });
-    modalRef.componentInstance.FooterDetails = libInfo;
-    modalRef.result.then((result) => {
-      if (result === 'success') {
-        this.messageEvent.emit(result)
-        console.log('done');
-      }
-    }, (reason) => { //if closed
-    });
+    const modalRef = this.modalService.open(FooterModalContent, {size: 'lg'});
+    modalRef.componentInstance.FooterDetails = this.libInfo;
   }
 }

@@ -35,7 +35,7 @@ export class BookService {
     }
   }
 
-  private httpOptions = {
+  httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
