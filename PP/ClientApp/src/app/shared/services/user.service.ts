@@ -56,12 +56,12 @@ export class UserService {
       var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
       var userRole = payLoad.role;
       allowedRoles.forEach(element => {
-        if (userRole == element) {
+        if (userRole === element) {
           isMatch = true;
-          return false;
         }
       });
     }
+    else this.isLoggedIn = false;
     return isMatch;
   }
 
@@ -73,6 +73,7 @@ export class UserService {
         return true;
       }
     }
+    else this.isLoggedIn = false;
     return false;
   }
 }

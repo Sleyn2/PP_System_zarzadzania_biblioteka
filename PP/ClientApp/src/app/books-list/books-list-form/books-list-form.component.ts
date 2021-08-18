@@ -9,13 +9,13 @@ import { BookService } from 'src/app/shared/services/book.service';
 })
 export class BooksListFormComponent implements OnInit {
 
-  constructor(public service:BookService) { }
+  constructor(public service: BookService) { }
 
   ngOnInit(): void {
     this.service.getAllBooks();
   }
 
-  onSubmit(form:NgForm){
+  onSubmit(form: NgForm) {
     this.service.getBooks(form.controls['title'].value);
   }
 }

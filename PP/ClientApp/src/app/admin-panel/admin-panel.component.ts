@@ -1,8 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { LibInformation } from '../shared/export';
-import { LibInfo } from '../shared/models/libInfo.model';
-import { LibInfoService } from '../shared/services/libInfo.service';
 import { FooterModalContent } from './footer-editor/footer-editor.component';
 
 @Component({
@@ -14,7 +13,7 @@ export class AdminPanelComponent implements OnInit {
 
   @Output() messegeEvent = new EventEmitter<string>();
 
-  constructor(private modalService: NgbModal, private libInfoService: LibInformation) { }
+  constructor(private modalService: NgbModal, private libInfoService: LibInformation, private toastr: ToastrService) { }
 
   ngOnInit() { }
 
@@ -22,9 +21,16 @@ export class AdminPanelComponent implements OnInit {
     const modalRef = this.modalService.open(FooterModalContent, { size: 'lg' });
     modalRef.componentInstance.FooterDetails = this.libInfoService.libInfo;
     modalRef.result.then((result) => {
-      if (result === 'success') this.messegeEvent.emit('libInfoEdited');
+      if (result === 'Success') {
+        this.messegeEvent.emit('libInfoEdited');
+        this.toastr.success('Pomyślnie zmieniono dane', 'Sukces!', { timeOut: 5000 });
+      } else if (result === 'Same data') {
+        this.toastr.info('Informacja', 'Dane nie zostały zmienione', { timeOut: 5000 });
+      } else if (result === 'Close click') {
+        this.toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
+      }
     }, (reason) => {
-      //if closed
+      this.toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
     });
   }
 }
