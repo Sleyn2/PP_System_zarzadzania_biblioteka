@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterModalContent } from './admin-panel/footer-editor/footer-editor.component';
+import { BookDetailsEditComponent } from './book-details/book-details-edit/book-details-edit.component';
 
 
 const routes: Routes = [
@@ -62,7 +63,8 @@ const routes: Routes = [
     ForbiddenComponent,
     AdminPanelComponent,
     NgbdModalContent,
-    FooterModalContent
+    FooterModalContent,
+    BookDetailsEditComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -86,7 +88,8 @@ const routes: Routes = [
   //********************************** */
   entryComponents:[
     NgbdModalContent,
-    FooterModalContent
+    FooterModalContent,
+    BookDetailsEditComponent
   ]
 })
 export class AppModule { }

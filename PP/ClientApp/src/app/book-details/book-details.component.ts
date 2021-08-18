@@ -5,15 +5,17 @@ import { Borrowing } from 'src/app/shared/models/borrowing.model';
 import { BookService } from 'src/app/shared/services/book.service';
 import { BorrowingService } from 'src/app/shared/services/borrowing.service';
 import { UserService } from 'src/app/shared/services/user.service';
-
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BookDetailsEditComponent } from './book-details-edit/book-details-edit.component';
 
 @Component({
   selector: 'app-book-details',
   templateUrl: './book-details.component.html',
   styles: []
 })
+
 export class BookDetailsComponent implements OnInit {
-  constructor(private bookService: BookService, private borrowingService: BorrowingService, private auth: UserService, private route: ActivatedRoute) { 
+  constructor(private bookService: BookService, private borrowingService: BorrowingService, private auth: UserService, private route: ActivatedRoute, private modalService: NgbModal) { 
     if (localStorage.getItem('token') != null)
     {
     this.isUser=auth.roleMatchSingle("User");
@@ -55,6 +57,7 @@ export class BookDetailsComponent implements OnInit {
   
   editBook(): void
   {
-
+    const modalRef = this.modalService.open(BookDetailsEditComponent);
+    modalRef.componentInstance.bookDetails = this.cardData;
   }
 }
