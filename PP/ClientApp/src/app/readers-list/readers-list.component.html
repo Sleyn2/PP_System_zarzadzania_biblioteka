@@ -1,0 +1,23 @@
+<div class="jumbtron py-3">
+    <h1 class="display-4 text-center">
+        Lista czytelników
+    </h1>
+</div>
+
+<app-readers-list-form></app-readers-list-form>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>Nazwa użytkownika</th>
+            <th>Imię i nazwisko</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let b of service.list">
+            <td><h5>{{b.title}}</h5></td>
+            <td><h5>{{b.title}}</h5></td>
+            <td><button class="btn btn-block" type="submit" [routerLink]="['book-details', b.id]">Szczegóły</button></td>
+        </tr>
+    </tbody>
+</table>
