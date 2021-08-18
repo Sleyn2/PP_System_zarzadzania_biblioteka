@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BookService } from '../shared/services/book.service';
+import { ReaderService } from '../shared/services/reader.service';
 
 @Component({
   selector: 'app-readers-list',
@@ -8,7 +8,7 @@ import { BookService } from '../shared/services/book.service';
 })
 export class ReadersListComponent implements OnInit {
 
-  constructor(public service: BookService) { }
+  constructor(public service: ReaderService) { }
 
   ngOnInit(): void {
 
