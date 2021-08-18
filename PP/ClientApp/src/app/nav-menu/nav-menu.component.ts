@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -9,7 +8,6 @@ import { UserService } from '../shared/services/user.service';
 })
 export class NavMenuComponent {
   isExpanded = false;
-  isLoggedIn$: Observable<boolean>;
 
   constructor(private auth: UserService) { }
 

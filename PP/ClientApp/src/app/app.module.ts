@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent, NgbdModalContent } from './home/home.component';
+import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BooksListComponent } from './books-list/books-list.component';
@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterModalContent } from './admin-panel/footer-editor/footer-editor.component';
+import { UserDetailsModal } from './user/user-details.component/user-details.component';
 import { BookDetailsEditComponent } from './book-details/book-details-edit/book-details-edit.component';
 
 
