@@ -42,11 +42,11 @@ const routes: Routes = [
   // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
   //{ path: 'counter', component: CounterComponent }, 
   { path: 'book-details', component: BookDetailsComponent },
-  { path: 'book-details/:bookId', component: BookDetailsComponent}
+  { path: 'book-details/:bookId', component: BookDetailsComponent }
 ]
-  //********************************** */
-  //Tutaj dodajemy wszsytkie komponenty
-  //********************************** */
+//********************************** */
+//Tutaj dodajemy wszsytkie komponenty
+//********************************** */
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,19 +74,24 @@ const routes: Routes = [
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
-    NgbModule
+    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }),
+    NgbModule,
+    
   ],
-  providers: [LibInfoService, UserService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+  providers: [
+    LibInfoService,
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   //********************************** */
   //Tutaj dodajemy komponenty dla modala
   //********************************** */
-  entryComponents:[
+  entryComponents: [
     NgbdModalContent,
     FooterModalContent,
     BookDetailsEditComponent

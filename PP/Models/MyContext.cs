@@ -16,15 +16,15 @@ namespace PP.Models
         public DbSet<Author> Author { get; set; }
         public DbSet<Borrowing> Borrowing { get; set; }
         public DbSet<ApplicationUser> User { get; set; }
-        public DbSet<LibInfo> libInfos { get; set; }
+        public DbSet<LibInfo> LibraryInformation { get; set; }
         public DbSet<ProlongationRequest> ProlongationRequest { get; set; }
 
         public async Task CreateLibraryInfo()
         {
-            var libInfo = await this.libInfos.ToListAsync();
+            var libInfo = await this.LibraryInformation.ToListAsync();
             if (libInfo.Count == 0)
             {
-                this.libInfos.Add(new LibInfo
+                this.LibraryInformation.Add(new LibInfo
                 {
                     Name = "Miejska Biblioteka Publiczna w Gliwicach",
                     Adress = "Akademicka 112,",
