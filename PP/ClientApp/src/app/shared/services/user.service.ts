@@ -6,10 +6,12 @@ import { HttpClient } from "@angular/common/http"
   providedIn: 'root'
 })
 export class UserService {
-  isLoggedIn = false;
-  isAdmin = false;
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  public isLoggedIn = false;
+  public isAdmin = false;
+  public isBibliotekarz = false;  
   readonly BaseURL = 'https://localhost:44326/api';
+
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],

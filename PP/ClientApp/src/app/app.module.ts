@@ -27,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterModalContent } from './admin-panel/footer-editor/footer-editor.component';
 import { UserDetailsModal } from './user/user-details.component/user-details.component';
 import { BookDetailsEditComponent } from './book-details/book-details-edit/book-details-edit.component';
+import { BookAddModal } from './book-details/book-details-add/book-details-add.component';
 
 
 const routes: Routes = [
@@ -63,9 +64,10 @@ const routes: Routes = [
     BookDetailsComponent,
     ForbiddenComponent,
     AdminPanelComponent,
-    NgbdModalContent,
+    UserDetailsModal,
     FooterModalContent,
-    BookDetailsEditComponent
+    BookDetailsEditComponent,
+    BookAddModal
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -93,9 +95,10 @@ const routes: Routes = [
   //Tutaj dodajemy komponenty dla modala
   //********************************** */
   entryComponents: [
-    NgbdModalContent,
+    UserDetailsModal,
     FooterModalContent,
-    BookDetailsEditComponent
+    BookDetailsEditComponent,
+    BookAddModal
   ]
 })
 export class AppModule { }
