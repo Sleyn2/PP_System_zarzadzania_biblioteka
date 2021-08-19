@@ -42,7 +42,14 @@ export class NavMenuComponent {
 
   addBook() {
     const modalRef = this.modalService.open(BookAddModal, { size: 'lg' });
-
-    this.toastr.success('Pomyślnie zmieniono dane', 'Sukces!', { timeOut: 5000 });
+    modalRef.result.then((result) => {
+      if (result === 'Success') {
+        this.toastr.success('Pomyślnie dodano książkę', 'Sukces!', { timeOut: 5000 });
+      } else if (result === 'Close click') {
+        this.toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
+      }
+    }, (reason) => {
+      this.toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
+    });
   }
 }

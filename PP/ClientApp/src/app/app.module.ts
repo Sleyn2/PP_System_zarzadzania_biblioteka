@@ -78,8 +78,7 @@ const routes: Routes = [
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }),
-    NgbModule,
-    
+    NgbModule    
   ],
   providers: [
     LibInfoService,

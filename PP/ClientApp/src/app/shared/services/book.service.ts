@@ -8,29 +8,25 @@ import { Observable } from 'rxjs';
 })
 export class BookService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   formData: Book = new Book();
   readonly baseUrl = 'https://localhost:44326/api/Book'
   list: Book[];
 
-  getAllBooks()
-  {
+  getAllBooks() {
     this.http.get(this.baseUrl)
-    .toPromise()
-    .then(res => this.list = res as Book[]);
+      .toPromise()
+      .then(res => this.list = res as Book[]);
   }
 
-  getBooks(tittle:string)
-  {
-    if(tittle==='')
-    {
+  getBooks(tittle: string) {
+    if (tittle === '') {
       this.getAllBooks()
-    } else
-    {
-    this.http.get(this.baseUrl+'/t/'+tittle)
-    .toPromise()
-    .then(res => this.list = res as Book[]);
+    } else {
+      this.http.get(this.baseUrl + '/t/' + tittle)
+        .toPromise()
+        .then(res => this.list = res as Book[]);
     }
   }
 
