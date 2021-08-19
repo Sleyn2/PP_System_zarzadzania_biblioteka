@@ -54,10 +54,15 @@ export class BookAddModal {
         else {
             this.BookDetails.authorId = this._id;
             console.log(this.BookDetails);
-            this.bookService.addBook(this.BookDetails).subscribe(res=>{
-                console.log(res);
-            });
-            this.activeModal.close('Success');
+            this.bookService.addBook(this.BookDetails).subscribe((res: any) => {
+                this.activeModal.close('Success');
+            },
+                err => {
+                    if (err.status == 400)
+                        console.log(err);
+                    this.toastr.error(err.error.message, 'Niepowodzenie', { timeOut: 5000 });
+                });
+
         }
     }
 }

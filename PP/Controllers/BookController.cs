@@ -82,10 +82,16 @@ namespace PP.Controllers
         [HttpPost]
         public async Task<ActionResult<Book>> PostBook(Book book)
         {
+            if (_context.Book.Select(e=> e).Where(t=> t.Title == book.Title).Any())
+                return BadRequest(new { message = "Książka z daną nazwą już istnieje" });
             _context.Book.Add(book);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBook", new { id = book.Id }, book);
+            CreatedAtAction("GetBook", new { id = book.Id }, book);
+            if (_context.Book.Select(e => e.Title).Where(t => t == book.Title).Any())
+                return Ok();
+            else
+                return BadRequest(new { message = "Nie udało się dodać książki" });
         }
 
         // DELETE: api/Book/5

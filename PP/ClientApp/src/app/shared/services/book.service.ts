@@ -44,7 +44,7 @@ export class BookService {
     return this.http.put(bookUrl, book, this.httpOptions);
   }
 
-  addBook(book: Book): Observable<any> {
+  addBook(book: Book){
     return this.http.post(this.baseUrl, book);
   }
 }
