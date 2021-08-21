@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PP.Models;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -21,7 +19,7 @@ namespace PP.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _singInManager;
         private readonly ApplicationSettings _appSettings;
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, 
+        public ApplicationUserController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager, IOptions<ApplicationSettings> appSettings)
         {
             _userManager = userManager;
@@ -34,6 +32,8 @@ namespace PP.Controllers
         //POST : /api/ApplicationUser/Register
         public async Task<Object> PostApplicationUser(ApplicationUserModel model)
         {
+            //Domyślna rola użytkownika
+            model.Role = "User";
             var applicationUser = new ApplicationUser()
             {
                 UserName = model.UserName,
@@ -42,10 +42,13 @@ namespace PP.Controllers
             };
             try
             {
+                //Tworzenie użytkownika
                 var result = await _userManager.CreateAsync(applicationUser, model.Password);
+                //Dodawanie roli user
+                await _userManager.AddToRoleAsync(applicationUser, model.Role);
                 return Ok(result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -59,11 +62,16 @@ namespace PP.Controllers
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
+                //pobranie roli użytkownika
+                var role = await _userManager.GetRolesAsync(user);
+                IdentityOptions _options = new IdentityOptions();
+
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim("UserID",user.Id.ToString())
+                        new Claim("UserID", user.Id.ToString()),
+                        new Claim(_options.ClaimsIdentity.RoleClaimType, role.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(10),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)),
@@ -76,6 +84,24 @@ namespace PP.Controllers
             }
             else
                 return BadRequest(new { message = "Niepoprawna nazwa użytkownika lub hasło." });
+        }
+
+        // GET: api/ApplicationUser/
+        [HttpGet("{id}")]
+        public async Task<Object> FindUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new
+            {
+                user.FullName,
+                user.Id
+            };
         }
     }
 }

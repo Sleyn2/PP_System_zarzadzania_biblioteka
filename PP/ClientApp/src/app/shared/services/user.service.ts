@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from "@angular/common/http"
+import { HttpClient } from "@angular/common/http"
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
-  constructor(private fb: FormBuilder, private http:HttpClient) { }
+  isLoggedIn = false;
+  isAdmin = false;
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
   readonly BaseURL = 'https://localhost:44326/api';
 
   formModel = this.fb.group({
@@ -38,14 +39,41 @@ export class UserService {
       FullName: this.formModel.value.FullName,
       Password: this.formModel.value.Passwords.Password
     };
-    return this.http.post(this.BaseURL+'/ApplicationUser/Register', body);
+    return this.http.post(this.BaseURL + '/ApplicationUser/Register', body);
   }
 
-  login(formData){
-    return this.http.post(this.BaseURL+'/ApplicationUser/Login', formData);
+  login(formData) {
+    return this.http.post(this.BaseURL + '/ApplicationUser/Login', formData);
   }
 
-  getUserProfile(){
-    return this.http.get(this.BaseURL+'/UserProfile');
+  getUserProfile() {
+    return this.http.get(this.BaseURL + '/UserProfile');
+  }
+
+  roleMatch(allowedRoles): boolean {
+    var isMatch = false;
+    if (localStorage.getItem('token') !== null) {
+      var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+      var userRole = payLoad.role;
+      allowedRoles.forEach(element => {
+        if (userRole === element) {
+          isMatch = true;
+        }
+      });
+    }
+    else this.isLoggedIn = false;
+    return isMatch;
+  }
+
+  roleMatchSingle(allowedRole): boolean {
+    if (localStorage.getItem('token') !== null) {
+      var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+      var userRole = payLoad.role;
+      if (userRole == allowedRole) {
+        return true;
+      }
+    }
+    else this.isLoggedIn = false;
+    return false;
   }
 }

@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h4 class="modal-title">Edycja stopki strony</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card m-5" style="width: 40rem" *ngIf="FooterDetails">
+<ul class="list-group">
+  <li class="list-group-item"><strong>Nazwa Biblioteki : </strong><input style="width: 100%;" [(ngModel)]="FooterDetails.name" value={{FooterDetails.name}}></li>
+  <li class="list-group-item"><strong>Adres 1 : </strong><input style="width: 100%;" [(ngModel)]="FooterDetails.adress" value={{FooterDetails.adress}}></li>
+  <li class="list-group-item"><strong>Adres 2 : </strong><input style="width: 100%;" [(ngModel)]="FooterDetails.adress2" value={{FooterDetails.adress2}}></li>
+  <li class="list-group-item"><strong>Adres email : </strong><input style="width: 100%;" [(ngModel)]="FooterDetails.emailAdress" value={{FooterDetails.emailAdress}}></li>
+  <li class="list-group-item"><strong>Numer telefonu : </strong><input style="width: 100%;" [(ngModel)]="FooterDetails.phone" value={{FooterDetails.phone}}></li>
+</ul>
+</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Zamknij</button>
+    <button type="button" class="btn btn-outline-dark" (click)="save()">Zapisz</button>
+  </div>

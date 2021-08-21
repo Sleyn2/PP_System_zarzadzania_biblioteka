@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PP.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PP.Models;
 
 namespace PP.Controllers
 {
@@ -46,12 +44,11 @@ namespace PP.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(string id, ApplicationUser user)
         {
-            //TODO poprawic na stringi
             if (id != user.Id)
             {
                 return BadRequest();
             }
-            
+
             _context.Entry(user).State = EntityState.Modified;
 
             try
