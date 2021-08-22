@@ -63,7 +63,7 @@ const routes: Routes = [
     BookDetailsComponent,
     ForbiddenComponent,
     AdminPanelComponent,
-    NgbdModalContent,
+    UserDetailsModal,
     FooterModalContent,
     BookDetailsEditComponent
   ],
@@ -93,7 +93,7 @@ const routes: Routes = [
   //Tutaj dodajemy komponenty dla modala
   //********************************** */
   entryComponents: [
-    NgbdModalContent,
+    UserDetailsModal,
     FooterModalContent,
     BookDetailsEditComponent
   ]
