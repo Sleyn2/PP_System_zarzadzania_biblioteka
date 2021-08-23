@@ -53,18 +53,17 @@ export class UserService {
   }
 
   roleMatch(allowedRoles): boolean {
-    var isMatch = false;
+    var bool = false;
     if (localStorage.getItem('token') !== null) {
       var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
       var userRole = payLoad.role;
       allowedRoles.forEach(element => {
         if (userRole === element) {
-          isMatch = true;
+          bool = true;
         }
       });
     }
-    else this.isLoggedIn = false;
-    return isMatch;
+    return bool;
   }
 
   roleMatchSingle(allowedRole): boolean {

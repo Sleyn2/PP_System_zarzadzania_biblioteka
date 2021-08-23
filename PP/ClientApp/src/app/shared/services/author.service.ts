@@ -16,7 +16,11 @@ export class AuthorService {
     return this.http.get<Author>(this._baseUrl);
   }
 
-  CheckIfAuthorExist(firstName: string, lastName: string): Observable<any> {
+  checkIfAuthorExist(firstName: string, lastName: string): Observable<any> {
     return this.http.get<Boolean>(this._baseUrl + '/' + firstName + '/' + lastName);
+  }
+
+  addAuthor(author: Author): Observable<any> {
+    return this.http.post(this._baseUrl, author);
   }
 }

@@ -30,6 +30,7 @@ import { BookDetailsEditComponent } from './book-details/book-details-edit/book-
 import { BookAddModal } from './book-details/book-details-add/book-details-add.component';
 import { ReadersListComponent } from './readers-list/readers-list.component';
 import { ReadersListFormComponent } from './readers-list/readers-list-form/readers-list-form.component';
+import { AuthorAddModal } from './author/author-add/author-add.component';
 
 
 const routes: Routes = [
@@ -72,7 +73,8 @@ const routes: Routes = [
     BookDetailsEditComponent,
     BookAddModal,
     ReadersListComponent,
-    ReadersListFormComponent
+    ReadersListFormComponent,
+    AuthorAddModal
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -102,7 +104,8 @@ const routes: Routes = [
     UserDetailsModal,
     FooterModalContent,
     BookDetailsEditComponent,
-    BookAddModal
+    BookAddModal,
+    AuthorAddModal
   ]
 })
 export class AppModule { }

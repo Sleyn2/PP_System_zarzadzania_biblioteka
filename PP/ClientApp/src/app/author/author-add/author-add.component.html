@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="card m-5" style="width: 40rem" *ngIf="FooterDetails">
+    <div class="card m-5" style="width: 40rem" *ngIf="formData">
         <ul class="list-group">
             <li class="list-group-item"><strong>Imię : </strong><input style="width: 100%;"
                     [(ngModel)]="formData.firstName" value={{formData.firstName}}></li>

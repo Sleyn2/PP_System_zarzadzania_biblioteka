@@ -40,17 +40,20 @@ namespace PP.Controllers
 		}
 		// GET: api/Author/{name}
 		[HttpGet("{firstName}/{lastName}")]
-		public async Task<ActionResult<bool>> CheckInAuthorExist(string firstName, string lastName)
+		public async Task<ActionResult<bool>> CheckIfAuthorExist(string firstName, string lastName)
 		{
 			var author = await _context.Author.ToListAsync();
-
+			var ret = false;
 			if (author == null)
 			{
-				return false;
+				return ret;
 			}
-			if (author.Where(x => x.FirstName == firstName && x.LastName == lastName).ElementAt(0) != null)
-				return true;
-			return false;
+			author.ForEach(authorItem =>
+			{
+				if (authorItem.FirstName == firstName && authorItem.LastName == lastName)
+					ret = true;
+			});
+			return ret;
 		}
 
 		// PUT: api/Author/5

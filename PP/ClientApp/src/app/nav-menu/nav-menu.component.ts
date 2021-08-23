@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { BookAddModal } from '../book-details/book-details-add/book-details-add.component';
-import { BookService } from '../shared/services/book.service';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -11,13 +10,13 @@ import { UserService } from '../shared/services/user.service';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+
   isExpanded = false;
 
   constructor(
-    private modalService: NgbModal,
-    private auth: UserService,
-    private bookService: BookService,
-    private toastr: ToastrService
+    private _modalService: NgbModal,
+    public auth: UserService,
+    private _toastr: ToastrService
   ) { }
 
   collapse() {
@@ -41,15 +40,15 @@ export class NavMenuComponent {
   }
 
   addBook() {
-    const modalRef = this.modalService.open(BookAddModal, { size: 'lg' });
+    const modalRef = this._modalService.open(BookAddModal, { size: 'lg' });
     modalRef.result.then((result) => {
       if (result === 'Success') {
-        this.toastr.success('Pomyślnie dodano książkę', 'Sukces!', { timeOut: 5000 });
+        this._toastr.success('Pomyślnie dodano książkę', 'Sukces!', { timeOut: 5000 });
       } else if (result === 'Close click') {
-        this.toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
+        this._toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
       }
     }, (reason) => {
-      this.toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
+      this._toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
     });
   }
 }
