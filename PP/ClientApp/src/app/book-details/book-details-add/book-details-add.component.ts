@@ -25,7 +25,7 @@ export class BookAddModal {
     ) { }
 
     ngOnInit(): void {
-        this.authorService.getAllBooks().toPromise().then(list => {
+        this.authorService.getAllAuthors().toPromise().then(list => {
             this.AuthorList = list
             if (this.AuthorList.length !== 0) this.toastr.info('Pomyślnie pobrano listę autorów', 'Baza danych', { timeOut: 5000 });
             else this.toastr.warning('Nie udało się pobrać listy autorów', 'Baza danych', { timeOut: 5000 });

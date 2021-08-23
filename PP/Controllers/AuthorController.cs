@@ -39,8 +39,8 @@ namespace PP.Controllers
 			return author;
 		}
 		// GET: api/Author/{name}
-		[HttpGet("find/{firstName}/{lastName}")]
-		public async Task<ActionResult<bool>> GetAuthor(string firstName, string lastName)
+		[HttpGet("{firstName}/{lastName}")]
+		public async Task<ActionResult<bool>> CheckInAuthorExist(string firstName, string lastName)
 		{
 			var author = await _context.Author.ToListAsync();
 
