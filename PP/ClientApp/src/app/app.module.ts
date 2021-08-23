@@ -28,6 +28,8 @@ import { FooterModalContent } from './admin-panel/footer-editor/footer-editor.co
 import { UserDetailsModal } from './user/user-details.component/user-details.component';
 import { BookDetailsEditComponent } from './book-details/book-details-edit/book-details-edit.component';
 import { BookAddModal } from './book-details/book-details-add/book-details-add.component';
+import { ReadersListComponent } from './readers-list/readers-list.component';
+import { ReadersListFormComponent } from './readers-list/readers-list-form/readers-list-form.component';
 
 
 const routes: Routes = [
@@ -44,7 +46,8 @@ const routes: Routes = [
   // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
   //{ path: 'counter', component: CounterComponent }, 
   { path: 'book-details', component: BookDetailsComponent },
-  { path: 'book-details/:bookId', component: BookDetailsComponent }
+  { path: 'book-details/:bookId', component: BookDetailsComponent },
+  { path: 'readers', component: ReadersListComponent}
 ]
 //********************************** */
 //Tutaj dodajemy wszsytkie komponenty
@@ -67,7 +70,9 @@ const routes: Routes = [
     UserDetailsModal,
     FooterModalContent,
     BookDetailsEditComponent,
-    BookAddModal
+    BookAddModal,
+    ReadersListComponent,
+    ReadersListFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
