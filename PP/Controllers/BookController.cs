@@ -29,7 +29,7 @@ namespace PP.Controllers
         [HttpGet("t/{title}")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBook(string title)
         {
-            return await _context.Book.Where(x => x.Title==title).ToListAsync();
+            return await _context.Book.Where(x => x.Title.Contains(title)).ToListAsync();
         }
 
         // GET: api/Book/5
