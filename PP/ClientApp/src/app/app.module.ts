@@ -25,13 +25,10 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterModalContent } from './admin-panel/footer-editor/footer-editor.component';
-import { ReadersListComponent } from './readers-list/readers-list.component';
-import { ReadersListFormComponent } from './readers-list/readers-list-form/readers-list-form.component';
 
 
 const routes: Routes = [
   { path: '', component: BooksListComponent, pathMatch: 'full' },
-  { path: 'readers', component: ReadersListComponent},
   {
     path: 'user', component: UserComponent, children: [
       { path: 'registration', component: RegistrationComponent },
@@ -66,8 +63,6 @@ const routes: Routes = [
     AdminPanelComponent,
     NgbdModalContent,
     FooterModalContent,
-    ReadersListComponent,
-    ReadersListFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
