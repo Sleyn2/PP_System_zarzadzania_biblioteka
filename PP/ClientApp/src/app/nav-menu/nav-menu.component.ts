@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { BookAddModal } from '../book-details/book-details-add/book-details-add.component';
+import { BookService } from '../shared/services/book.service';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -9,17 +12,22 @@ import { UserService } from '../shared/services/user.service';
 })
 export class NavMenuComponent {
   isExpanded = false;
-  isLoggedIn$: Observable<boolean>;
 
-  constructor(private auth: UserService) { }
+  constructor(
+    private modalService: NgbModal,
+    private auth: UserService,
+    private bookService: BookService,
+    private toastr: ToastrService
+  ) { }
 
   collapse() {
     this.isExpanded = false;
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.auth.isLoggedIn = this.auth.roleMatch(["Admin", "User", "Bibliotekarz"]);
     this.auth.isAdmin = this.auth.roleMatchSingle("Admin");
+    this.auth.isBibliotekarz = this.auth.roleMatchSingle("Bibliotekarz");
   }
 
   toggle() {
@@ -30,5 +38,18 @@ export class NavMenuComponent {
     localStorage.removeItem('token');
     this.auth.isLoggedIn = false;
     this.auth.isAdmin = false;
+  }
+
+  addBook() {
+    const modalRef = this.modalService.open(BookAddModal, { size: 'lg' });
+    modalRef.result.then((result) => {
+      if (result === 'Success') {
+        this.toastr.success('Pomyślnie dodano książkę', 'Sukces!', { timeOut: 5000 });
+      } else if (result === 'Close click') {
+        this.toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
+      }
+    }, (reason) => {
+      this.toastr.error('Anulowano edycję', 'Niepowodzenie', { timeOut: 5000 });
+    });
   }
 }

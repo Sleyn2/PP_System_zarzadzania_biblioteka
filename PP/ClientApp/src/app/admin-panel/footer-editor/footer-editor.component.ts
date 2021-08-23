@@ -9,14 +9,23 @@ import { LibInfoService } from "src/app/shared/services/libInfo.service";
 })
 export class FooterModalContent {
 
+    private _orginalData;
+
     @Input() FooterDetails;
 
     constructor(public activeModal: NgbActiveModal, private service: LibInfoService, private libInfoService: LibInformation) { }
 
-    save(){
-        this.service.editInfo(this.FooterDetails).subscribe();
-        this.libInfoService.updateLibInfo(this.service);
-        this.activeModal.close('success');
+    ngOnInit() {
+        this._orginalData = this.FooterDetails;
     }
 
+    save() {
+        if (this._orginalData != this.FooterDetails) {
+            this.service.editInfo(this.FooterDetails).subscribe();
+            this.libInfoService.updateLibInfo(this.service);
+            this.activeModal.close('Success');
+        } else {
+            this.activeModal.close('Same data');
+        }
+    }
 }

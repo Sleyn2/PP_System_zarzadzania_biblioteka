@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { AppComponent } from "../app.component";
 import { LibInfo } from "./models/libInfo.model";
 import { LibInfoService } from "./services/libInfo.service";
 
@@ -18,11 +17,7 @@ export class LibInformation{
         let newLibInfo: LibInfo = new LibInfo();
         service.getInfo().toPromise().then(data=>{
             newLibInfo = data;
-            console.log(data);
         });
-        //.finally(()=>{
-        //     app.libInfoLocal = newLibInfo;
-        // });
     }
 } 
 
