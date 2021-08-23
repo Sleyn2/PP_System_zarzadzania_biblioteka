@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ReaderService } from 'src/app/shared/services/reader.service';
+import { BookService } from 'src/app/shared/services/book.service';
 
 @Component({
   selector: 'app-readers-list-form',
@@ -9,10 +9,10 @@ import { ReaderService } from 'src/app/shared/services/reader.service';
 })
 export class ReadersListFormComponent implements OnInit {
 
-  constructor(public service:ReaderService) { }
+  constructor(public service:BookService) { }
 
   ngOnInit(): void {
-    this.service.getAllReaders();
+    //this.service.getAllBooks();
   }
 
   onSubmit(form:NgForm){
