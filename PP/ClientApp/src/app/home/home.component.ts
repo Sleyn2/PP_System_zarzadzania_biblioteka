@@ -6,6 +6,7 @@ import { UserDetailsModal } from '../user/user-details.component/user-details.co
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styles:[]
 })
 export class HomeComponent {
   closeResult = '';

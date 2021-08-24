@@ -10,7 +10,6 @@ import { UserService } from '../shared/services/user.service';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-
   isExpanded = false;
 
   constructor(

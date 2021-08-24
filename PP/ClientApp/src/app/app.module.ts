@@ -24,13 +24,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FooterModalContent } from './admin-panel/footer-editor/footer-editor.component';
+import { FooterModalContent } from './footer/footer-editor/footer-editor.component';
 import { UserDetailsModal } from './user/user-details.component/user-details.component';
 import { BookDetailsEditComponent } from './book-details/book-details-edit/book-details-edit.component';
 import { BookAddModal } from './book-details/book-details-add/book-details-add.component';
 import { ReadersListComponent } from './readers-list/readers-list.component';
 import { ReadersListFormComponent } from './readers-list/readers-list-form/readers-list-form.component';
 import { AuthorAddModal } from './author/author-add/author-add.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 const routes: Routes = [
@@ -58,6 +59,7 @@ const routes: Routes = [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    FooterComponent,
     CounterComponent,
     FetchDataComponent,
     BooksListComponent,

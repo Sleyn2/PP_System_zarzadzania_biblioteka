@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BookService } from 'src/app/shared/services/book.service';
 
 @Component({
@@ -9,7 +10,10 @@ import { BookService } from 'src/app/shared/services/book.service';
 })
 export class BooksListFormComponent implements OnInit {
 
-  constructor(public service: BookService) { }
+  constructor(
+    private router: Router, 
+    public service: BookService
+    ) { }
 
   ngOnInit(): void {
     this.service.getAllBooks();
