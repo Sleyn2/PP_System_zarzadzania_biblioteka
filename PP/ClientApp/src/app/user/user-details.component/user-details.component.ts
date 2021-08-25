@@ -1,12 +1,12 @@
-import { Component, Input } from "@angular/core";
-import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+// import { Component, Input } from "@angular/core";
+// import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 
-@Component({
-    selector: 'ngbd-modal-content',
-    templateUrl: `./user-details.component.html`
-  })
-  export class UserDetailsModal {
-    @Input() UserDetails;
+// @Component({
+//     selector: 'ngbd-modal-content',
+//     templateUrl: `./user-details.component.html`
+//   })
+//   export class UserDetailsModal {
+//     @Input() UserDetails;
   
-    constructor(public activeModal: NgbActiveModal) { }
-  }
+//     constructor(public activeModal: NgbActiveModal) { }
+//   }

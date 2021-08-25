@@ -14,9 +14,9 @@ export class BorrowingService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  addBorrowing(borrowing: Borrowing): Observable<Borrowing>
+  addBorrowing(bookId: number)
   {
     const borrowingUrl = 'https://localhost:44326/api/Borrowing';
-    return this.http.post<Borrowing>(borrowingUrl, borrowing, this.httpOptions);
+    return this.http.post<Borrowing>(borrowingUrl + '/' + bookId, this.httpOptions);
   }
 }

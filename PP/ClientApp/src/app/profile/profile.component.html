@@ -1,0 +1,25 @@
+<div class="small-component">
+  <div class="row justify-content-center align-middle">
+    <div class="card mt-5 mb-2 " style="width: 25rem">
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Nazwa Użytkownika : </strong>{{this.userDetails.userName}}</li>
+        <li class="list-group-item"><strong>Pełna nazwa : </strong>{{this.userDetails.fullName}}</li>
+        <li class="list-group-item"><strong>Email : </strong>{{this.userDetails.email}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row justify-content-center align-middle mt-2">
+    <div class="col-md-5 text-center gap-3">
+      <div class="row mt-2 mb-2">
+        <button class="btn btn-lg btn-dark" (click)="open()">Edytuj szczegóły konta</button>
+      </div>
+      <div class="row mt-2 mb-2">
+        <button class="btn btn-lg btn-dark" *ngIf="this.isAdmin" (click)="editFooter()">Edytuj stopkę</button>
+      </div>
+      <div class="row mt-2 mb-2">
+        <button class="btn btn-lg btn-dark" *ngIf="this.isAdmin || this.isBibliotekarz" (click)="borrowings()">Podgląd rezerwacji</button>
+      </div>
+      
+    </div>
+  </div>
+</div>

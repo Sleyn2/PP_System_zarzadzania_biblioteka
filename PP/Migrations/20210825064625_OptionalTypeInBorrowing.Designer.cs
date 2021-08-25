@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PP.Models;
 
 namespace PP.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20210825064625_OptionalTypeInBorrowing")]
+    partial class OptionalTypeInBorrowing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,9 +257,6 @@ namespace PP.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AvaliableCount")
-                        .HasColumnType("int");
-
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -279,7 +278,7 @@ namespace PP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BookId")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CheckInDate")
@@ -437,7 +436,9 @@ namespace PP.Migrations
                 {
                     b.HasOne("PP.Models.Book", "Book")
                         .WithMany("borrowings")
-                        .HasForeignKey("BookId");
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PP.Models.ApplicationUser", "User")
                         .WithMany("borrowings")

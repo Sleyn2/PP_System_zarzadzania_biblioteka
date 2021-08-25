@@ -19,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.service.formModel.reset();
     if (localStorage.getItem('token') != null)
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/profile');
   }
 
   onSubmit() {
