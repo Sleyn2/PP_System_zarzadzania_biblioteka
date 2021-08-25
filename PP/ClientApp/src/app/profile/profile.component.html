@@ -17,7 +17,7 @@
         <button class="btn btn-lg btn-dark" *ngIf="this.isAdmin" (click)="editFooter()">Edytuj stopkę</button>
       </div>
       <div class="row mt-2 mb-2">
-        <button class="btn btn-lg btn-dark" *ngIf="this.isAdmin || this.isBibliotekarz" (click)="borrowings()">Podgląd oczekujących
+        <button class="btn btn-lg btn-dark" *ngIf="this.isAdmin || this.isBibliotekarz" (click)="reservedBorrowings()">Podgląd oczekujących
           rezerwacji</button>
       </div>
       <div class="row mt-2 mb-2">

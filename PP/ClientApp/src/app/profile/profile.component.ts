@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { FooterModalContent } from '../footer/footer-editor/footer-editor.component';
 import { LibInformation } from '../shared/export';
 import { User } from '../shared/models/user.model';
 import { UserService } from '../shared/services/user.service';
-// import { UserDetailsModal } from '../user/user-details.component/user-details.component';
 
 @Component({
   selector: 'app-profile',
@@ -26,13 +26,14 @@ export class ProfileComponent {
     private _modalService: NgbModal,
     private auth: UserService,
     private _libInfoService: LibInformation,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _router: Router,
+
   ) {
     if (localStorage.getItem('token') != null) {
       this.isAdmin = auth.roleMatchSingle("Admin");
       this.isBibliotekarz = auth.roleMatchSingle("Bibliotekarz");
       this.isUser = auth.roleMatchSingle("User");
-
     }
   }
 
@@ -42,7 +43,13 @@ export class ProfileComponent {
         this.userDetails = res
       },
       err => {
-        console.log(err)
+        if (err.status === 401) {
+          console.log('sprawdzam');
+          this.messegeEvent.emit('checkToken');
+          this._router.navigateByUrl('/user/login');
+        }
+        else
+          console.log(err)
       }
     );
   }

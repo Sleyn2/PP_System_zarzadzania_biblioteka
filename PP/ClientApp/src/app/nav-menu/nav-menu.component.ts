@@ -23,6 +23,15 @@ export class NavMenuComponent {
   }
 
   ngOnInit() {
+    this.checkToken()
+  }
+
+  reciveMessage($event) {
+    console.log('sprawdzamtoekn');
+    if ($event === 'checkToken') this.checkToken();
+  }
+
+  checkToken() {
     this.auth.isLoggedIn = this.auth.roleMatch(["Admin", "User", "Bibliotekarz"]);
     this.auth.isAdmin = this.auth.roleMatchSingle("Admin");
     this.auth.isBibliotekarz = this.auth.roleMatchSingle("Bibliotekarz");
