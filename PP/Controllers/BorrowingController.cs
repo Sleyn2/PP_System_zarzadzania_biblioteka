@@ -27,11 +27,15 @@ namespace PP.Controllers
 		{
 			var userId = User.Claims.First(u => u.Type == "UserID").Value;
 			var user = await _userManager.FindByIdAsync(userId);
-			var book = _context.Book.Select(a => a).Where(b => b.Id == bookId).First();
+			var book = _context.Book
+				.Select(a => a)
+				.Where(b => b.Id == bookId)
+				.First();
 
 			if (_context.Borrowing
 				.Select(x => x)
-				.Where(y => (y.Book == book && y.User == user) && y.FinishDate == null)
+				.Where(y => (y.Book == book && y.User == user) 
+				&& y.FinishDate == null)
 				.Any())
 				return BadRequest();
 			else return Ok();
@@ -41,21 +45,29 @@ namespace PP.Controllers
 		[HttpGet("all")]
 		public async Task<ActionResult<List<Borrowing>>> GetAllBorrowings()
 		{
-			return await _context.Borrowing.Select(a => a).ToListAsync();
+			return await _context.Borrowing
+				.Select(a => a)
+				.ToListAsync();
 		}
 
 		// GET: api/Borrowing/ongoing
 		[HttpGet("ongoing")]
 		public async Task<ActionResult<List<Borrowing>>> GetOngoingBorrowings()
 		{
-			return await _context.Borrowing.Select(a => a).Where(b => b.FinishDate != null && b.Status == 1).ToListAsync();
+			return await _context.Borrowing
+				.Select(a => a)
+				.Where(b => b.FinishDate == null && b.Status == 1)
+				.ToListAsync();
 		}
 
 		// GET: api/Borrowing/reserved
 		[HttpGet("reserved")]
 		public async Task<ActionResult<List<Borrowing>>> GetReservedBorrowings()
 		{
-			return await _context.Borrowing.Select(a => a).Where(b => b.FinishDate != null && b.Status == 2).ToListAsync();
+			return await _context.Borrowing
+				.Select(a => a)
+				.Where(b => b.FinishDate == null && b.Status == 2)
+				.ToListAsync();
 		}
 
 		// GET: api/Borrowing/5
