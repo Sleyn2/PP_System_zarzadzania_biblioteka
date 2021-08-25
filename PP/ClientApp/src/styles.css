@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ngx-toastr/toastr';
+/* @import '~@ng-select/ng-select/themes/default.theme.css'; */
 
 /* Provide sufficient contrast against white background */
 a {
@@ -16,11 +17,27 @@ code {
   border-color: #1861ac;
 }
 
-body{
-  background-color: #ffc107;;
+.small-component{
+  min-height:630px
 }
+
+body{
+  background-color: #ffc107;
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+
+footer {
+  height: 184px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding-top: 50px;
+}
+
 modal-content{
-  background-color: #ffc107;;
+  background-color: #ffc107;
 }
 
 input.form-control,input.form-control:focus{

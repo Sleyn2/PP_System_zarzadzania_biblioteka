@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { LibInformation } from '../shared/export';
-import { FooterModalContent } from './footer-editor/footer-editor.component';
+import { FooterModalContent } from '../footer/footer-editor/footer-editor.component';
 
 @Component({
   selector: 'app-admin-panel',
@@ -13,7 +13,10 @@ export class AdminPanelComponent implements OnInit {
 
   @Output() messegeEvent = new EventEmitter<string>();
 
-  constructor(private modalService: NgbModal, private libInfoService: LibInformation, private toastr: ToastrService) { }
+  constructor(
+    private modalService: NgbModal, 
+    private libInfoService: LibInformation, 
+    private toastr: ToastrService) { }
 
   ngOnInit() { }
 

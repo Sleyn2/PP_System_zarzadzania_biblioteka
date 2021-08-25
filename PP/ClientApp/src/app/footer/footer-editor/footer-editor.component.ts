@@ -9,18 +9,18 @@ import { LibInfoService } from "src/app/shared/services/libInfo.service";
 })
 export class FooterModalContent {
 
-    private orginalData;
+    private _orginalData;
 
     @Input() FooterDetails;
 
     constructor(public activeModal: NgbActiveModal, private service: LibInfoService, private libInfoService: LibInformation) { }
 
     ngOnInit() {
-        this.orginalData = this.FooterDetails;
+        this._orginalData = this.FooterDetails;
     }
 
     save() {
-        if (this.orginalData != this.FooterDetails) {
+        if (this._orginalData != this.FooterDetails) {
             this.service.editInfo(this.FooterDetails).subscribe();
             this.libInfoService.updateLibInfo(this.service);
             this.activeModal.close('Success');

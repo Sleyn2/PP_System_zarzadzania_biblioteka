@@ -6,10 +6,12 @@ import { HttpClient } from "@angular/common/http"
   providedIn: 'root'
 })
 export class UserService {
-  isLoggedIn = false;
-  isAdmin = false;
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  public isLoggedIn = false;
+  public isAdmin = false;
+  public isBibliotekarz = false;  
   readonly BaseURL = 'https://localhost:44326/api';
+
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],
@@ -51,18 +53,17 @@ export class UserService {
   }
 
   roleMatch(allowedRoles): boolean {
-    var isMatch = false;
+    var bool = false;
     if (localStorage.getItem('token') !== null) {
       var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
       var userRole = payLoad.role;
       allowedRoles.forEach(element => {
         if (userRole === element) {
-          isMatch = true;
+          bool = true;
         }
       });
     }
-    else this.isLoggedIn = false;
-    return isMatch;
+    return bool;
   }
 
   roleMatchSingle(allowedRole): boolean {

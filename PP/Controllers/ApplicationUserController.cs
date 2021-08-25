@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PP.Models;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -19,12 +20,37 @@ namespace PP.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _singInManager;
         private readonly ApplicationSettings _appSettings;
+
         public ApplicationUserController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager, IOptions<ApplicationSettings> appSettings)
         {
             _userManager = userManager;
             _singInManager = signInManager;
             _appSettings = appSettings.Value;
+        }
+
+        [HttpGet]
+        public IEnumerable<ApplicationUser> GetAllUsers()
+        {
+            return _userManager.Users.AsEnumerable();
+        }
+
+        // GET: api/ApplicationUser/
+        [HttpGet("{id}")]
+        public async Task<Object> FindUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new
+            {
+                user.FullName,
+                user.Id
+            };
         }
 
         [HttpPost]
@@ -84,24 +110,6 @@ namespace PP.Controllers
             }
             else
                 return BadRequest(new { message = "Niepoprawna nazwa użytkownika lub hasło." });
-        }
-
-        // GET: api/ApplicationUser/
-        [HttpGet("{id}")]
-        public async Task<Object> FindUser(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            return new
-            {
-                user.FullName,
-                user.Id
-            };
         }
     }
 }

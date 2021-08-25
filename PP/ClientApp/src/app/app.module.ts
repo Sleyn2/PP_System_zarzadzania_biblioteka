@@ -24,9 +24,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FooterModalContent } from './admin-panel/footer-editor/footer-editor.component';
+import { FooterModalContent } from './footer/footer-editor/footer-editor.component';
 import { UserDetailsModal } from './user/user-details.component/user-details.component';
 import { BookDetailsEditComponent } from './book-details/book-details-edit/book-details-edit.component';
+import { BookAddModal } from './book-details/book-details-add/book-details-add.component';
+import { ReadersListComponent } from './readers-list/readers-list.component';
+import { ReadersListFormComponent } from './readers-list/readers-list-form/readers-list-form.component';
+import { AuthorAddModal } from './author/author-add/author-add.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 const routes: Routes = [
@@ -43,7 +48,8 @@ const routes: Routes = [
   // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
   //{ path: 'counter', component: CounterComponent }, 
   { path: 'book-details', component: BookDetailsComponent },
-  { path: 'book-details/:bookId', component: BookDetailsComponent }
+  { path: 'book-details/:bookId', component: BookDetailsComponent },
+  { path: 'readers', component: ReadersListComponent}
 ]
 //********************************** */
 //Tutaj dodajemy wszsytkie komponenty
@@ -53,6 +59,7 @@ const routes: Routes = [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    FooterComponent,
     CounterComponent,
     FetchDataComponent,
     BooksListComponent,
@@ -65,7 +72,11 @@ const routes: Routes = [
     AdminPanelComponent,
     UserDetailsModal,
     FooterModalContent,
-    BookDetailsEditComponent
+    BookDetailsEditComponent,
+    BookAddModal,
+    ReadersListComponent,
+    ReadersListFormComponent,
+    AuthorAddModal
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -76,8 +87,7 @@ const routes: Routes = [
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }),
-    NgbModule,
-    
+    NgbModule    
   ],
   providers: [
     LibInfoService,
@@ -95,7 +105,9 @@ const routes: Routes = [
   entryComponents: [
     UserDetailsModal,
     FooterModalContent,
-    BookDetailsEditComponent
+    BookDetailsEditComponent,
+    BookAddModal,
+    AuthorAddModal
   ]
 })
 export class AppModule { }
