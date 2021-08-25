@@ -22,4 +22,16 @@ export class BorrowingService {
   canBorrow(bookId: number) {
     return this.http.get<Borrowing>(this._borrowingUrl + '/canBorrow/' + bookId, this.httpOptions);
   }
+
+  listAll(){
+    return this.http.get(this._borrowingUrl + '/all');
+  }
+
+  listOngoing(){
+    return this.http.get(this._borrowingUrl + '/ongoing');
+  }
+
+  listReserved(){
+    return this.http.get(this._borrowingUrl + '/reserved');
+  }
 }

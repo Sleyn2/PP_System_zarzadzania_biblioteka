@@ -17,6 +17,7 @@ export class ProfileComponent {
   public userDetails = new User;
   public isAdmin = false;
   public isBibliotekarz = false;
+  public isUser = false;
 
   @Output() messegeEvent = new EventEmitter<string>();
 
@@ -30,6 +31,8 @@ export class ProfileComponent {
     if (localStorage.getItem('token') != null) {
       this.isAdmin = auth.roleMatchSingle("Admin");
       this.isBibliotekarz = auth.roleMatchSingle("Bibliotekarz");
+      this.isUser = auth.roleMatchSingle("User");
+
     }
   }
 
@@ -65,7 +68,15 @@ export class ProfileComponent {
     this._toastr.warning('Wydaje mi się, że to @Alefront robi', 'Modal do zrobienia', { timeOut: 10000 });
   }
 
-  borrowings() {
-    this._toastr.info('edycja zamówień', 'Modal do zrobienia', { timeOut: 5000 });
+  reservedBorrowings() {
+    this._toastr.info('edycja oczekujących zamówień', 'Modal do zrobienia', { timeOut: 5000 });
+  }
+
+  historyBorrowings() {
+    this._toastr.info('historia zamówień', 'Modal do zrobienia', { timeOut: 5000 });
+  }
+
+  yourBorrowings() {
+    this._toastr.info('historia twoich zamówień', 'Modal do zrobienia', { timeOut: 5000 });
   }
 }
