@@ -21,6 +21,22 @@ namespace PP.Controllers
 			_userManager = userManager;
 		}
 
+		// GET: api/Borrowing/canBorrow
+		[HttpGet("canBorrow/{bookId}")]
+		public async Task<ActionResult> CanBorrow(int bookId)
+		{
+			var userId = User.Claims.First(u => u.Type == "UserID").Value;
+			var user = await _userManager.FindByIdAsync(userId);
+			var book = _context.Book.Select(a => a).Where(b => b.Id == bookId).First();
+
+			if (_context.Borrowing
+				.Select(x => x)
+				.Where(y => (y.Book == book && y.User == user) && y.FinishDate == null)
+				.Any())
+				return BadRequest();
+			else return Ok();
+		}
+
 		// GET: api/Borrowing/all
 		[HttpGet("all")]
 		public async Task<ActionResult<List<Borrowing>>> GetAllBorrowings()

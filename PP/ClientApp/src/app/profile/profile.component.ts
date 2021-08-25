@@ -23,7 +23,7 @@ export class ProfileComponent {
   constructor(
     private _userService: UserService,
     private _modalService: NgbModal,
-    private auth: UserService, 
+    private auth: UserService,
     private _libInfoService: LibInformation,
     private _toastr: ToastrService
   ) {
@@ -34,7 +34,7 @@ export class ProfileComponent {
   }
 
   ngOnInit() {
-     this._userService.getUserProfile().subscribe(
+    this._userService.getUserProfile().subscribe(
       res => {
         this.userDetails = res
       },

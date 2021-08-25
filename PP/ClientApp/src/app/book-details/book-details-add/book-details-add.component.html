@@ -11,7 +11,8 @@
                     [(ngModel)]="BookDetails.title" value={{BookDetails.title}}></li>
             <li class="list-group-item"><strong>Ilość : </strong><input style="width: 100%;" type="number"
                     [(ngModel)]="BookDetails.count" value={{BookDetails.count}}></li>
-            <li class="list-group-item"><strong>Autor : </strong><select [(ngModel)]="selectedAuthor" style="width: 100%;" (change)="onChange()">
+            <li class="list-group-item"><strong>Autor : </strong><select [(ngModel)]="selectedAuthor"
+                    style="width: 100%;" (change)="onChange()">
                     <option *ngFor="let a of this.AuthorList" [ngValue]="a">{{a.firstName + " " + a.lastName}}
                     </option>
                 </select></li>

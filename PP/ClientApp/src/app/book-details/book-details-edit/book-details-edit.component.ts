@@ -7,9 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BookDetailsEditComponent implements OnInit {
 
-  
+
   @Input() bookDetails;
-  
+
   constructor() { }
 
   ngOnInit() {
