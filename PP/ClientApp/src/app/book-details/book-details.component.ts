@@ -6,6 +6,7 @@ import { BorrowingService } from 'src/app/shared/services/borrowing.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BookDetailsEditComponent } from './book-details-edit/book-details-edit.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-details',
@@ -15,15 +16,16 @@ import { BookDetailsEditComponent } from './book-details-edit/book-details-edit.
 
 export class BookDetailsComponent implements OnInit {
   constructor(
-    private bookService: BookService, 
-    private borrowingService: BorrowingService, 
-    private auth: UserService, 
-    private route: ActivatedRoute, 
+    private bookService: BookService,
+    private borrowingService: BorrowingService,
+    private _auth: UserService,
+    private _toastr: ToastrService,
+    private route: ActivatedRoute,
     private modalService: NgbModal
-    ) {
+  ) {
     if (localStorage.getItem('token') != null) {
-      this.isUser = auth.roleMatchSingle("User");
-      this.canEditBook = auth.roleMatch(this.permitedRoles);
+      this.isUser = _auth.roleMatchSingle("User");
+      this.canEditBook = _auth.roleMatch(this.permitedRoles);
     }
     else {
       this.isUser = false;
@@ -45,13 +47,13 @@ export class BookDetailsComponent implements OnInit {
   reserveBook(): void {
     if (this.cardData) {
       if (this.cardData.avaliableCount >= 1) {
-        // if () {
-        //   this.cardData.avaliableCount--;
-        //   this.borrowingService.addBorrowing(this.bookId).subscribe();
-        // }
-      }
-      else {
-        // this.toast
+        this.borrowingService.canBorrow(this.bookId).subscribe((res: any) => {
+          this._toastr.success('Złożono rezerwację', 'Sukces!', { timeOut: 5000 })
+        }, err => {
+          if (err.status == 400)
+            console.log(err);
+          this._toastr.error('Książka jest już zarezerwowana', 'Niepowodzenie', { timeOut: 5000 });
+        });
       }
     }
   }

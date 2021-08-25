@@ -9,7 +9,7 @@ import { BookService } from 'src/app/shared/services/book.service';
 })
 export class BookDetailsEditComponent implements OnInit {
 
-  
+
   @Input() bookDetails;
 
   private bookData;
