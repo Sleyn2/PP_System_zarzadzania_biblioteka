@@ -30,6 +30,7 @@ import { ReadersListComponent } from './readers-list/readers-list.component';
 import { ReadersListFormComponent } from './readers-list/readers-list-form/readers-list-form.component';
 import { AuthorAddModal } from './author/author-add/author-add.component';
 import { FooterComponent } from './footer/footer.component';
+import { ReservedBorrowingsModal } from './borrowing/reserved-borrowing/reserved-borrowing.component';
 
 
 const routes: Routes = [
@@ -71,7 +72,8 @@ const routes: Routes = [
     BookAddModal,
     ReadersListComponent,
     ReadersListFormComponent,
-    AuthorAddModal
+    AuthorAddModal,
+    ReservedBorrowingsModal
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -101,7 +103,8 @@ const routes: Routes = [
     FooterModalContent,
     BookDetailsEditComponent,
     BookAddModal,
-    AuthorAddModal
+    AuthorAddModal,
+    ReservedBorrowingsModal
   ]
 })
 export class AppModule { }

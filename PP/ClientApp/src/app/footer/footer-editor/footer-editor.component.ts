@@ -13,7 +13,11 @@ export class FooterModalContent {
 
     @Input() FooterDetails;
 
-    constructor(public activeModal: NgbActiveModal, private service: LibInfoService, private libInfoService: LibInformation) { }
+    constructor(
+        public activeModal: NgbActiveModal, 
+        private service: LibInfoService, 
+        private libInfoService: LibInformation
+        ) { }
 
     ngOnInit() {
         this._orginalData = this.FooterDetails;

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ReservedBorrowingsModal } from '../borrowing/reserved-borrowing/reserved-borrowing.component';
 import { FooterModalContent } from '../footer/footer-editor/footer-editor.component';
 import { LibInformation } from '../shared/export';
 import { User } from '../shared/models/user.model';
@@ -44,8 +45,8 @@ export class ProfileComponent {
       },
       err => {
         if (err.status === 401) {
-          console.log('sprawdzam');
           this.messegeEvent.emit('checkToken');
+          console.log('sprawdzam');
           this._router.navigateByUrl('/user/login');
         }
         else
@@ -76,6 +77,8 @@ export class ProfileComponent {
   }
 
   reservedBorrowings() {
+    const modalRef = this._modalService.open(ReservedBorrowingsModal, { size: 'lg' });
+
     this._toastr.info('edycja oczekujących zamówień', 'Modal do zrobienia', { timeOut: 5000 });
   }
 

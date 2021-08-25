@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PP.Models;
+using PP.Models.Api;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,12 +63,25 @@ namespace PP.Controllers
 
 		// GET: api/Borrowing/reserved
 		[HttpGet("reserved")]
-		public async Task<ActionResult<List<Borrowing>>> GetReservedBorrowings()
+		public async Task<ActionResult<List<BorrowingBook>>> GetReservedBorrowings()
 		{
-			return await _context.Borrowing
+			var data = await _context.Borrowing
 				.Select(a => a)
 				.Where(b => b.FinishDate == null && b.Status == 2)
 				.ToListAsync();
+			var map = new List<BorrowingBook>();
+			data.ForEach(item =>
+			{
+				var bookName = _context.Book.Select(a=>a).Where(b=>b.Id==item.BookId).First().Title;
+				map.Add(new BorrowingBook { 
+					Id = item.Id, 
+					BookName = bookName, 
+					Status = item.Status, 
+					CheckInDate = item.CheckInDate, 
+					CheckoutDate = item.CheckoutDate 
+				});
+			});
+			return map;
 		}
 
 		// GET: api/Borrowing/5

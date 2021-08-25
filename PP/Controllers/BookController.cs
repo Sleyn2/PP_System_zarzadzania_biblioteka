@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PP.Models;
+using PP.Models.Api;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,31 +21,49 @@ namespace PP.Controllers
 
         // GET: api/Book
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBook()
+        public async Task<ActionResult<IEnumerable<BookWithAvaliable>>> GetBook()
         {
             var books = await _context.Book.ToListAsync();
+            var obj = new List<BookWithAvaliable>();
+
             books.ForEach(book =>
             {
-                book.AvaliableCount = countCurrentNumber(book);
+                obj.Add(new BookWithAvaliable
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    AuthorId = book.AuthorId,
+                    Count = book.Count,
+                    AvaliableCount = countCurrentNumber(book)
+                });
             });
-            return books;
+            return obj;
         }
 
         // GET: api/Book/title
         [HttpGet("t/{title}")]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBook(string title)
+        public async Task<ActionResult<IEnumerable<BookWithAvaliable>>> GetBook(string title)
         {
             var books = await _context.Book.Where(x => x.Title.Contains(title)).ToListAsync();
+            var obj = new List<BookWithAvaliable>();
+
             books.ForEach(book =>
             {
-                book.AvaliableCount = countCurrentNumber(book);
+                obj.Add(new BookWithAvaliable
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    AuthorId = book.AuthorId,
+                    Count = book.Count,
+                    AvaliableCount = countCurrentNumber(book)
+                });
             });
-            return books;
+            return obj;
         }
 
         // GET: api/Book/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(int id)
+        public async Task<ActionResult<BookWithAvaliable>> GetBook(int id)
         {
             var book = await _context.Book.FindAsync(id);
 
@@ -52,9 +71,17 @@ namespace PP.Controllers
             {
                 return NotFound();
             }
-            //zwracanie obecnie dostępnej liczby książek jako count
-            book.AvaliableCount = countCurrentNumber(book);
-            return book;
+
+            var obj = new BookWithAvaliable
+            {
+                Id = book.Id,
+                Title = book.Title,
+                AuthorId = book.AuthorId,
+                Count = book.Count,
+                AvaliableCount = countCurrentNumber(book)
+            };
+
+            return obj;
         }
 
         // PUT: api/Book/5
@@ -98,7 +125,6 @@ namespace PP.Controllers
                 .Where(t=> t.Title == book.Title)
                 .Any())
                 return BadRequest(new { message = "Książka z daną nazwą już istnieje" });
-            book.AvaliableCount = book.Count;
             _context.Book.Add(book);
             await _context.SaveChangesAsync();
 
