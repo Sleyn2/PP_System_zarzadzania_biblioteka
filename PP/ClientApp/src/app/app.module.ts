@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BooksListComponent } from './books-list/books-list.component';
@@ -17,7 +17,6 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
-import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { UserService } from './shared/services/user.service';
 import { LibInfoService } from './shared/services/libInfo.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +24,6 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterModalContent } from './footer/footer-editor/footer-editor.component';
-import { UserDetailsModal } from './user/user-details.component/user-details.component';
 import { BookDetailsEditComponent } from './book-details/book-details-edit/book-details-edit.component';
 import { BookAddModal } from './book-details/book-details-add/book-details-add.component';
 import { ReadersListComponent } from './readers-list/readers-list.component';
@@ -42,9 +40,8 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent }
     ]
   },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'forbidden', component: ForbiddenComponent },
-  { path: 'adminpanel', component: AdminPanelComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
   //{ path: 'counter', component: CounterComponent }, 
   { path: 'book-details', component: BookDetailsComponent },
@@ -58,7 +55,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
+    ProfileComponent,
     FooterComponent,
     CounterComponent,
     FetchDataComponent,
@@ -69,8 +66,6 @@ const routes: Routes = [
     LoginComponent,
     BookDetailsComponent,
     ForbiddenComponent,
-    AdminPanelComponent,
-    UserDetailsModal,
     FooterModalContent,
     BookDetailsEditComponent,
     BookAddModal,
@@ -103,7 +98,6 @@ const routes: Routes = [
   //Tutaj dodajemy komponenty dla modala
   //********************************** */
   entryComponents: [
-    UserDetailsModal,
     FooterModalContent,
     BookDetailsEditComponent,
     BookAddModal,

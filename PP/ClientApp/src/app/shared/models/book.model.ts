@@ -3,4 +3,5 @@ export class Book {
     authorId: number = 0;
     title: string = "";
     count: number = 0;
+    avaliableCount: number = 0;
 }

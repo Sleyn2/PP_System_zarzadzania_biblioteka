@@ -8,103 +8,146 @@ using System.Threading.Tasks;
 
 namespace PP.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BorrowingController : ControllerBase
-    {
-        private readonly MyContext _context;
-        private UserManager<ApplicationUser> _userManager;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class BorrowingController : ControllerBase
+	{
+		private readonly MyContext _context;
+		private UserManager<ApplicationUser> _userManager;
 
-        public BorrowingController(MyContext context, UserManager<ApplicationUser> userManager)
-        {
-            _context = context;
-            _userManager = userManager;
-        }
+		public BorrowingController(MyContext context, UserManager<ApplicationUser> userManager)
+		{
+			_context = context;
+			_userManager = userManager;
+		}
 
-        // GET: api/Borrowing
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Borrowing>>> GetBorrowing()
-        {
-            return await _context.Borrowing.ToListAsync();
-        }
+		// GET: api/Borrowing/all
+		[HttpGet("all")]
+		public async Task<ActionResult<List<Borrowing>>> GetAllBorrowings()
+		{
+			return await _context.Borrowing.Select(a => a).ToListAsync();
+		}
 
-        // GET: api/Borrowing/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Borrowing>> GetBorrowing(int id)
-        {
-            var borrowing = await _context.Borrowing.FindAsync(id);
+		// GET: api/Borrowing/ongoing
+		[HttpGet("ongoing")]
+		public async Task<ActionResult<List<Borrowing>>> GetOngoingBorrowings()
+		{
+			return await _context.Borrowing.Select(a => a).Where(b => b.FinishDate != null && b.Status == 1).ToListAsync();
+		}
 
-            if (borrowing == null)
-            {
-                return NotFound();
-            }
+		// GET: api/Borrowing/reserved
+		[HttpGet("reserved")]
+		public async Task<ActionResult<List<Borrowing>>> GetReservedBorrowings()
+		{
+			return await _context.Borrowing.Select(a => a).Where(b => b.FinishDate != null && b.Status == 2).ToListAsync();
+		}
 
-            return borrowing;
-        }
+		// GET: api/Borrowing/5
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Borrowing>> GetBorrowing(int id)
+		{
+			var borrowing = await _context.Borrowing.FindAsync(id);
 
-        // PUT: api/Borrowing/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBorrowing(int id, Borrowing borrowing)
-        {
-            if (id != borrowing.Id)
-            {
-                return BadRequest();
-            }
+			if (borrowing == null)
+			{
+				return NotFound();
+			}
 
-            _context.Entry(borrowing).State = EntityState.Modified;
+			return borrowing;
+		}
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BorrowingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+		// PUT: api/Borrowing/checkin/5
+		[HttpPut("checkin/{id}")]
+		public async Task<IActionResult> EditBorrowing(int id)
+		{
 
-            return NoContent();
-        }
+			var obj = _context.Borrowing.Select(x => x).Where(b => b.Id == id).First();
+			obj.Status = 3;
+			obj.FinishDate = System.DateTime.Now;
 
-        // POST: api/Borrowing
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Borrowing>> PostBorrowing(Borrowing borrowing)
-        {
-            var userId = User.Claims.First(u => u.Type == "UserID").Value;
-            var user = await _userManager.FindByIdAsync(userId);
-            borrowing.User = user;
-            _context.Borrowing.Add(borrowing);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("GetBorrowing", new { id = borrowing.Id }, borrowing);
-        }
+			_context.Entry(obj).State = EntityState.Modified;
 
-        // DELETE: api/Borrowing/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBorrowing(int id)
-        {
-            var borrowing = await _context.Borrowing.FindAsync(id);
-            if (borrowing == null)
-            {
-                return NotFound();
-            }
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!BorrowingExists(id)) return NotFound();
+				else throw;
+			}
+			return NoContent();
+		}
+		// PUT: api/Borrowing/checkout/5
+		[HttpPut("checkout/{id}")]
+		public async Task<IActionResult> BorrowBook(int id)
+		{
+			var obj = _context.Borrowing.Select(x => x).Where(b => b.Id == id).First();
+			obj.Status = 1;
+			obj.CheckoutDate = System.DateTime.Now;
+			obj.CheckInDate = System.DateTime.Now.AddMonths(1);
 
-            _context.Borrowing.Remove(borrowing);
-            await _context.SaveChangesAsync();
+			_context.Entry(obj).State = EntityState.Modified;
 
-            return NoContent();
-        }
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!BorrowingExists(id)) return NotFound();
+				else throw;
+			}
+			return NoContent();
+		}
 
-        private bool BorrowingExists(int id)
-        {
-            return _context.Borrowing.Any(e => e.Id == id);
-        }
-    }
+		// POST: api/Borrowing
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPost("{bookId}")]
+		public async Task<ActionResult<Borrowing>> PostBorrowing(int bookId)
+		{
+			var userId = User.Claims.First(u => u.Type == "UserID").Value;
+			var user = await _userManager.FindByIdAsync(userId);
+			var book = _context.Book.Select(a => a).Where(b => b.Id == bookId).First();
+
+			var borrowing = new Borrowing();
+			//przypisanie kluczy obcych
+			borrowing.User = user;
+			borrowing.Book = book;
+			borrowing.FinishDate = null;
+			borrowing.CheckInDate = null;
+			borrowing.CheckoutDate = null;
+			borrowing.Status = 2;
+
+			_context.Borrowing.Add(borrowing);
+			await _context.SaveChangesAsync();
+			return CreatedAtAction("GetBorrowing", new { id = borrowing.Id }, borrowing);
+		}
+
+		// DELETE: api/Borrowing/5
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> DeleteBorrowing(int id)
+		{
+			var obj = _context.Borrowing.Select(x => x).Where(b => b.Id == id).First();
+			obj.FinishDate = System.DateTime.Now;
+
+			_context.Entry(obj).State = EntityState.Deleted;
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!BorrowingExists(id)) return NotFound();
+				else throw;
+			}
+			return NoContent();
+		}
+
+		private bool BorrowingExists(int id)
+		{
+			return _context.Borrowing.Any(e => e.Id == id);
+		}
+	}
 }

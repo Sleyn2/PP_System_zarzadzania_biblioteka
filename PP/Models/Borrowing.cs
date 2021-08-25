@@ -10,25 +10,26 @@ namespace PP.Models
         [Key]
         public int Id { get; set; }
 
-
-        public int BookId { get; set; }
-        //[ForeignKey("BookId")]
+        //[ForeignKey("Book")]
         public Book Book { get; set; }
 
-        //[ForeignKey("UserId")]
+        //[ForeignKey("User")]
         public ApplicationUser User { get; set; }
 
-        //Status: 1 - ongoing, 2 - reserved, 3 - finished
+        //Status: 1 - wypożyczona, 2 - zarezerwowana, 3 - zakończone wypożyczenie/rezerwacja
         public int Status { get; set; }
 
+        //Data wypożyczenia
         [Column(TypeName = "Date")]
-        public DateTime CheckoutDate { get; set; }
+        public DateTime? CheckoutDate { get; set; }
 
+        //Data zakończenia
         [Column(TypeName = "Date")]
-        public DateTime FinishDate { get; set; }
+        public DateTime? FinishDate { get; set; }
 
+        //Data zwrócenia książki
         [Column(TypeName = "Date")]
-        public DateTime CheckInDate { get; set; }
+        public DateTime? CheckInDate { get; set; }
 
         public ICollection<ProlongationRequest> prolongationRequests { get; set; }
     }

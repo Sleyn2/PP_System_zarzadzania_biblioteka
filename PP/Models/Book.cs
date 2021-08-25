@@ -12,13 +12,12 @@ namespace PP.Models
         //[ForeignKey("AuthorId")]
         public int AuthorId { get; set; }
         public Author Author { get; set; }
-        
         [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string Title { get; set; }
         [Required]
         public int Count { get; set; }
-
+        public int AvaliableCount { get; set; }
         public ICollection<Borrowing> borrowings { get; set; }
     }
 }

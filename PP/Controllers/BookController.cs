@@ -22,14 +22,24 @@ namespace PP.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBook()
         {
-            return await _context.Book.ToListAsync();
+            var books = await _context.Book.ToListAsync();
+            books.ForEach(book =>
+            {
+                book.AvaliableCount = countCurrentNumber(book);
+            });
+            return books;
         }
 
         // GET: api/Book/title
         [HttpGet("t/{title}")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBook(string title)
         {
-            return await _context.Book.Where(x => x.Title.Contains(title)).ToListAsync();
+            var books = await _context.Book.Where(x => x.Title.Contains(title)).ToListAsync();
+            books.ForEach(book =>
+            {
+                book.AvaliableCount = countCurrentNumber(book);
+            });
+            return books;
         }
 
         // GET: api/Book/5
@@ -42,7 +52,8 @@ namespace PP.Controllers
             {
                 return NotFound();
             }
-
+            //zwracanie obecnie dostępnej liczby książek jako count
+            book.AvaliableCount = countCurrentNumber(book);
             return book;
         }
 
@@ -82,13 +93,20 @@ namespace PP.Controllers
         [HttpPost]
         public async Task<ActionResult<Book>> PostBook(Book book)
         {
-            if (_context.Book.Select(e=> e).Where(t=> t.Title == book.Title).Any())
+            if (_context.Book
+                .Select(e=> e)
+                .Where(t=> t.Title == book.Title)
+                .Any())
                 return BadRequest(new { message = "Książka z daną nazwą już istnieje" });
+            book.AvaliableCount = book.Count;
             _context.Book.Add(book);
             await _context.SaveChangesAsync();
 
             CreatedAtAction("GetBook", new { id = book.Id }, book);
-            if (_context.Book.Select(e => e.Title).Where(t => t == book.Title).Any())
+            if (_context.Book
+                .Select(e => e.Title)
+                .Where(t => t == book.Title)
+                .Any())
                 return Ok();
             else
                 return BadRequest(new { message = "Nie udało się dodać książki" });
@@ -103,12 +121,21 @@ namespace PP.Controllers
             {
                 return NotFound();
             }
-
+            //TODO: SLeyn
+            //Kaskadowe usuwanie borrowings
             _context.Book.Remove(book);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
+
+        private int countCurrentNumber(Book book)
+		{
+            return book.Count - this._context.Borrowing
+                .Select(a => a)
+                .Where(b => b.Book == book && b.FinishDate == null)
+                .Count();
+		}
 
         private bool BookExists(int id)
         {

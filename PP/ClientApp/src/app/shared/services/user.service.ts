@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http"
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class UserService {
     return this.http.post(this.BaseURL + '/ApplicationUser/Login', formData);
   }
 
-  getUserProfile() {
+  getUserProfile(): Observable<any> {
     return this.http.get(this.BaseURL + '/UserProfile');
   }
 
