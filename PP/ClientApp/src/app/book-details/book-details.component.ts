@@ -48,6 +48,8 @@ export class BookDetailsComponent implements OnInit {
     if (this.cardData) {
       if (this.cardData.avaliableCount >= 1) {
         this.borrowingService.canBorrow(this.bookId).subscribe((res: any) => {
+          this.borrowingService.addBorrowing(this.bookId).subscribe();
+          this.cardData.avaliableCount--;
           this._toastr.success('Złożono rezerwację', 'Sukces!', { timeOut: 5000 })
         }, err => {
           if (err.status == 400)
@@ -55,6 +57,7 @@ export class BookDetailsComponent implements OnInit {
           this._toastr.error('Książka jest już zarezerwowana', 'Niepowodzenie', { timeOut: 5000 });
         });
       }
+      else this._toastr.error('Niewystarczająca ilość książek', 'Niepowodzenie', { timeOut: 5000 });
     }
   }
 
