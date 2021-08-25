@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title">Edycja stopki strony</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div>
+        <table  style="width: 100%;">
+            <tr>
+                <th>Tytuł książki</th>
+                <th>Status</th>
+            </tr>
+            <tr *ngFor="let borrow of borrowingList" style="font-weight: normal;">
+                <th>{{borrow.bookName}}</th>
+                <th>{{borrow.status}}</th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Zamknij</button>
+    <button type="button" class="btn btn-outline-dark" (click)="save()">Zapisz</button>
+</div>

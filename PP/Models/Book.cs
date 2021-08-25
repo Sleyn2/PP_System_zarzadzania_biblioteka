@@ -17,7 +17,6 @@ namespace PP.Models
         public string Title { get; set; }
         [Required]
         public int Count { get; set; }
-        public int AvaliableCount { get; set; }
         public ICollection<Borrowing> borrowings { get; set; }
     }
 }

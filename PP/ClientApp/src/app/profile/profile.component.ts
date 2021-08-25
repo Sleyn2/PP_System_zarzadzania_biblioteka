@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ReservedBorrowingsModal } from '../borrowing/reserved-borrowing/reserved-borrowing.component';
 import { FooterModalContent } from '../footer/footer-editor/footer-editor.component';
 import { LibInformation } from '../shared/export';
 import { User } from '../shared/models/user.model';
 import { UserService } from '../shared/services/user.service';
-// import { UserDetailsModal } from '../user/user-details.component/user-details.component';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,7 @@ export class ProfileComponent {
   public userDetails = new User;
   public isAdmin = false;
   public isBibliotekarz = false;
+  public isUser = false;
 
   @Output() messegeEvent = new EventEmitter<string>();
 
@@ -25,11 +27,14 @@ export class ProfileComponent {
     private _modalService: NgbModal,
     private auth: UserService,
     private _libInfoService: LibInformation,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _router: Router,
+
   ) {
     if (localStorage.getItem('token') != null) {
       this.isAdmin = auth.roleMatchSingle("Admin");
       this.isBibliotekarz = auth.roleMatchSingle("Bibliotekarz");
+      this.isUser = auth.roleMatchSingle("User");
     }
   }
 
@@ -39,7 +44,13 @@ export class ProfileComponent {
         this.userDetails = res
       },
       err => {
-        console.log(err)
+        if (err.status === 401) {
+          this.messegeEvent.emit('checkToken');
+          console.log('sprawdzam');
+          this._router.navigateByUrl('/user/login');
+        }
+        else
+          console.log(err)
       }
     );
   }
@@ -65,7 +76,17 @@ export class ProfileComponent {
     this._toastr.warning('Wydaje mi się, że to @Alefront robi', 'Modal do zrobienia', { timeOut: 10000 });
   }
 
-  borrowings() {
-    this._toastr.info('edycja zamówień', 'Modal do zrobienia', { timeOut: 5000 });
+  reservedBorrowings() {
+    const modalRef = this._modalService.open(ReservedBorrowingsModal, { size: 'lg' });
+
+    this._toastr.info('edycja oczekujących zamówień', 'Modal do zrobienia', { timeOut: 5000 });
+  }
+
+  historyBorrowings() {
+    this._toastr.info('historia zamówień', 'Modal do zrobienia', { timeOut: 5000 });
+  }
+
+  yourBorrowings() {
+    this._toastr.info('historia twoich zamówień', 'Modal do zrobienia', { timeOut: 5000 });
   }
 }

@@ -10,10 +10,14 @@ namespace PP.Models
         [Key]
         public int Id { get; set; }
 
-        //[ForeignKey("Book")]
+        //[ForeignKey("BookId")]
+        public int BookId { get; set; }
+
         public Book Book { get; set; }
 
-        //[ForeignKey("User")]
+        //[ForeignKey("UserId")]
+        public string UserId { get; set; }
+
         public ApplicationUser User { get; set; }
 
         //Status: 1 - wypożyczona, 2 - zarezerwowana, 3 - zakończone wypożyczenie/rezerwacja

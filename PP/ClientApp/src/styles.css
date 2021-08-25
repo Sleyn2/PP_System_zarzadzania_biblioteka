@@ -1,10 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ngx-toastr/toastr';
-/* @import '~@ng-select/ng-select/themes/default.theme.css'; */
 
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
+}
+
+table, th, td {
+  border:1px solid black;
+  text-align: center;
 }
 
 code {
