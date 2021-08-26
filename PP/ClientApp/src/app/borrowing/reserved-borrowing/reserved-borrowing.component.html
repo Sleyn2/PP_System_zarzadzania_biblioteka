@@ -1,6 +1,6 @@
 <div class="modal-header">
-    <h4 class="modal-title">Edycja stopki strony</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <h4 class="modal-title">Podgląd oczekujących rezerwacji</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -10,15 +10,20 @@
             <tr>
                 <th style="font-weight: bold;">Tytuł książki</th>
                 <th style="font-weight: bold;">Status</th>
+                <th style="font-weight: bold;">Nazwa Użytkownika</th>
+                <th></th>
+                <th></th>
             </tr>
             <tr *ngFor="let borrow of borrowingList">
                 <th>{{borrow.bookName}}</th>
                 <th>{{borrow.status}}</th>
+                <th>{{borrow.userName}}</th>
+                <th><button type="button" class="btn btn-outline-dark" *ngIf="borrow.checkoutDate === null" (click)="accept(borrow)">Zaakceptuj</button></th>
+                <th><button type="button" class="btn btn-outline-dark" *ngIf="borrow.checkoutDate === null" (click)="decline(borrow)">Odrzuć</button></th>
             </tr>
         </table>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Zamknij</button>
-    <button type="button" class="btn btn-outline-dark" (click)="save()">Zapisz</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Zamknij</button>
 </div>

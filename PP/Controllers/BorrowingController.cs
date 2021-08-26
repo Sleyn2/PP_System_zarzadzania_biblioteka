@@ -74,9 +74,11 @@ namespace PP.Controllers
 			data.ForEach(item =>
 			{
 				var bookName = _context.Book.Select(a=>a).Where(b=>b.Id==item.BookId).First().Title;
+				var userName = _context.User.Select(a => a).Where(b => b.Id == item.UserId).First().UserName;
 				map.Add(new BorrowingBook { 
 					Id = item.Id, 
 					BookName = bookName, 
+					UserName = userName,
 					Status = ((BorrowingStatus)item.Status).ToString(), 
 					CheckInDate = item.CheckInDate, 
 					CheckoutDate = item.CheckoutDate 
@@ -174,7 +176,7 @@ namespace PP.Controllers
 			var obj = _context.Borrowing.Select(x => x).Where(b => b.Id == id).First();
 			obj.FinishDate = System.DateTime.Now;
 
-			_context.Entry(obj).State = EntityState.Deleted;
+			_context.Entry(obj).State = EntityState.Modified;
 
 			try
 			{

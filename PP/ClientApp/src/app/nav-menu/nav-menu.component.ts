@@ -23,7 +23,10 @@ export class NavMenuComponent {
   }
 
   ngOnInit() {
-    this.checkToken()
+    localStorage.removeItem('token')
+    this.auth.isLoggedIn = false;
+    this.auth.isAdmin = false;
+    this.auth.isBibliotekarz = false;
   }
 
   reciveMessage($event) {

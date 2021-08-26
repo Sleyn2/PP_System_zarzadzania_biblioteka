@@ -24,6 +24,17 @@ export class BorrowingService {
     return this.http.get<Borrowing>(this._borrowingUrl + '/canBorrow/' + bookId, this.httpOptions);
   }
 
+  checkOut(id: number) {
+    return this.http.put(this._borrowingUrl + '/checkout/' + id, this.httpOptions);
+  }
+  checkIn(id: number) {
+    return this.http.put(this._borrowingUrl + '/checkin/' + id, this.httpOptions);
+  }
+
+  delete(id: number) {
+    return this.http.delete(this._borrowingUrl + '/' + id);
+  }
+
   listAll(): Observable<any> {
     return this.http.get(this._borrowingUrl + '/all');
   }
