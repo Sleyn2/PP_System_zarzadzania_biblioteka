@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PP.Enums;
 using PP.Models;
 using PP.Models.Api;
 using System.Collections.Generic;
@@ -76,7 +77,7 @@ namespace PP.Controllers
 				map.Add(new BorrowingBook { 
 					Id = item.Id, 
 					BookName = bookName, 
-					Status = item.Status, 
+					Status = ((BorrowingStatus)item.Status).ToString(), 
 					CheckInDate = item.CheckInDate, 
 					CheckoutDate = item.CheckoutDate 
 				});

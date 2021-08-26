@@ -7,6 +7,7 @@ import { BorrowingService } from "src/app/shared/services/borrowing.service";
 @Component({
     selector: 'ngbd-modal-content',
     templateUrl: './reserved-borrowing.component.html',
+    styles:['table, th, tr{ border:1px solid black; text-align: center; font-weight: normal;}']
 })
 export class ReservedBorrowingsModal {
 
