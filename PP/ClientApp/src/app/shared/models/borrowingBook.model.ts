@@ -5,4 +5,5 @@ export class BorrowingBook {
     userName: string = "";
     checkoutDate: Date = null;
     checkInDate: Date = null;
+    finishDate: Date = null;
 }

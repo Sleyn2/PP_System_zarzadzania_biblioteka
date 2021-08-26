@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { HistoryBorrowingsModal } from '../borrowing/history-borrowing/history-borrowing.component';
+import { OngoingBorrowingsModal } from '../borrowing/ongoing-borrowing/ongoing-borrowing.component';
 import { ReservedBorrowingsModal } from '../borrowing/reserved-borrowing/reserved-borrowing.component';
 import { FooterModalContent } from '../footer/footer-editor/footer-editor.component';
 import { LibInformation } from '../shared/export';
@@ -78,12 +80,14 @@ export class ProfileComponent {
 
   reservedBorrowings() {
     const modalRef = this._modalService.open(ReservedBorrowingsModal, { size: 'lg' });
-
-    this._toastr.info('edycja oczekujących zamówień', 'Modal do zrobienia', { timeOut: 5000 });
   }
 
   historyBorrowings() {
-    this._toastr.info('historia zamówień', 'Modal do zrobienia', { timeOut: 5000 });
+    const modalRef = this._modalService.open(HistoryBorrowingsModal, { size: 'lg' });
+  }
+
+  ongoingBorrowings(){
+    const modalRef = this._modalService.open(OngoingBorrowingsModal, { size: 'lg' });
   }
 
   yourBorrowings() {
