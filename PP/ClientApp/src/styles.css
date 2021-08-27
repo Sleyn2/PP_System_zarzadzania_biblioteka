@@ -6,11 +6,6 @@ a {
   color: #0366d6;
 }
 
-table, th, td {
-  border:1px solid black;
-  text-align: center;
-}
-
 code {
   color: #e01a76;
 }
