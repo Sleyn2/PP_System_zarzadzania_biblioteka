@@ -27,12 +27,12 @@ export class ReaderService {
     {
       this.getAllReaders()
     } 
-    // else
-    // {
-    // this.http.get(this.baseUrl+'/t/'+name)
-    // .toPromise()
-    // .then(res => this.list = res as Reader[]);
-    // }
+    else
+    {
+    this.http.get(this.baseUrl+ '/s/' + name)
+    .toPromise()
+    .then(res => this.list = res as Reader[]);
+    }
   }
 
   private httpOptions = {
