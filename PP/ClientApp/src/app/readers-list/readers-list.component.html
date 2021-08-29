@@ -15,9 +15,9 @@
     </thead>
     <tbody>
         <tr *ngFor="let b of service.list">
-            <td><h5>{{b.title}}</h5></td>
-            <td><h5>{{b.title}}</h5></td>
-            <td><button class="btn btn-block" type="submit" [routerLink]="['book-details', b.id]">Szczegóły</button></td>
+            <td><h5>{{b.userName}}</h5></td>
+            <td><h5>{{b.fullName}}</h5></td>
+            <td><button class="btn btn-block" type="submit">Szczegóły</button></td>
         </tr>
     </tbody>
 </table>
