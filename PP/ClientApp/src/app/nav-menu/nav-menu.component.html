@@ -14,6 +14,9 @@
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/readers']" *ngIf="auth.isAdmin || auth.isBibliotekarz">Lista czytelników</a>
           </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/librarians']" *ngIf="auth.isAdmin">Lista bibliotekarzy</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link text-dark" style="cursor: pointer;" (click)="addBook()" *ngIf="auth.isAdmin || auth.isBibliotekarz">Dodaj Ksiażkę</a>
           </li>
