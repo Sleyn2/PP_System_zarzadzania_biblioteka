@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ReaderService {
+export class LibrarianService {
 
   constructor(private http:HttpClient) { }
 
@@ -14,18 +14,18 @@ export class ReaderService {
   readonly baseUrl = 'https://localhost:44326/api/ApplicationUser'
   list: User[];
 
-  getAllReaders()
+  getAllLibrarians()
   {
     this.http.get(this.baseUrl)
     .toPromise()
     .then(res => this.list = res as User[]);
   }
 
-  getReaders(name:string)
+  getLibrarians(name:string)
   {
     if(name==='')
     {
-      this.getAllReaders()
+      this.getAllLibrarians()
     } 
     else
     {

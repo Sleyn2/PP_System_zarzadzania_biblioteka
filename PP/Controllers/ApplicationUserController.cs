@@ -35,6 +35,13 @@ namespace PP.Controllers
             return _userManager.Users.AsEnumerable();
         }
 
+        // GET: api/ApplicationUser/s/name
+        [HttpGet("s/{name}")]
+        public IEnumerable<ApplicationUser> GetUsersWithName(string name)
+        {
+            return _userManager.Users.Where(x => x.FullName.Contains(name) || x.UserName.Contains(name)).AsEnumerable();
+        }
+
         // GET: api/ApplicationUser/
         [HttpGet("{id}")]
         public async Task<Object> FindUser(string id)

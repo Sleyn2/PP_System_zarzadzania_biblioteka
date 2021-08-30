@@ -33,6 +33,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ReservedBorrowingsModal } from './borrowing/reserved-borrowing/reserved-borrowing.component';
 import { OngoingBorrowingsModal } from './borrowing/ongoing-borrowing/ongoing-borrowing.component';
 import { HistoryBorrowingsModal } from './borrowing/history-borrowing/history-borrowing.component';
+import { LibrariansListComponent } from './librarians-list/librarians-list.component';
+import { LibrariansListFormComponent } from './librarians-list/librarians-list-form/librarians-list-form.component';
 
 
 const routes: Routes = [
@@ -49,7 +51,8 @@ const routes: Routes = [
   //{ path: 'counter', component: CounterComponent }, 
   { path: 'book-details', component: BookDetailsComponent },
   { path: 'book-details/:bookId', component: BookDetailsComponent },
-  { path: 'readers', component: ReadersListComponent}
+  { path: 'readers', component: ReadersListComponent},
+  { path: 'librarians', component: LibrariansListComponent}
 ]
 //********************************** */
 //Tutaj dodajemy wszsytkie komponenty
@@ -77,7 +80,9 @@ const routes: Routes = [
     AuthorAddModal,
     ReservedBorrowingsModal,
     OngoingBorrowingsModal,
-    HistoryBorrowingsModal
+    HistoryBorrowingsModal,
+    LibrariansListComponent,
+    LibrariansListFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
