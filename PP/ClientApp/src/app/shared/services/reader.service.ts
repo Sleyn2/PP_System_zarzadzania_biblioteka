@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Reader } from '../models/reader.model';
+import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,15 +10,15 @@ export class ReaderService {
 
   constructor(private http:HttpClient) { }
 
-  formData: Reader = new Reader();
+  formData: User = new User();
   readonly baseUrl = 'https://localhost:44326/api/ApplicationUser'
-  list: Reader[];
+  list: User[];
 
   getAllReaders()
   {
     this.http.get(this.baseUrl)
     .toPromise()
-    .then(res => this.list = res as Reader[]);
+    .then(res => this.list = res as User[]);
   }
 
   getReaders(name:string)
@@ -31,7 +31,7 @@ export class ReaderService {
     {
     this.http.get(this.baseUrl+ '/s/' + name)
     .toPromise()
-    .then(res => this.list = res as Reader[]);
+    .then(res => this.list = res as User[]);
     }
   }
 
