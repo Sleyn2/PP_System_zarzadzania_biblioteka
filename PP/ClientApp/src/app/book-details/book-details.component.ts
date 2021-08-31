@@ -24,7 +24,7 @@ export class BookDetailsComponent implements OnInit {
     private _toastr: ToastrService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    private authorService: AuthorService
+    private authorService: AuthorService,
   ) {
     if (localStorage.getItem('token') != null) {
       this.isUser = _auth.roleMatchSingle("User");
@@ -43,10 +43,10 @@ export class BookDetailsComponent implements OnInit {
   cardData: Book = new Book();
   bookAuthor: Author = new Author();
 
-  ngOnInit() {
+  async ngOnInit() {
     this.route.params.subscribe(params => { this.bookId = +params['bookId']; });
-    this.bookService.getBook(this.bookId).toPromise().then(book => this.cardData = book);
-    this.authorService.getAuthor(this.cardData.authorId).toPromise().then(author => this.bookAuthor = author);
+    await this.bookService.getBook(this.bookId).toPromise().then(book => this.cardData = book);
+    await this.authorService.getAuthor(this.cardData.authorId).toPromise().then(author => this.bookAuthor = author);
   }
 
   reserveBook(): void {
@@ -66,8 +66,16 @@ export class BookDetailsComponent implements OnInit {
     }
   }
 
-  editBook(): void {
+    async editBook(): Promise<void> {
     const modalRef = this.modalService.open(BookDetailsEditComponent);
     modalRef.componentInstance.bookDetails = this.cardData;
+    modalRef.componentInstance.authorDetails = this.bookAuthor;
+    await modalRef.result.then(async (result) => 
+    {
+      if(result=='Success')
+      {
+        await this.authorService.getAuthor(this.cardData.authorId).toPromise().then(author => this.bookAuthor = author);
+      }
+    });
   }
 }
