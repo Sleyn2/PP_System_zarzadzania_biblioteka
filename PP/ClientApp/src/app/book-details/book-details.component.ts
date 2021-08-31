@@ -7,6 +7,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BookDetailsEditComponent } from './book-details-edit/book-details-edit.component';
 import { ToastrService } from 'ngx-toastr';
+import { AuthorService } from '../shared/services/author.service';
+import { Author } from '../shared/models/author.model';
 
 @Component({
   selector: 'app-book-details',
@@ -21,7 +23,8 @@ export class BookDetailsComponent implements OnInit {
     private _auth: UserService,
     private _toastr: ToastrService,
     private route: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authorService: AuthorService,
   ) {
     if (localStorage.getItem('token') != null) {
       this.isUser = _auth.roleMatchSingle("User");
@@ -38,10 +41,12 @@ export class BookDetailsComponent implements OnInit {
   isUser = false;
   canEditBook = false;
   cardData: Book = new Book();
+  bookAuthor: Author = new Author();
 
-  ngOnInit() {
+  async ngOnInit() {
     this.route.params.subscribe(params => { this.bookId = +params['bookId']; });
-    this.bookService.getBook(this.bookId).toPromise().then(book => this.cardData = book);
+    await this.bookService.getBook(this.bookId).toPromise().then(book => this.cardData = book);
+    await this.authorService.getAuthor(this.cardData.authorId).toPromise().then(author => this.bookAuthor = author);
   }
 
   reserveBook(): void {
@@ -61,8 +66,16 @@ export class BookDetailsComponent implements OnInit {
     }
   }
 
-  editBook(): void {
+    async editBook(): Promise<void> {
     const modalRef = this.modalService.open(BookDetailsEditComponent);
     modalRef.componentInstance.bookDetails = this.cardData;
+    modalRef.componentInstance.authorDetails = this.bookAuthor;
+    await modalRef.result.then(async (result) => 
+    {
+      if(result=='Success')
+      {
+        await this.authorService.getAuthor(this.cardData.authorId).toPromise().then(author => this.bookAuthor = author);
+      }
+    });
   }
 }
