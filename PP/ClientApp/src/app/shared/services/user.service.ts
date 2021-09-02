@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http"
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -77,5 +78,10 @@ export class UserService {
     }
     else this.isLoggedIn = false;
     return false;
+  }
+
+  getUserDetails(id: String)
+  {
+    return this.http.get<User>(this.BaseURL+'/ApplicationUser/'+id);
   }
 }

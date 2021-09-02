@@ -13,6 +13,7 @@ export class ReadersListFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getAllReaders();
+    console.log(this.service);
   }
 
   onSubmit(form:NgForm){
