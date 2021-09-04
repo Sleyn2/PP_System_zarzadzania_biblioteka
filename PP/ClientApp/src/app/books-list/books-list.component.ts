@@ -21,8 +21,4 @@ export class BooksListComponent implements OnInit {
     this.toastr.warning('Warning', 'Don`t do it', { timeOut: 5000 });
     this.toastr.info('Info', 'Fetched data', { timeOut: 5000 });
   }
-
-  bookDetails(id) {
-    console.log(id);
-  }
 }

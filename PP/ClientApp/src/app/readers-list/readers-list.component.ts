@@ -11,11 +11,6 @@ export class ReadersListComponent implements OnInit {
   constructor(public service: ReaderService) { }
 
   ngOnInit(): void {
-
   }
-
-  readerDetails(id)
-  {
-    console.log(id);
-  }
+  
 }
