@@ -55,6 +55,7 @@ const routes: Routes = [
   { path: 'readers', component: ReadersListComponent},
   { path: 'librarians', component: LibrariansListComponent},
   { path: 'reader-detail', component: ReaderDetailComponent },
+  { path: 'books-list', component: BooksListComponent },
   { path: 'readers/reader-detail/:readerId', component: ReaderDetailComponent }
 ]
 //********************************** */
