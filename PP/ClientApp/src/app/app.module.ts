@@ -50,7 +50,6 @@ const routes: Routes = [
   { path: 'forbidden', component: ForbiddenComponent },
   // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
   //{ path: 'counter', component: CounterComponent }, 
-  { path: 'book-details', component: BookDetailsComponent },
   { path: 'book-details/:bookId', component: BookDetailsComponent },
   { path: 'readers', component: ReadersListComponent},
   { path: 'librarians', component: LibrariansListComponent},
