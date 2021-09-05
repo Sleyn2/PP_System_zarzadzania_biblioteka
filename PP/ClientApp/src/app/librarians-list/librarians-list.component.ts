@@ -13,9 +13,4 @@ export class LibrariansListComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-  librarianDetails(id)
-  {
-    console.log(id);
-  }
 }
