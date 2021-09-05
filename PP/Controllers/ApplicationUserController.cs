@@ -118,5 +118,25 @@ namespace PP.Controllers
             else
                 return BadRequest(new { message = "Niepoprawna nazwa użytkownika lub hasło." });
         }
+
+        // GET: api/ApplicationUser/Detail
+        [HttpGet("Detail/{id}")]
+        public async Task<Object> GetUserDetail(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new
+            {
+                user.FullName,
+                user.Id,
+                user.Email,
+                user.UserName
+            };
+        }
     }
 }

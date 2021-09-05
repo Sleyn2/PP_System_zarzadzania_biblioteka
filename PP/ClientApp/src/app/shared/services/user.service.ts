@@ -82,6 +82,6 @@ export class UserService {
 
   getUserDetails(id: String)
   {
-    return this.http.get<User>(this.BaseURL+'/ApplicationUser/'+id);
+    return this.http.get<User>(this.BaseURL+'/ApplicationUser/Detail/'+id);
   }
 }
