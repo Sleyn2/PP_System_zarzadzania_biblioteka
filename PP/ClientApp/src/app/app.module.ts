@@ -37,6 +37,7 @@ import { LibrariansListComponent } from './librarians-list/librarians-list.compo
 import { LibrariansListFormComponent } from './librarians-list/librarians-list-form/librarians-list-form.component';
 import { ReaderDetailComponent } from './readers-list/reader-detail/reader-detail.component';
 import { LibrarianDetailComponent } from './librarians-list/librarian-detail/librarian-detail.component';
+import { LibrarianEditComponent } from './librarians-list/librarian-detail/librarian-edit/librarian-edit.component';
 
 
 const routes: Routes = [
@@ -89,7 +90,8 @@ const routes: Routes = [
     LibrariansListComponent,
     LibrariansListFormComponent,
     ReaderDetailComponent,
-    LibrarianDetailComponent
+    LibrarianDetailComponent,
+    LibrarianEditComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -117,6 +119,7 @@ const routes: Routes = [
   //********************************** */
   entryComponents: [
     FooterModalContent,
+    LibrarianEditComponent,
     BookDetailsEditComponent,
     BookAddModal,
     AuthorAddModal,
