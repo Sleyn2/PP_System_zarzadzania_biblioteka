@@ -96,6 +96,8 @@ namespace PP.Controllers
                 model.Role = "Admin";
             else if (role == 2)
                 model.Role = "Bibliotekarz";
+            else if (role == 3)
+                model.Role = "User";
             var applicationUser = new ApplicationUser()
             {
                 UserName = model.UserName,

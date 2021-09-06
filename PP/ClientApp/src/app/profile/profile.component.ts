@@ -10,6 +10,7 @@ import { FooterModalContent } from '../footer/footer-editor/footer-editor.compon
 import { LibInformation } from '../shared/export';
 import { User } from '../shared/models/user.model';
 import { UserService } from '../shared/services/user.service';
+import { RegisterModalComponent } from '../user/role-registration/role-registration.component';
 
 @Component({
   selector: 'app-profile',
@@ -80,7 +81,7 @@ export class ProfileComponent {
   }
 
   addAcount(){
-    //const modalRef = this._modalService.open(, { size: 'lg' });
+    const modalRef = this._modalService.open(RegisterModalComponent, { size: 'lg' });
   }
 
   reservedBorrowings() {
