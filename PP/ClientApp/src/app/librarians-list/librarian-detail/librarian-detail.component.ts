@@ -21,7 +21,7 @@ export class LibrarianDetailComponent implements OnInit {
   private canOpenDetail;
   permitedRoles = ["Admin"];
 
-  constructor(private route: ActivatedRoute, private userService: UserService,private modalService: NgbModal, private _router: Router) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private modalService: NgbModal, private _router: Router) {
     if (localStorage.getItem('token') != null) {
       this.canOpenDetail = userService.roleMatch(this.permitedRoles);
     }
@@ -70,7 +70,7 @@ export class LibrarianDetailComponent implements OnInit {
   }
 
 
-  async editLibrarian(): Promise<void> {
+  async editLibrarian(){
     const modalRef = this.modalService.open(LibrarianEditComponent);
     modalRef.componentInstance.librarianFullName = this.userFullName;
     await modalRef.result.then(async (result) => 
@@ -79,7 +79,7 @@ export class LibrarianDetailComponent implements OnInit {
       {
         await this.userService.getUserDetails(this.librarianId).toPromise().then(userDetails => this.user = userDetails);
       }
-    });
+    }).catch((result) => {});
   }
 
 }
