@@ -10,6 +10,7 @@ import { FooterModalContent } from '../footer/footer-editor/footer-editor.compon
 import { LibInformation } from '../shared/export';
 import { User } from '../shared/models/user.model';
 import { UserService } from '../shared/services/user.service';
+import { RegisterModalComponent } from '../user/role-registration/role-registration.component';
 
 @Component({
   selector: 'app-profile',
@@ -77,6 +78,10 @@ export class ProfileComponent {
 
   open() {
     this._toastr.warning('Wydaje mi się, że to @Alefront robi', 'Modal do zrobienia', { timeOut: 10000 });
+  }
+
+  addAcount(){
+    const modalRef = this._modalService.open(RegisterModalComponent, { size: 'lg' });
   }
 
   reservedBorrowings() {

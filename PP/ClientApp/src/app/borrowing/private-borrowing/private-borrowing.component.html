@@ -13,7 +13,7 @@
                 <th style="font-weight: bold;">Data wypożyczenia</th>
                 <th style="font-weight: bold;">Termin oddania</th>
                 <th style="font-weight: bold;">Data oddania</th>
-                <th></th>
+                <th *ngIf="!this.userId"></th>
             </tr>
             <tr *ngFor="let borrow of borrowingList">
                 <th>{{borrow.bookName}}</th>
@@ -21,11 +21,13 @@
                 (borrow.status === 'Wypożyczona') ? 'green' : 
                 (borrow.status === 'Zakończone') ? 'red' : 
                 (borrow.status === 'Zarezerwowana') ? 'blue' : ''}">
-                    <b>{{borrow.status}}</b></th>
+                    <b>{{borrow.status}}</b>
+                </th>
                 <th>{{borrow.checkoutDate}}</th>
                 <th>{{borrow.checkInDate}}</th>
                 <th>{{borrow.finishDate}}</th>
-                <th><button type="button" class="btn btn-outline-dark" (click)="prolong(borrow)">Przedłuż</button></th>
+                <th *ngIf="!this.userId"><button type="button" class="btn btn-outline-dark"
+                        (click)="prolong(borrow)">Przedłuż</button></th>
             </tr>
         </table>
     </div>

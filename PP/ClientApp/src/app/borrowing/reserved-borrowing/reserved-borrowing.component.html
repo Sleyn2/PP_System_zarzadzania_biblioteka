@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body">
     <div>
-        <table  style="width: 100%;" class="">
+        <table style="width: 100%;" class="">
             <tr>
                 <th style="font-weight: bold;">Tytuł książki</th>
                 <th style="font-weight: bold;">Status</th>
@@ -16,10 +16,15 @@
             </tr>
             <tr *ngFor="let borrow of borrowingList">
                 <th>{{borrow.bookName}}</th>
-                <th>{{borrow.status}}</th>
+                <th [ngStyle]="{'color': 
+                (borrow.status === 'Wypożyczona') ? 'green' : 
+                (borrow.status === 'Zakończone') ? 'red' : 
+                (borrow.status === 'Zarezerwowana') ? 'blue' : ''}"><b>{{borrow.status}}</b></th>
                 <th>{{borrow.userName}}</th>
-                <th><button type="button" class="btn btn-outline-dark" *ngIf="borrow.checkoutDate === null" (click)="accept(borrow)">Zaakceptuj</button></th>
-                <th><button type="button" class="btn btn-outline-dark" *ngIf="borrow.checkoutDate === null" (click)="decline(borrow)">Odrzuć</button></th>
+                <th><button type="button" class="btn btn-outline-dark" *ngIf="borrow.checkoutDate === null"
+                        (click)="accept(borrow)">Zaakceptuj</button></th>
+                <th><button type="button" class="btn btn-outline-dark" *ngIf="borrow.checkoutDate === null"
+                        (click)="decline(borrow)">Odrzuć</button></th>
             </tr>
         </table>
     </div>

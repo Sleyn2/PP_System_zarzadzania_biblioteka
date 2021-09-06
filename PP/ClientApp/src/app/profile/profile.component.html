@@ -9,31 +9,40 @@
     </div>
   </div>
   <div class="row justify-content-center align-middle mt-2">
-    <div class="col-md-5 text-center gap-3">
+    <div class="col-md-12 text-center gap-3">
+
       <div class="row mt-2 mb-2">
-        <button class="btn btn-lg btn-dark" (click)="open()">Edytuj szczegóły konta</button>
+        <div class="col-md-6">
+          <button class="btn btn-lg btn-dark btn-block" (click)="open()">Edytuj szczegóły konta</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-lg btn-dark btn-block" *ngIf="this.isAdmin || this.isBibliotekarz"
+            (click)="reservedBorrowings()">Podgląd oczekujących
+            rezerwacji</button>
+          <button class="btn btn-lg btn-dark btn-block" *ngIf="this.isUser" (click)="yourBorrowings()">Podgląd twoich
+            wypożyczeń</button>
+        </div>
       </div>
       <div class="row mt-2 mb-2">
-        <button class="btn btn-lg btn-dark" *ngIf="this.isAdmin" (click)="editFooter()">Edytuj stopkę</button>
+        <div class="col-md-6">
+          <button class="btn btn-lg btn-dark btn-block" *ngIf="this.isAdmin" (click)="editFooter()">Edytuj
+            stopkę</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-lg btn-dark btn-block" *ngIf="this.isAdmin || this.isBibliotekarz"
+            (click)="ongoingBorrowings()">Podgląd obecnych
+            wypożyczeń</button>
+        </div>
       </div>
       <div class="row mt-2 mb-2">
-        <button class="btn btn-lg btn-dark" *ngIf="this.isAdmin || this.isBibliotekarz"
-          (click)="reservedBorrowings()">Podgląd oczekujących
-          rezerwacji</button>
-      </div>
-      <div class="row mt-2 mb-2">
-        <button class="btn btn-lg btn-dark" *ngIf="this.isAdmin || this.isBibliotekarz"
-          (click)="ongoingBorrowings()">Podgląd obecnych
-          wypożyczeń</button>
-      </div>
-      <div class="row mt-2 mb-2">
-        <button class="btn btn-lg btn-dark" *ngIf="this.isAdmin || this.isBibliotekarz"
-          (click)="historyBorrowings()">Podgląd historii
-          wypożyczeń</button>
-      </div>
-      <div class="row mt-2 mb-2">
-        <button class="btn btn-lg btn-dark" *ngIf="this.isUser" (click)="yourBorrowings()">Podgląd twoich
-          rezerwacji</button>
+        <div class="col-md-6">
+          <button class="btn btn-lg btn-dark btn-block" (click)="addAcount()">Dodaj nowe konto</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-lg btn-dark btn-block" *ngIf="this.isAdmin || this.isBibliotekarz"
+            (click)="historyBorrowings()">Podgląd historii
+            wypożyczeń</button>
+        </div>
       </div>
     </div>
   </div>

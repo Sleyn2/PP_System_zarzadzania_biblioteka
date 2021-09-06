@@ -88,6 +88,37 @@ namespace PP.Controllers
         }
 
         [HttpPost]
+        [Route("Register/{role}")]
+        //POST : /api/ApplicationUser/Register
+        public async Task<Object> PostApplicationUserWithRole(int role, ApplicationUserModel model)
+        {
+            if (role == 1)
+                model.Role = "Admin";
+            else if (role == 2)
+                model.Role = "Bibliotekarz";
+            else if (role == 3)
+                model.Role = "User";
+            var applicationUser = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FullName = model.FullName
+            };
+            try
+            {
+                //Tworzenie użytkownika
+                var result = await _userManager.CreateAsync(applicationUser, model.Password);
+                //Dodawanie roli user
+                await _userManager.AddToRoleAsync(applicationUser, model.Role);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost]
         [Route("Login")]
         //POST : /api/ApplicationUser/Login
         public async Task<IActionResult> Login(LoginModel model)
