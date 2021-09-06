@@ -79,6 +79,10 @@ export class ProfileComponent {
     this._toastr.warning('Wydaje mi się, że to @Alefront robi', 'Modal do zrobienia', { timeOut: 10000 });
   }
 
+  addAcount(){
+    //const modalRef = this._modalService.open(, { size: 'lg' });
+  }
+
   reservedBorrowings() {
     const modalRef = this._modalService.open(ReservedBorrowingsModal, { size: 'lg' });
   }

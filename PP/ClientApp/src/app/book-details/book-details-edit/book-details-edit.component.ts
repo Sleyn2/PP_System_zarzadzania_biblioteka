@@ -12,8 +12,6 @@ import { BookService } from 'src/app/shared/services/book.service';
   styles: []
 })
 export class BookDetailsEditComponent implements OnInit {
-
-
   @Input() bookDetails;
 
   private bookData = new Book;

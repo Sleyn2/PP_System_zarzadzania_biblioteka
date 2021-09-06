@@ -39,8 +39,9 @@ export class BorrowingService {
     return this.http.get(this._borrowingUrl + '/all');
   }
 
-  listAllPrivate(): Observable<any> {
-    return this.http.get(this._borrowingUrl + '/allPrivate');
+  listAllPrivate(id: string): Observable<any> {
+    if(id === undefined) id = 'x'
+    return this.http.get(this._borrowingUrl + '/allPrivate/' + id);
   }
 
   listOngoing(): Observable<any> {
