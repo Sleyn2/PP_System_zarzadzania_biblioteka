@@ -10,7 +10,7 @@
       <li class="list-group-item"><strong>Tytuł książki : </strong><input style="width: 100%;"
           [(ngModel)]="bookDetails.title" value={{bookDetails.title}}></li>
       <li class="list-group-item"><strong>Autor : </strong>
-        <select [(ngModel)]="selectedAuthor" style="width: 100%;"
+        <select [(ngModel)]="selectedAuthor" style="width: 100%;" *ngIf="this.authorList"
           (change)="onChange()">
           <option *ngFor="let a of this.authorList" [ngValue]="a">{{a.firstName + " " + a.lastName}}
           </option>

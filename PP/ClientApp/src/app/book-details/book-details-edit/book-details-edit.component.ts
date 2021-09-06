@@ -32,12 +32,17 @@ export class BookDetailsEditComponent implements OnInit {
     this.selectedAuthorId=this.bookData.authorId;
     await this.authorService.getAuthor(this.selectedAuthorId).toPromise().then(author => this.originalBookAuthor = author);
     this.originalBookAuthorName = this.originalBookAuthor.firstName  + " " + this.originalBookAuthor.lastName;
+    console.log(this.bookDetails)
+    console.log(this.authorList)
   }
 
 
   getAuthors(): void {
     this.authorService.getAllAuthors().toPromise().then(list => {
-        this.authorList = list
+        this.authorList = list;
+        list.forEach(element => {
+          if(element.id === this.bookDetails.authorId) this.selectedAuthor = element;
+        });
         if (this.authorList.length !== 0) this.toastr.info('Pomyślnie pobrano listę autorów', 'Baza danych', { timeOut: 5000 });
         else this.toastr.warning('Nie udało się pobrać listy autorów', 'Baza danych', { timeOut: 5000 });
     });
