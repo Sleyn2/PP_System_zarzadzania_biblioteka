@@ -72,7 +72,8 @@ export class LibrarianDetailComponent implements OnInit {
 
   async editLibrarian(){
     const modalRef = this.modalService.open(LibrarianEditComponent);
-    modalRef.componentInstance.librarianFullName = this.userFullName;
+    //modalRef.componentInstance.librarianFullName = this.userFullName;
+    modalRef.componentInstance.librarianDetail = this.user;
     await modalRef.result.then(async (result) => 
     {
      if(result=='Success')

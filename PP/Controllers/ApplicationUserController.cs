@@ -135,7 +135,8 @@ namespace PP.Controllers
                 user.FullName,
                 user.Id,
                 user.Email,
-                user.UserName
+                user.UserName,
+                user.Role
             };
         }
     }

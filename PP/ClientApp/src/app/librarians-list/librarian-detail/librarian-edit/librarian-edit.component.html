@@ -5,10 +5,10 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="card m-5" style="width: 20rem" *ngIf="librarianFullName">
+    <div class="card m-5" style="width: 20rem" *ngIf="librarianDetail">
       <ul class="list-group">
         <li class="list-group-item"><strong> Pełna nazwa bibliotekarza: : </strong><input style="width: 100%;"
-            [(ngModel)]="librarianFullName" value={{librarianFullName}}></li>
+            [(ngModel)]="librarianDetail.fullName" value={{librarianDetail.fullName}}></li>
       </ul>
     </div>
   </div>

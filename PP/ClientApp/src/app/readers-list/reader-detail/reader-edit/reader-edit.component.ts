@@ -9,7 +9,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class ReaderEditComponent implements OnInit {
 
-  @Input() readerFullName: String;
+  @Input() readerDetail;
 
   constructor(public activeModal: NgbActiveModal, private userService: UserService) { }
 

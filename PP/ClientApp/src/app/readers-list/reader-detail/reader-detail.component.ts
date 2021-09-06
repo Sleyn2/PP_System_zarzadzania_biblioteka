@@ -71,7 +71,8 @@ export class ReaderDetailComponent implements OnInit {
 
   async editReader(){
     const modalRef = this.modalService.open(ReaderEditComponent);
-    modalRef.componentInstance.readerFullName = this.userFullName;
+    //modalRef.componentInstance.readerFullName = this.userFullName;
+    modalRef.componentInstance.readerDetail = this.user;
     await modalRef.result.then(async (result) => 
     {
      if(result=='Success')

@@ -9,11 +9,12 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class LibrarianEditComponent implements OnInit {
   
-  @Input() librarianFullName: String;
+  @Input() librarianDetail;
 
   constructor(public activeModal: NgbActiveModal, private userService: UserService) { }
 
   ngOnInit() {
+    console.log(this.librarianDetail);
   }
 
   changeLibrarianData()
