@@ -11,8 +11,8 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BooksListComponent } from './books-list/books-list.component';
 import { BooksListFormComponent } from './books-list/books-list-form/books-list-form.component';
 import { UserComponent } from './user/user.component';
-import { RegistrationComponent } from './user/registration/registration.component';
-import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { BookDetailsComponent } from './book-details/book-details.component';
@@ -35,6 +35,7 @@ import { OngoingBorrowingsModal } from './borrowing/ongoing-borrowing/ongoing-bo
 import { HistoryBorrowingsModal } from './borrowing/history-borrowing/history-borrowing.component';
 import { LibrariansListComponent } from './librarians-list/librarians-list.component';
 import { LibrariansListFormComponent } from './librarians-list/librarians-list-form/librarians-list-form.component';
+import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 
 
 const routes: Routes = [
@@ -48,7 +49,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'forbidden', component: ForbiddenComponent },
   // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
-  //{ path: 'counter', component: CounterComponent }, 
+  //{ path: 'counter', component: CounterComponent },
+  { path: 'profile-details', component: ProfileDetailsComponent },
   { path: 'book-details', component: BookDetailsComponent },
   { path: 'book-details/:bookId', component: BookDetailsComponent },
   { path: 'readers', component: ReadersListComponent},
@@ -82,7 +84,8 @@ const routes: Routes = [
     OngoingBorrowingsModal,
     HistoryBorrowingsModal,
     LibrariansListComponent,
-    LibrariansListFormComponent
+    LibrariansListFormComponent,
+    ProfileDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -87,6 +87,39 @@ namespace PP.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("Update")]
+        //PUT : /api/ApplicationUser/Update
+        public async Task<Object> updateUser(ApplicationUserModel model)
+        {
+            // tu leci update usera
+            var applicationUser = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FullName = model.FullName,
+            };
+            try
+            {
+                //update użytkownika
+                if(model.Password == null)
+                {
+                    var result = await _userManager.UpdateAsync(applicationUser);
+                    return Ok(result);
+                }
+                else
+                {
+                    await _userManager.UpdateAsync(applicationUser);
+                    var result = await _userManager.CheckPasswordAsync(applicationUser,model.Password);
+                    return Ok(result);
+                }             
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         [HttpPost]
         [Route("Login")]
         //POST : /api/ApplicationUser/Login
