@@ -62,9 +62,9 @@ namespace PP.Controllers
                     BookName = bookName,
                     UserName = userName,
                     Status = ((BorrowingStatus)item.Status).ToString(),
-                    CheckInDate = item.CheckInDate.HasValue ? item.CheckInDate.Value.Date : null,
-                    CheckoutDate = item.CheckoutDate.HasValue ? item.CheckoutDate.Value.Date : null,
-                    FinishDate = item.FinishDate.HasValue ? item.FinishDate.Value.Date : null
+                    CheckInDate = item.CheckInDate.HasValue ? item.CheckInDate.Value.ToString("dd/MM/yyyy") : null,
+                    CheckoutDate = item.CheckoutDate.HasValue ? item.CheckoutDate.Value.ToString("dd/MM/yyyy") : null,
+                    FinishDate = item.FinishDate.HasValue ? item.FinishDate.Value.ToString("dd/MM/yyyy") : null
                 });
             });
             return map;
@@ -90,9 +90,9 @@ namespace PP.Controllers
                     BookName = bookName,
                     UserName = userName,
                     Status = ((BorrowingStatus)item.Status).ToString(),
-                    CheckInDate = item.CheckInDate.HasValue ? item.CheckInDate.Value.Date : null,
-                    CheckoutDate = item.CheckoutDate.HasValue ? item.CheckoutDate.Value.Date : null,
-                    FinishDate = item.FinishDate.HasValue ? item.FinishDate.Value.Date : null
+                    CheckInDate = item.CheckInDate.HasValue ? item.CheckInDate.Value.ToString("dd/MM/yyyy") : null,
+                    CheckoutDate = item.CheckoutDate.HasValue ? item.CheckoutDate.Value.ToString("dd/MM/yyyy") : null,
+                    FinishDate = item.FinishDate.HasValue ? item.FinishDate.Value.ToString("dd/MM/yyyy") : null
                 });
             });
             return map;
@@ -117,9 +117,9 @@ namespace PP.Controllers
                     BookName = bookName,
                     UserName = userName,
                     Status = ((BorrowingStatus)item.Status).ToString(),
-                    CheckInDate = item.CheckInDate.HasValue ? item.CheckInDate.Value.Date : null,
-                    CheckoutDate = item.CheckoutDate.HasValue ? item.CheckoutDate.Value.Date : null,
-                    FinishDate = item.FinishDate.HasValue ? item.FinishDate.Value.Date : null
+                    CheckInDate = item.CheckInDate.HasValue ? item.CheckInDate.Value.ToString("dd/MM/yyyy") : null,
+                    CheckoutDate = item.CheckoutDate.HasValue ? item.CheckoutDate.Value.ToString("dd/MM/yyyy") : null,
+                    FinishDate = item.FinishDate.HasValue ? item.FinishDate.Value.ToString("dd/MM/yyyy") : null
                 });
             });
             return map;
@@ -144,9 +144,9 @@ namespace PP.Controllers
                     BookName = bookName,
                     UserName = userName,
                     Status = ((BorrowingStatus)item.Status).ToString(),
-                    CheckInDate = item.CheckInDate.HasValue ? item.CheckInDate.Value.Date : null,
-                    CheckoutDate = item.CheckoutDate.HasValue ? item.CheckoutDate.Value.Date : null,
-                    FinishDate = item.FinishDate.HasValue ? item.FinishDate.Value.Date : null
+                    CheckInDate = item.CheckInDate.HasValue ? item.CheckInDate.Value.ToString("dd/MM/yyyy") : null,
+                    CheckoutDate = item.CheckoutDate.HasValue ? item.CheckoutDate.Value.ToString("dd/MM/yyyy") : null,
+                    FinishDate = item.FinishDate.HasValue ? item.FinishDate.Value.ToString("dd/MM/yyyy") : null
                 });
             });
             return map;

@@ -29,7 +29,6 @@ export class PrivateBorrowingsModal {
         this._borrowingService.listAllPrivate().subscribe(res => {
             this._toastr.success('Pomyślnie pobrano dane', 'Sukces!', { timeOut: 5000 });
             this.borrowingList = res;
-            console.log(this.borrowingList);
         }, err => {
             console.log(err);
         });

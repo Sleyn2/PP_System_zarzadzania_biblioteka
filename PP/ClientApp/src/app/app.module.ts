@@ -39,6 +39,7 @@ import { ReaderDetailComponent } from './readers-list/reader-detail/reader-detai
 import { LibrarianDetailComponent } from './librarians-list/librarian-detail/librarian-detail.component';
 import { LibrarianEditComponent } from './librarians-list/librarian-detail/librarian-edit/librarian-edit.component';
 import { ReaderEditComponent } from './readers-list/reader-detail/reader-edit/reader-edit.component';
+import { PrivateBorrowingsModal } from './borrowing/private-borrowing/private-borrowing.component';
 
 
 const routes: Routes = [
@@ -88,6 +89,7 @@ const routes: Routes = [
     ReservedBorrowingsModal,
     OngoingBorrowingsModal,
     HistoryBorrowingsModal,
+    PrivateBorrowingsModal,
     LibrariansListComponent,
     LibrariansListFormComponent,
     ReaderDetailComponent,
@@ -128,7 +130,8 @@ const routes: Routes = [
     AuthorAddModal,
     ReservedBorrowingsModal,
     OngoingBorrowingsModal,
-    HistoryBorrowingsModal
+    HistoryBorrowingsModal,
+    PrivateBorrowingsModal
   ]
 })
 export class AppModule { }

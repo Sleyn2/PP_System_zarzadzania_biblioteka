@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HistoryBorrowingsModal } from '../borrowing/history-borrowing/history-borrowing.component';
 import { OngoingBorrowingsModal } from '../borrowing/ongoing-borrowing/ongoing-borrowing.component';
+import { PrivateBorrowingsModal } from '../borrowing/private-borrowing/private-borrowing.component';
 import { ReservedBorrowingsModal } from '../borrowing/reserved-borrowing/reserved-borrowing.component';
 import { FooterModalContent } from '../footer/footer-editor/footer-editor.component';
 import { LibInformation } from '../shared/export';
@@ -91,6 +92,6 @@ export class ProfileComponent {
   }
 
   yourBorrowings() {
-    this._toastr.info('historia twoich zamówień', 'Modal do zrobienia', { timeOut: 5000 });
+    const modalRef = this._modalService.open(PrivateBorrowingsModal, { size: 'lg' });
   }
 }
