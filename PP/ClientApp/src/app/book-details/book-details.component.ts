@@ -74,8 +74,9 @@ export class BookDetailsComponent implements OnInit {
     {
       if(result=='Success')
       {
+        await this.bookService.getBook(this.bookId).toPromise().then(book => this.cardData = book);
         await this.authorService.getAuthor(this.cardData.authorId).toPromise().then(author => this.bookAuthor = author);
       }
-    });
+    }).catch((result) => {});
   }
 }

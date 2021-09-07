@@ -10,15 +10,26 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class ReaderEditComponent implements OnInit {
 
   @Input() readerDetail;
+  public readerFullName;
 
   constructor(public activeModal: NgbActiveModal, private userService: UserService) { }
 
   ngOnInit() {
+    if(this.readerDetail.fullName == null)
+    {
+      this.readerFullName = "Nie ustawiono";
+    }
+    else{
+      this.readerFullName = this.readerDetail.fullName;
+    }
   }
 
   changeReaderData()
   {
-    
+    if(this.readerFullName != "Nie ustawiono")
+    {
+      //aktualizacja
+    }
   }
 
 }

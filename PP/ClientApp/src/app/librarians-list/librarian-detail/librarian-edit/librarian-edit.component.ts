@@ -10,15 +10,26 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class LibrarianEditComponent implements OnInit {
   
   @Input() librarianDetail;
+  public librarianFullName;
 
   constructor(public activeModal: NgbActiveModal, private userService: UserService) { }
 
   ngOnInit() {
-    console.log(this.librarianDetail);
+    if(this.librarianDetail.fullName == null)
+    {
+      this.librarianFullName = "Nie ustawiono";
+    }
+    else{
+      this.librarianFullName = this.librarianDetail.fullName;
+    }
   }
 
   changeLibrarianData()
   {
+    if(this.librarianFullName != "Nie ustawiono")
+    {
+      //aktualizacja
+    }
   }
 
 }

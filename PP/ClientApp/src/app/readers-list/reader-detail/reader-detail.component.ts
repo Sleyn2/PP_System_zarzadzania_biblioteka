@@ -70,13 +70,13 @@ export class ReaderDetailComponent implements OnInit {
   }
 
   async editReader(){
-    const modalRef = this.modalService.open(ReaderEditComponent);
-    modalRef.componentInstance.readerFullName = this.userFullName;
+    const modalRef = this._modalService.open(ReaderEditComponent);
+    modalRef.componentInstance.readerDetail = this.user;
     await modalRef.result.then(async (result) => 
     {
      if(result=='Success')
       {
-        await this.userService.getUserDetails(this.readerId).toPromise().then(userDetails => this.user = userDetails);
+        await this._userService.getUserDetails(this.readerId).toPromise().then(userDetails => this.user = userDetails);
       }
     }).catch((result) => { });
   }
