@@ -1,24 +1,28 @@
 <div class="modal-header">
-    <h4 class="modal-title">Dodaj nowego użytkownika</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <h4 class="modal-title">Dodaj nowego użytkownika</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="card m-5" style="width: 40rem">
+    <ul class="list-group">
+      <li class="list-group-item"><strong>Nazwa Użytkownika : </strong><input style="width: 100%;"
+          [(ngModel)]="body.UserName"></li>
+      <li class="list-group-item"><strong>Email : </strong><input style="width: 100%;" [(ngModel)]="body.Email"></li>
+      <li class="list-group-item"><strong>Pełna Nazwa : </strong><input style="width: 100%;"
+          [(ngModel)]="body.FullName"></li>
+      <li class="list-group-item"><strong>Hasło : </strong><input type="password" style="width: 100%;"
+          [(ngModel)]="body.Password"></li>
+      <li class="list-group-item"><strong>Rola : </strong><select name="roles" [(ngModel)]="this.selectedRole">
+          <option [ngValue]="1">Admin</option>
+          <option [ngValue]="2">Bibliotekarz</option>
+          <option [ngValue]="3">Użytkownik</option>
+        </select></li>
+    </ul>
   </div>
-  <div class="modal-body">
-    <div class="card m-5" style="width: 40rem">
-      <ul class="list-group">
-        <li class="list-group-item"><strong>Nazwa Użytkownika : </strong><input style="width: 100%;"
-            [(ngModel)]="body.UserName"></li>
-        <li class="list-group-item"><strong>Email : </strong><input style="width: 100%;"
-            [(ngModel)]="body.Email"></li>
-        <li class="list-group-item"><strong>Pełna Nazwa : </strong><input style="width: 100%;"
-            [(ngModel)]="body.FullName"></li>
-        <li class="list-group-item"><strong>Hasło : </strong><input type="password" style="width: 100%;"
-            [(ngModel)]="body.Password"></li>
-      </ul>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Zamknij</button>
-    <button type="button" class="btn btn-outline-dark" (click)="save()">Zapisz</button>
-  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Zamknij</button>
+  <button type="button" class="btn btn-outline-dark" (click)="save()">Zapisz</button>
+</div>
