@@ -11,8 +11,8 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BooksListComponent } from './books-list/books-list.component';
 import { BooksListFormComponent } from './books-list/books-list-form/books-list-form.component';
 import { UserComponent } from './user/user.component';
-import { RegistrationComponent } from './user/registration/registration.component';
-import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { BookDetailsComponent } from './book-details/book-details.component';
@@ -41,6 +41,7 @@ import { LibrarianEditComponent } from './librarians-list/librarian-detail/libra
 import { ReaderEditComponent } from './readers-list/reader-detail/reader-edit/reader-edit.component';
 import { PrivateBorrowingsModal } from './borrowing/private-borrowing/private-borrowing.component';
 import { RegisterModalComponent } from './user/role-registration/role-registration.component';
+import { ProfileDetailsComponent } from './profile-details/profile-details.component'
 
 
 const routes: Routes = [
@@ -54,7 +55,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'forbidden', component: ForbiddenComponent },
   // ***PRZYKLAD JAK DODAWAC FUNKCJONALNOSC DO PRZYCISKU Z MENU (sam przycisk w nav-menu.component.html)***
-  //{ path: 'counter', component: CounterComponent }, 
+  //{ path: 'counter', component: CounterComponent },
+  { path: 'profile-details', component: ProfileDetailsComponent },
+  { path: 'book-details', component: BookDetailsComponent },
   { path: 'book-details/:bookId', component: BookDetailsComponent },
   { path: 'readers', component: ReadersListComponent},
   { path: 'librarians', component: LibrariansListComponent},
@@ -98,6 +101,7 @@ const routes: Routes = [
     LibrarianEditComponent,
     ReaderEditComponent,
     RegisterModalComponent,
+    ProfileDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

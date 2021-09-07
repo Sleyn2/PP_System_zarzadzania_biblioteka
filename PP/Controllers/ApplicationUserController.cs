@@ -116,6 +116,40 @@ namespace PP.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("Update")]
+        //PUT : /api/ApplicationUser/Update
+        public async Task<Object> updateUser(ApplicationUserModel model)
+        {
+            // tu leci update usera
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var userToChange = await _userManager.FindByIdAsync(userId);
+            userToChange.Email = model.Email;
+            userToChange.UserName = model.UserName;
+            userToChange.FullName = model.FullName;
+
+            try
+            {
+                //update użytkownika
+                if(model.Password == "")
+                {
+                    var result = await _userManager.UpdateAsync(userToChange);
+                    return Ok(result);
+                }
+                else
+                {
+                    await _userManager.UpdateAsync(userToChange);
+                    string code = await _userManager.GeneratePasswordResetTokenAsync(userToChange);
+                    var result = await _userManager.ResetPasswordAsync(userToChange, code, model.Password);
+                    return Ok(result);
+                }             
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         [HttpPost]
         [Route("Register/{role}")]
         //POST : /api/ApplicationUser/Register
