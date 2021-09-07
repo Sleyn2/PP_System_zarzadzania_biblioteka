@@ -35,11 +35,19 @@ namespace PP.Controllers
             return _userManager.Users.AsEnumerable();
         }
 
-        // GET: api/ApplicationUser/s/name
-        [HttpGet("s/{name}")]
-        public IEnumerable<ApplicationUser> GetUsersWithName(string name)
+        [HttpGet("r/{role}")]
+        public IEnumerable<ApplicationUser> GetAllUsersWithRole(string role)
         {
-            return _userManager.Users.Where(x => x.FullName.Contains(name) || x.UserName.Contains(name)).AsEnumerable();
+            return _userManager.GetUsersInRoleAsync(role).Result.AsEnumerable();
+        }
+
+        // GET: api/ApplicationUser/s/name
+        [HttpGet("r/{role}/s/{name}")]
+        public IEnumerable<ApplicationUser> GetUsersWithNameAndRole(string name, string role)
+        {
+            IEnumerable<ApplicationUser> unfiltered = _userManager.GetUsersInRoleAsync(role).Result.AsEnumerable();
+            IEnumerable<ApplicationUser> filtered = unfiltered;//.Where(x => x.UserName.Contains(name) || x.FullName.Contains(name)).AsEnumerable();
+            return filtered;
         }
 
         // GET: api/ApplicationUser/
