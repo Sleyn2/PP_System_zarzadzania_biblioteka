@@ -99,10 +99,13 @@ namespace PP.Controllers
                 Email = model.Email,
                 FullName = model.FullName,
             };
+
+            _userManager.GetUser
+
             try
             {
                 //update użytkownika
-                if(model.Password == null)
+                if(model.Password == "")
                 {
                     var result = await _userManager.UpdateAsync(applicationUser);
                     return Ok(result);
@@ -110,7 +113,7 @@ namespace PP.Controllers
                 else
                 {
                     await _userManager.UpdateAsync(applicationUser);
-                    var result = await _userManager.CheckPasswordAsync(applicationUser,model.Password);
+                    var result = await _userManager.ChangePasswordAsync(applicationUser,"stare",model.Password);
                     return Ok(result);
                 }             
             }

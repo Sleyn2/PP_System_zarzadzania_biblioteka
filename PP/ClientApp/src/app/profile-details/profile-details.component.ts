@@ -74,7 +74,7 @@ export class ProfileDetailsComponent implements OnInit {
       FullName: this.userDataForm.value.fullname,
       Password: this.userDataForm.value.passwd
     };
-    this.serviceDetails.updateUser(body);
+    this.serviceDetails.updateUser(body).toPromise();
     //this.router.navigateByUrl('/profile');
   }
  

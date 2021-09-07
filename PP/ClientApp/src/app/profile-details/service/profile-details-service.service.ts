@@ -12,9 +12,7 @@ export class ProfileDetailsServiceService {
   constructor(private http: HttpClient) { }
 
   updateUser(body: any) {
-    console.log("jetem tutaj")
-    this.http.get(this.baseUrl + '/ApplicationUser/Update');
-    console.log("jetem Po")
+    return this.http.put(this.baseUrl + '/ApplicationUser/Update', body);
   }
 
 }
