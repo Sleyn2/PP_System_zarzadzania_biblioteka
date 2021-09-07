@@ -3,6 +3,7 @@ import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { BorrowingBook } from "src/app/shared/models/borrowingBook.model";
 import { BorrowingService } from "src/app/shared/services/borrowing.service";
+import { ProlongService } from "src/app/shared/services/prolong.service";
 
 @Component({
     selector: 'ngbd-modal-content',
@@ -18,6 +19,7 @@ export class PrivateBorrowingsModal {
         public activeModal: NgbActiveModal,
         private _borrowingService: BorrowingService,
         private _toastr: ToastrService,
+        private _prolongService: ProlongService
     ) {
         this.borrowingList = new Array<BorrowingBook>();
     }
@@ -38,6 +40,6 @@ export class PrivateBorrowingsModal {
     }
 
     prolong(obj: BorrowingBook) {
-        this._toastr.info('Modal do zrobienia???', 'Informacja', { timeOut: 5000 });
+        this._prolongService.createProlongRequest(obj.id).subscribe();
     }
 }

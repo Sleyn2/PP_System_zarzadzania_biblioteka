@@ -26,7 +26,7 @@
                 <th>{{borrow.checkoutDate}}</th>
                 <th>{{borrow.checkInDate}}</th>
                 <th>{{borrow.finishDate}}</th>
-                <th *ngIf="!this.userId"><button type="button" class="btn btn-outline-dark"
+                <th *ngIf="!this.userId && !borrow.finishDate && borrow.checkoutDate"><button type="button" class="btn btn-outline-dark"
                         (click)="prolong(borrow)">Przedłuż</button></th>
             </tr>
         </table>

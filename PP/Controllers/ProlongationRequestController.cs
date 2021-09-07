@@ -73,12 +73,22 @@ namespace PP.Controllers
         // POST: api/ProlongationRequest
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ProlongationRequest>> PostProlongationRequest(ProlongationRequest prolongationRequest)
+        [Route("{id}")]
+        public async Task<ActionResult<ProlongationRequest>> PostProlongationRequest(int id)
         {
-            _context.ProlongationRequest.Add(prolongationRequest);
+            var temp = (await _context.ProlongationRequest.FindAsync(id));
+            if (temp == null)
+                return BadRequest();
+            var borrowing = await _context.Borrowing.FindAsync(id);
+            ProlongationRequest obj = new ProlongationRequest
+            {
+                Borrowing = borrowing,
+                NewFinishDate = borrowing.CheckInDate.Value.AddMonths(1)
+            };
+            _context.ProlongationRequest.Add(obj);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProlongationRequest", new { id = prolongationRequest.Id }, prolongationRequest);
+            return CreatedAtAction("GetProlongationRequest", new { id = obj.Id }, obj);
         }
 
         // DELETE: api/ProlongationRequest/5
