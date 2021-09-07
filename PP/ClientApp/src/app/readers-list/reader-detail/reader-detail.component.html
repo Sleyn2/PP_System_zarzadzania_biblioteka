@@ -1,0 +1,22 @@
+<div class="small-component">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="jumbtron py-3">
+            <h1 class="display-4 text-center">
+                Szczegóły czytelnika
+            </h1>
+        </div>
+        <div class="card mt-3 " style=" width: 30rem">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Id czytelnika:</b> {{readerId}}</li>
+                <li class="list-group-item"><b>Email bibliotekarza:</b> {{userEmail}}</li>
+                <li class="list-group-item"><b>Nazwa konta bibliotekarza:</b> {{userName}}</li>
+                <li class="list-group-item"><b>Pełna nazwa bibliotekarza:</b> {{userFullName}}</li>
+                <li class="list-group-item text-center">
+                    <button (click)=editReader() class="btn btn-primary">Edytuj czytlenika</button>
+                </li>
+                <li class="list-group-item text-center"><button (click)=readerBorrowingHistory() class="btn btn-primary">Historia wypożyczeń czytelnika</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

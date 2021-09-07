@@ -35,11 +35,19 @@ namespace PP.Controllers
             return _userManager.Users.AsEnumerable();
         }
 
-        // GET: api/ApplicationUser/s/name
-        [HttpGet("s/{name}")]
-        public IEnumerable<ApplicationUser> GetUsersWithName(string name)
+        [HttpGet("r/{role}")]
+        public IEnumerable<ApplicationUser> GetAllUsersWithRole(string role)
         {
-            return _userManager.Users.Where(x => x.FullName.Contains(name) || x.UserName.Contains(name)).AsEnumerable();
+            return _userManager.GetUsersInRoleAsync(role).Result.AsEnumerable();
+        }
+
+        // GET: api/ApplicationUser/s/name
+        [HttpGet("r/{role}/s/{name}")]
+        public IEnumerable<ApplicationUser> GetUsersWithNameAndRole(string name, string role)
+        {
+            IEnumerable<ApplicationUser> unfiltered = _userManager.GetUsersInRoleAsync(role).Result.AsEnumerable();
+            IEnumerable<ApplicationUser> filtered = unfiltered;//.Where(x => x.UserName.Contains(name) || x.FullName.Contains(name)).AsEnumerable();
+            return filtered;
         }
 
         // GET: api/ApplicationUser/
@@ -122,6 +130,37 @@ namespace PP.Controllers
         }
 
         [HttpPost]
+        [Route("Register/{role}")]
+        //POST : /api/ApplicationUser/Register
+        public async Task<Object> PostApplicationUserWithRole(int role, ApplicationUserModel model)
+        {
+            if (role == 1)
+                model.Role = "Admin";
+            else if (role == 2)
+                model.Role = "Bibliotekarz";
+            else if (role == 3)
+                model.Role = "User";
+            var applicationUser = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FullName = model.FullName
+            };
+            try
+            {
+                //Tworzenie użytkownika
+                var result = await _userManager.CreateAsync(applicationUser, model.Password);
+                //Dodawanie roli user
+                await _userManager.AddToRoleAsync(applicationUser, model.Role);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost]
         [Route("Login")]
         //POST : /api/ApplicationUser/Login
         public async Task<IActionResult> Login(LoginModel model)
@@ -151,6 +190,27 @@ namespace PP.Controllers
             }
             else
                 return BadRequest(new { message = "Niepoprawna nazwa użytkownika lub hasło." });
+        }
+
+        // GET: api/ApplicationUser/Detail
+        [HttpGet("Detail/{id}")]
+        public async Task<Object> GetUserDetail(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new
+            {
+                user.FullName,
+                user.Id,
+                user.Email,
+                user.UserName,
+                user.Role
+            };
         }
     }
 }

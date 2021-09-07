@@ -12,8 +12,6 @@ import { BookService } from 'src/app/shared/services/book.service';
   styles: []
 })
 export class BookDetailsEditComponent implements OnInit {
-
-
   @Input() bookDetails;
 
   private bookData = new Book;
@@ -21,6 +19,10 @@ export class BookDetailsEditComponent implements OnInit {
   public selectedAuthor;
   public originalBookAuthor = new Author;
   public originalBookAuthorName;
+  public originalBookTitle;
+  public originalBookCount;
+  public bookCount;
+  public bookTitle;
   private selectedAuthorId: number = 0;
 
 
@@ -29,6 +31,10 @@ export class BookDetailsEditComponent implements OnInit {
   async ngOnInit() {
     this.getAuthors();
     this.bookData=this.bookDetails;
+    this.bookCount=this.bookData.count;
+    this.bookTitle=this.bookData.title;
+    this.originalBookCount=this.bookData.count;
+    this.originalBookTitle=this.bookData.title;
     this.selectedAuthorId=this.bookData.authorId;
     await this.authorService.getAuthor(this.selectedAuthorId).toPromise().then(author => this.originalBookAuthor = author);
     this.originalBookAuthorName = this.originalBookAuthor.firstName  + " " + this.originalBookAuthor.lastName;
@@ -37,7 +43,10 @@ export class BookDetailsEditComponent implements OnInit {
 
   getAuthors(): void {
     this.authorService.getAllAuthors().toPromise().then(list => {
-        this.authorList = list
+        this.authorList = list;
+        list.forEach(element => {
+          if(element.id === this.bookDetails.authorId) this.selectedAuthor = element;
+        });
         if (this.authorList.length !== 0) this.toastr.info('Pomyślnie pobrano listę autorów', 'Baza danych', { timeOut: 5000 });
         else this.toastr.warning('Nie udało się pobrać listy autorów', 'Baza danych', { timeOut: 5000 });
     });
@@ -49,13 +58,18 @@ onChange() {
 
   changeBookData()
   {
-    //if (this.bookData.title != this.bookDetails.title || this.bookData.authorId != this.bookDetails.authorId) {
-      this.bookDetails.authorId = this.selectedAuthorId;
-      this.bookService.updateBook(this.bookDetails).subscribe();
-      this.activeModal.close('Success');
-  //} //else {
-      //this.activeModal.close('Same data');
-  //}
+      this.bookData.authorId = this.selectedAuthorId;
+      this.bookData.count=this.bookCount;
+      this.bookData.title=this.bookTitle;
+      this.bookService.updateBook(this.bookData).subscribe((res: any) => {
+        this.toastr.success('Pomyślnie zaktualizowano dane', 'Sukces!', { timeOut: 5000 });
+        this.activeModal.close('Success');
+      }, err => {
+        if(err.status == 409)
+          this.toastr.warning('Zła liczba książek', 'Baza danych', { timeOut: 5000 });
+          this.bookData.count=this.originalBookCount;
+          this.bookData.title=this.originalBookTitle;
+      });
   }
 
 }

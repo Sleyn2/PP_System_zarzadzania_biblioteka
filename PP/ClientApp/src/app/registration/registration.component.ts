@@ -11,15 +11,15 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class RegistrationComponent implements OnInit {
 
   constructor(
-    private toastr: ToastrService,
+    private _toastr: ToastrService,
     public service: UserService,
-    private router: Router
+    private _router: Router
   ) { }
 
   ngOnInit() {
     this.service.formModel.reset();
     if (localStorage.getItem('token') != null)
-      this.router.navigateByUrl('/profile');
+      this._router.navigateByUrl('/profile');
   }
 
   onSubmit() {
@@ -27,15 +27,15 @@ export class RegistrationComponent implements OnInit {
       (res: any) => {
         if (res.succeeded) {
           this.service.formModel.reset();
-          this.toastr.success('Utworzono nowego użytkownika!', 'Sukces.')
+          this._toastr.success('Utworzono nowego użytkownika!', 'Sukces.')
         } else {
           res.errors.forEach(element => {
             switch (element.code) {
               case 'DuplicateUserName':
-                this.toastr.error('Nazwa użytkownika zajęta.','Niepowodzenie.')
+                this._toastr.error('Nazwa użytkownika zajęta.', 'Niepowodzenie.')
                 break;
               default:
-                this.toastr.error(element.description,'Niepowodzenie.')
+                this._toastr.error(element.description, 'Niepowodzenie.')
 
                 break;
 

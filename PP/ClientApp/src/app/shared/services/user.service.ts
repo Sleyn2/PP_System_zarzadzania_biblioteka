@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http"
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class UserService {
   public isLoggedIn = false;
   public isAdmin = false;
-  public isBibliotekarz = false;  
+  public isBibliotekarz = false;
   readonly BaseURL = 'https://localhost:44326/api';
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
@@ -45,6 +46,10 @@ export class UserService {
     return this.http.post(this.BaseURL + '/ApplicationUser/Register', body);
   }
 
+  registerWithRole(role: number, body: any) {
+    return this.http.post(this.BaseURL + '/ApplicationUser/Register/' + role, body);
+  }
+
   login(formData) {
     return this.http.post(this.BaseURL + '/ApplicationUser/Login', formData);
   }
@@ -77,5 +82,9 @@ export class UserService {
     }
     else this.isLoggedIn = false;
     return false;
+  }
+
+  getUserDetails(id: String) {
+    return this.http.get<User>(this.BaseURL + '/ApplicationUser/Detail/' + id);
   }
 }

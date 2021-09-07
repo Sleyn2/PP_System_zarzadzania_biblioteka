@@ -35,7 +35,12 @@ import { OngoingBorrowingsModal } from './borrowing/ongoing-borrowing/ongoing-bo
 import { HistoryBorrowingsModal } from './borrowing/history-borrowing/history-borrowing.component';
 import { LibrariansListComponent } from './librarians-list/librarians-list.component';
 import { LibrariansListFormComponent } from './librarians-list/librarians-list-form/librarians-list-form.component';
-import { ProfileDetailsComponent } from './profile-details/profile-details.component';
+import { ReaderDetailComponent } from './readers-list/reader-detail/reader-detail.component';
+import { LibrarianDetailComponent } from './librarians-list/librarian-detail/librarian-detail.component';
+import { LibrarianEditComponent } from './librarians-list/librarian-detail/librarian-edit/librarian-edit.component';
+import { ReaderEditComponent } from './readers-list/reader-detail/reader-edit/reader-edit.component';
+import { PrivateBorrowingsModal } from './borrowing/private-borrowing/private-borrowing.component';
+import { RegisterModalComponent } from './user/role-registration/role-registration.component';
 
 
 const routes: Routes = [
@@ -54,7 +59,11 @@ const routes: Routes = [
   { path: 'book-details', component: BookDetailsComponent },
   { path: 'book-details/:bookId', component: BookDetailsComponent },
   { path: 'readers', component: ReadersListComponent},
-  { path: 'librarians', component: LibrariansListComponent}
+  { path: 'librarians', component: LibrariansListComponent},
+  { path: 'reader-detail', component: ReaderDetailComponent },
+  { path: 'books-list', component: BooksListComponent },
+  { path: 'readers/reader-detail/:readerId', component: ReaderDetailComponent },
+  { path: 'librarians/librarian-detail/:librarianId', component: LibrarianDetailComponent }
 ]
 //********************************** */
 //Tutaj dodajemy wszsytkie komponenty
@@ -83,9 +92,14 @@ const routes: Routes = [
     ReservedBorrowingsModal,
     OngoingBorrowingsModal,
     HistoryBorrowingsModal,
+    PrivateBorrowingsModal,
     LibrariansListComponent,
     LibrariansListFormComponent,
-    ProfileDetailsComponent
+    ReaderDetailComponent,
+    LibrarianDetailComponent,
+    LibrarianEditComponent,
+    ReaderEditComponent,
+    RegisterModalComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -113,12 +127,16 @@ const routes: Routes = [
   //********************************** */
   entryComponents: [
     FooterModalContent,
+    ReaderEditComponent,
+    LibrarianEditComponent,
     BookDetailsEditComponent,
     BookAddModal,
     AuthorAddModal,
     ReservedBorrowingsModal,
     OngoingBorrowingsModal,
-    HistoryBorrowingsModal
+    HistoryBorrowingsModal,
+    PrivateBorrowingsModal,
+    RegisterModalComponent
   ]
 })
 export class AppModule { }

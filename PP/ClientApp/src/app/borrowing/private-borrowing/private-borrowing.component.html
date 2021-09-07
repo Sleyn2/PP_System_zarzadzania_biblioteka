@@ -1,27 +1,33 @@
 <div class="modal-header">
-    <h4 class="modal-title">Podgląd oczekujących rezerwacji</h4>
+    <h4 class="modal-title">Podgląd twojej historii rezerwacji</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
     <div>
-        <table  style="width: 100%;" class="">
+        <table style="width: 100%;" class="">
             <tr>
                 <th style="font-weight: bold;">Tytuł książki</th>
                 <th style="font-weight: bold;">Status</th>
-                <th style="font-weight: bold;">Nazwa Użytkownika</th>
                 <th style="font-weight: bold;">Data wypożyczenia</th>
                 <th style="font-weight: bold;">Termin oddania</th>
-                <th></th>
+                <th style="font-weight: bold;">Data oddania</th>
+                <th *ngIf="!this.userId"></th>
             </tr>
             <tr *ngFor="let borrow of borrowingList">
                 <th>{{borrow.bookName}}</th>
-                <th>{{borrow.status}}</th>
-                <th>{{borrow.userName}}</th>
-                <th>{{borrow.checkInDate}}</th>
+                <th [ngStyle]="{'color': 
+                (borrow.status === 'Wypożyczona') ? 'green' : 
+                (borrow.status === 'Zakończone') ? 'red' : 
+                (borrow.status === 'Zarezerwowana') ? 'blue' : ''}">
+                    <b>{{borrow.status}}</b>
+                </th>
                 <th>{{borrow.checkoutDate}}</th>
-                <th><button type="button" class="btn btn-outline-dark" (click)="prolong(borrow)">Przedłuż</button></th>
+                <th>{{borrow.checkInDate}}</th>
+                <th>{{borrow.finishDate}}</th>
+                <th *ngIf="!this.userId"><button type="button" class="btn btn-outline-dark"
+                        (click)="prolong(borrow)">Przedłuż</button></th>
             </tr>
         </table>
     </div>
