@@ -17,4 +17,16 @@ export class ProlongService {
     createProlongRequest(borrowingId: number) {
         return this.http.post(this.baseUrl + '/' + borrowingId, this.httpOptions);
     }
+
+    rejectProlongRequest(prolongId: number){
+        return this.http.delete(this.baseUrl + '/reject/' + prolongId);
+    }
+
+    acceptProlongRequest(prolongId: number){
+        return this.http.delete(this.baseUrl + '/accept/' + prolongId);
+    }
+
+    getProlongRequests(){
+        return this.http.get(this.baseUrl);
+    }
 }

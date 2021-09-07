@@ -7,6 +7,7 @@ import { OngoingBorrowingsModal } from '../borrowing/ongoing-borrowing/ongoing-b
 import { PrivateBorrowingsModal } from '../borrowing/private-borrowing/private-borrowing.component';
 import { ReservedBorrowingsModal } from '../borrowing/reserved-borrowing/reserved-borrowing.component';
 import { FooterModalContent } from '../footer/footer-editor/footer-editor.component';
+import { ProlongModal } from '../prolong/prolong.component';
 import { LibInformation } from '../shared/export';
 import { User } from '../shared/models/user.model';
 import { UserService } from '../shared/services/user.service';
@@ -98,5 +99,9 @@ export class ProfileComponent {
 
   yourBorrowings() {
     const modalRef = this._modalService.open(PrivateBorrowingsModal, { size: 'lg' });
+  }
+  
+  showProlong(){
+    const modalRef = this._modalService.open(ProlongModal, { size: 'lg' });
   }
 }

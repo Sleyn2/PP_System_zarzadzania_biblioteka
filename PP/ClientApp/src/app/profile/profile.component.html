@@ -44,6 +44,12 @@
             wypożyczeń</button>
         </div>
       </div>
+      <div class="row mt-2 mb-2">
+        <div class="col-md-6">
+          <button class="btn btn-lg btn-dark btn-block" *ngIf="this.isAdmin || this.isBibliotekarz" (click)="showProlong()">Przeglądanie próśb o przedłużenie</button>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
     </div>
   </div>
 </div>

@@ -42,6 +42,7 @@ import { ReaderEditComponent } from './readers-list/reader-detail/reader-edit/re
 import { PrivateBorrowingsModal } from './borrowing/private-borrowing/private-borrowing.component';
 import { RegisterModalComponent } from './user/role-registration/role-registration.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component'
+import { ProlongModal } from './prolong/prolong.component';
 
 
 const routes: Routes = [
@@ -101,7 +102,8 @@ const routes: Routes = [
     LibrarianEditComponent,
     ReaderEditComponent,
     RegisterModalComponent,
-    ProfileDetailsComponent
+    ProfileDetailsComponent,
+    ProlongModal
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -138,7 +140,8 @@ const routes: Routes = [
     OngoingBorrowingsModal,
     HistoryBorrowingsModal,
     PrivateBorrowingsModal,
-    RegisterModalComponent
+    RegisterModalComponent,
+    ProlongModal
   ]
 })
 export class AppModule { }

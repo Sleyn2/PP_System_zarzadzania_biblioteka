@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PP.Models;
+using PP.Models.Api;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,9 +21,25 @@ namespace PP.Controllers
 
         // GET: api/ProlongationRequest
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProlongationRequest>>> GetProlongationRequest()
+        public async Task<ActionResult<List<ProlongRequest>>> GetProlongationRequest()
         {
-            return await _context.ProlongationRequest.ToListAsync();
+            var list = await _context.ProlongationRequest.ToListAsync();
+            List<ProlongRequest> prolongRequests = new List<ProlongRequest>();
+            list.ForEach(x =>
+            {
+                var borrowing = _context.Borrowing.Select(a => a).Where(b => b.Id == x.BorrowingId).First();
+                var bookName = _context.Book.Select(a => a).Where(b => b.Id == borrowing.BookId).First().Title;
+                var userName = _context.User.Select(a => a).Where(b => b.Id == borrowing.UserId).First().UserName;
+                prolongRequests.Add(new ProlongRequest
+                {
+                    BookName = bookName,
+                    Id = x.Id,
+                    UserName = userName,
+                    CheckInDate = borrowing.CheckInDate.Value.ToString("dd/MM/yyyy"),
+                    CheckoutDate = borrowing.CheckoutDate.Value.ToString("dd/MM/yyyy"),
+                });
+            });
+            return prolongRequests;
         }
 
         // GET: api/ProlongationRequest/5
@@ -76,8 +93,8 @@ namespace PP.Controllers
         [Route("{id}")]
         public async Task<ActionResult<ProlongationRequest>> PostProlongationRequest(int id)
         {
-            var temp = (await _context.ProlongationRequest.FindAsync(id));
-            if (temp == null)
+            var temp = (await _context.ProlongationRequest.Select(a => a).Where(b => b.BorrowingId == id).ToListAsync());
+            if (temp.Count > 0)
                 return BadRequest();
             var borrowing = await _context.Borrowing.FindAsync(id);
             ProlongationRequest obj = new ProlongationRequest
@@ -92,13 +109,43 @@ namespace PP.Controllers
         }
 
         // DELETE: api/ProlongationRequest/5
-        [HttpDelete("{id}")]
+        [HttpDelete("reject/{id}")]
         public async Task<IActionResult> DeleteProlongationRequest(int id)
         {
             var prolongationRequest = await _context.ProlongationRequest.FindAsync(id);
             if (prolongationRequest == null)
             {
                 return NotFound();
+            }
+
+            _context.ProlongationRequest.Remove(prolongationRequest);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/ProlongationRequest/5
+        [HttpDelete("accept/{id}")]
+        public async Task<IActionResult> AcceptProlongationRequest(int id)
+        {
+            var prolongationRequest = await _context.ProlongationRequest.FindAsync(id);
+            if (prolongationRequest == null)
+            {
+                return NotFound();
+            }
+            var borrowing = await _context.Borrowing.FindAsync(prolongationRequest.BorrowingId);
+
+            borrowing.CheckInDate = prolongationRequest.NewFinishDate;
+
+            _context.Entry(borrowing).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
             }
 
             _context.ProlongationRequest.Remove(prolongationRequest);

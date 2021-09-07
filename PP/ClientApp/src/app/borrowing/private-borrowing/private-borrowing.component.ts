@@ -26,7 +26,6 @@ export class PrivateBorrowingsModal {
 
     ngOnInit() {
         this.getData();
-        console.log(this.userId)
     }
 
     getData() {
@@ -40,6 +39,10 @@ export class PrivateBorrowingsModal {
     }
 
     prolong(obj: BorrowingBook) {
-        this._prolongService.createProlongRequest(obj.id).subscribe();
+        this._prolongService.createProlongRequest(obj.id).subscribe(res => {
+            this._toastr.success('Pomyślnie dodano prośbę', 'Sukces!', { timeOut: 5000 });
+        }, err => {
+            this._toastr.error('Prośba już istnieje', 'Błąd!', { timeOut: 5000 });
+        });
     }
 }
