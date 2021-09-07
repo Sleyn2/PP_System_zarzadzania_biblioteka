@@ -16,7 +16,7 @@ export class ReaderService {
 
   getAllReaders()
   {
-    this.http.get(this.baseUrl)
+    this.http.get(this.baseUrl+ '/r/User')
     .toPromise()
     .then(res => this.list = res as User[]);
   }
@@ -29,7 +29,7 @@ export class ReaderService {
     } 
     else
     {
-    this.http.get(this.baseUrl+ '/s/' + name)
+    this.http.get(this.baseUrl+ '/r/User' + '/s/' + name)
     .toPromise()
     .then(res => this.list = res as User[]);
     }
