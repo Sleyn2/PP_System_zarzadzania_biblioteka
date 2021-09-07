@@ -62,6 +62,7 @@ onChange() {
       this.bookData.count=this.bookCount;
       this.bookData.title=this.bookTitle;
       this.bookService.updateBook(this.bookData).subscribe((res: any) => {
+        this.toastr.success('Pomyślnie zaktualizowano dane', 'Sukces!', { timeOut: 5000 });
         this.activeModal.close('Success');
       }, err => {
         if(err.status == 409)
