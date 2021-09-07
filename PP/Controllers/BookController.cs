@@ -94,7 +94,7 @@ namespace PP.Controllers
                 return BadRequest();
             }
 
-            var borrowingSum = _context.Borrowing.Select(a => a).Where(b => b.BookId == book.Id && b.Status != 3).Count();
+            var borrowingSum = _context.Borrowing.Select(a => a).Where(b => b.BookId == book.Id && b.FinishDate != null).Count();
             if (book.Count < borrowingSum)
             {
                 return Conflict();
