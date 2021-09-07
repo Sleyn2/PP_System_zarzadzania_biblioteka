@@ -70,20 +70,21 @@ namespace PP.Controllers
             return map;
         }
 
-        // GET: api/Borrowing/all
-        [HttpGet("allPrivate")]
-        public async Task<ActionResult<List<BorrowingBook>>> GetAllPrivateBorrowings()
+        // GET: api/Borrowing/allPrivate/{id}
+        [HttpGet("allPrivate/{id}")]
+        public async Task<ActionResult<List<BorrowingBook>>> GetAllPrivateBorrowings(string id)
         {
-            var userId = User.Claims.First(u => u.Type == "UserID").Value;
+
+            if(id == "x") id = User.Claims.First(u => u.Type == "UserID").Value;
             var data = await _context.Borrowing
                 .Select(a => a)
-                .Where(b => b.UserId == userId)
+                .Where(b => b.UserId == id)
                 .ToListAsync();
             var map = new List<BorrowingBook>();
             data.ForEach(item =>
             {
                 var bookName = _context.Book.Select(a => a).Where(b => b.Id == item.BookId).First().Title;
-                var userName = _context.User.Select(a => a).Where(b => b.Id == userId).First().UserName;
+                var userName = _context.User.Select(a => a).Where(b => b.Id == id).First().UserName;
                 map.Add(new BorrowingBook
                 {
                     Id = item.Id,

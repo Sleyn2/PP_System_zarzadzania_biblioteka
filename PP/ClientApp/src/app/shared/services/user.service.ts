@@ -10,7 +10,7 @@ import { User } from '../models/user.model';
 export class UserService {
   public isLoggedIn = false;
   public isAdmin = false;
-  public isBibliotekarz = false;  
+  public isBibliotekarz = false;
   readonly BaseURL = 'https://localhost:44326/api';
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
@@ -44,6 +44,10 @@ export class UserService {
       Password: this.formModel.value.Passwords.Password
     };
     return this.http.post(this.BaseURL + '/ApplicationUser/Register', body);
+  }
+
+  registerWithRole(role: number, body: any) {
+    return this.http.post(this.BaseURL + '/ApplicationUser/Register/' + role, body);
   }
 
   login(formData) {
@@ -80,8 +84,7 @@ export class UserService {
     return false;
   }
 
-  getUserDetails(id: String)
-  {
-    return this.http.get<User>(this.BaseURL+'/ApplicationUser/Detail/'+id);
+  getUserDetails(id: String) {
+    return this.http.get<User>(this.BaseURL + '/ApplicationUser/Detail/' + id);
   }
 }

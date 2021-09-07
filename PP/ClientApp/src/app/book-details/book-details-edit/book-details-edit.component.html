@@ -5,10 +5,12 @@
   </button>
 </div>
 <div class="modal-body">
-  <div class="card m-5" style="width: 20rem" *ngIf="bookDetails">
+  <div class="card m-5" style="width: 20rem" *ngIf="bookData">
     <ul class="list-group">
       <li class="list-group-item"><strong>Tytuł książki : </strong><input style="width: 100%;"
-          [(ngModel)]="bookDetails.title" value={{bookDetails.title}}></li>
+          [(ngModel)]="bookTitle" value={{bookTitle}}></li>
+          <li class="list-group-item"><strong>Liczba sztuk książki do edycji : </strong><input style="width: 100%;"
+            [(ngModel)]="bookCount" value={{bookCount}}></li>
       <li class="list-group-item"><strong>Autor : </strong>
         <select [(ngModel)]="selectedAuthor" style="width: 100%;" *ngIf="this.authorList"
           (change)="onChange()">
