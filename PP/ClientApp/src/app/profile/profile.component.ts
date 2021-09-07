@@ -77,8 +77,7 @@ export class ProfileComponent {
   }
 
   open() {
-    this._router.navigate(['/profile-details'], { queryParams: { name: 'stefan' }});
-    this._toastr.warning('Wydaje mi się, że to @Alefront robi', 'Modal do zrobienia', { timeOut: 10000 });
+    this._router.navigate(['/profile-details']);
   }
 
   addAcount(){

@@ -29,9 +29,6 @@ export class ProfileDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.name = params['name'];
-    });
 
     this.userDataForm = this.fb.group({
       userName: [''],

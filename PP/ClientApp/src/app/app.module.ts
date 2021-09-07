@@ -41,6 +41,7 @@ import { LibrarianEditComponent } from './librarians-list/librarian-detail/libra
 import { ReaderEditComponent } from './readers-list/reader-detail/reader-edit/reader-edit.component';
 import { PrivateBorrowingsModal } from './borrowing/private-borrowing/private-borrowing.component';
 import { RegisterModalComponent } from './user/role-registration/role-registration.component';
+import { ProfileDetailsComponent } from './profile-details/profile-details.component'
 
 
 const routes: Routes = [
@@ -100,6 +101,7 @@ const routes: Routes = [
     LibrarianEditComponent,
     ReaderEditComponent,
     RegisterModalComponent,
+    ProfileDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
