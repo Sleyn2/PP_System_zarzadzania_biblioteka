@@ -97,7 +97,7 @@ namespace PP.Controllers
             var borrowingSum = _context.Borrowing.Select(a => a).Where(b => b.BookId == book.Id && b.Status != 3).Count();
             if (book.Count < borrowingSum)
             {
-                return NoContent();
+                return Conflict();
             }
 
             _context.Entry(book).State = EntityState.Modified;

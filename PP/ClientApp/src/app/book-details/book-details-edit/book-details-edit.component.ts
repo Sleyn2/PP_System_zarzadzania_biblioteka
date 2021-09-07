@@ -19,6 +19,10 @@ export class BookDetailsEditComponent implements OnInit {
   public selectedAuthor;
   public originalBookAuthor = new Author;
   public originalBookAuthorName;
+  public originalBookTitle;
+  public originalBookCount;
+  public bookCount;
+  public bookTitle;
   private selectedAuthorId: number = 0;
 
 
@@ -27,11 +31,13 @@ export class BookDetailsEditComponent implements OnInit {
   async ngOnInit() {
     this.getAuthors();
     this.bookData=this.bookDetails;
+    this.bookCount=this.bookData.count;
+    this.bookTitle=this.bookData.title;
+    this.originalBookCount=this.bookData.count;
+    this.originalBookTitle=this.bookData.title;
     this.selectedAuthorId=this.bookData.authorId;
     await this.authorService.getAuthor(this.selectedAuthorId).toPromise().then(author => this.originalBookAuthor = author);
     this.originalBookAuthorName = this.originalBookAuthor.firstName  + " " + this.originalBookAuthor.lastName;
-    console.log(this.bookDetails)
-    console.log(this.authorList)
   }
 
 
@@ -52,13 +58,17 @@ onChange() {
 
   changeBookData()
   {
-    //if (this.bookData.title != this.bookDetails.title || this.bookData.authorId != this.bookDetails.authorId) {
-      this.bookDetails.authorId = this.selectedAuthorId;
-      this.bookService.updateBook(this.bookDetails).subscribe();
-      this.activeModal.close('Success');
-  //} //else {
-      //this.activeModal.close('Same data');
-  //}
+      this.bookData.authorId = this.selectedAuthorId;
+      this.bookData.count=this.bookCount;
+      this.bookData.title=this.bookTitle;
+      this.bookService.updateBook(this.bookData).subscribe((res: any) => {
+        this.activeModal.close('Success');
+      }, err => {
+        if(err.status == 409)
+          this.toastr.warning('Zła liczba książek', 'Baza danych', { timeOut: 5000 });
+          this.bookData.count=this.originalBookCount;
+          this.bookData.title=this.originalBookTitle;
+      });
   }
 
 }
