@@ -43,11 +43,10 @@ namespace PP.Controllers
 
         // GET: api/ApplicationUser/s/name
         [HttpGet("r/{role}/s/{name}")]
-        public IEnumerable<ApplicationUser> GetUsersWithNameAndRole(string name, string role)
+        public async Task<IEnumerable<ApplicationUser>> GetUsersWithNameAndRoleAsync(string name, string role)
         {
-            IEnumerable<ApplicationUser> unfiltered = _userManager.GetUsersInRoleAsync(role).Result.AsEnumerable();
-            IEnumerable<ApplicationUser> filtered = unfiltered;//.Where(x => x.UserName.Contains(name) || x.FullName.Contains(name)).AsEnumerable();
-            return filtered;
+            var unfiltered = await _userManager.GetUsersInRoleAsync(role);
+            return unfiltered.Select(a => a).Where(b => b.UserName.Contains(name) || (b.FullName != null ? b.FullName.Contains(name) : false)).ToList();
         }
 
         // GET: api/ApplicationUser/
