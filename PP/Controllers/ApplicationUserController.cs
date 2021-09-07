@@ -131,7 +131,7 @@ namespace PP.Controllers
             try
             {
                 //update użytkownika
-                if(model.Password == "")
+                if (model.Password == "")
                 {
                     var result = await _userManager.UpdateAsync(userToChange);
                     return Ok(result);
@@ -142,7 +142,7 @@ namespace PP.Controllers
                     string code = await _userManager.GeneratePasswordResetTokenAsync(userToChange);
                     var result = await _userManager.ResetPasswordAsync(userToChange, code, model.Password);
                     return Ok(result);
-                }             
+                }
             }
             catch (Exception ex)
             {
