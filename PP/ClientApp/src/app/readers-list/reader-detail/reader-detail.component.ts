@@ -23,9 +23,9 @@ export class ReaderDetailComponent implements OnInit {
   permitedRoles = ["Admin", "Bibliotekarz"];
 
   constructor(
-    private _route: ActivatedRoute, 
-    private _userService: UserService, 
-    private _router: Router, 
+    private _route: ActivatedRoute,
+    private _userService: UserService,
+    private _router: Router,
     private _modalService: NgbModal) {
     if (localStorage.getItem('token') != null) {
       this.canOpenDetail = _userService.roleMatch(this.permitedRoles);
@@ -37,7 +37,7 @@ export class ReaderDetailComponent implements OnInit {
 
   async ngOnInit() {
 
-    if (this.canOpenDetail == true) {
+    if (this.canOpenDetail === true) {
       this._userService.getUserProfile().subscribe(
         res => {
           this.userDetails = res
@@ -50,13 +50,13 @@ export class ReaderDetailComponent implements OnInit {
 
       await this._route.params.subscribe(params => { this.readerId = (params['readerId']); });
       await this._userService.getUserDetails(this.readerId).toPromise().then(userDetails => this.user = userDetails);
-      if (this.user.email == null) {
+      if (this.user.email === null || this.user.email === '') {
         this.userEmail = "Nie ustawiono";
       }
       else {
         this.userEmail = this.user.email;
       }
-      if (this.user.fullName == null) {
+      if (this.user.fullName === null || this.user.fullName === '') {
         this.userFullName = "Nie ustawiono";
       }
       else {
@@ -69,14 +69,15 @@ export class ReaderDetailComponent implements OnInit {
     }
   }
 
-  async editReader(){
+  async editReader() {
     const modalRef = this._modalService.open(ReaderEditComponent);
     modalRef.componentInstance.readerDetail = this.user;
-    await modalRef.result.then(async (result) => 
-    {
-     if(result=='Success')
-      {
-        await this._userService.getUserDetails(this.readerId).toPromise().then(userDetails => this.user = userDetails);
+    await modalRef.result.then(async (result) => {
+      if (result === 'Success') {
+        await this._userService.getUserDetails(this.readerId).toPromise().then(userDetails => {
+          this.user = userDetails;
+          this.userFullName = userDetails.fullName;
+        });
       }
     }).catch((result) => { });
   }

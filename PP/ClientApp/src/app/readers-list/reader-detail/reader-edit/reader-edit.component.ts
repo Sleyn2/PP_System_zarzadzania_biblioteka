@@ -16,22 +16,24 @@ export class ReaderEditComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private userService: UserService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    if(this.readerDetail.fullName == null)
-    {
+    if (this.readerDetail.fullName === null || this.readerDetail.fullName === '') {
       this.readerFullName = "Nie ustawiono";
     }
-    else{
+    else {
       this.readerFullName = this.readerDetail.fullName;
     }
   }
 
-  changeReaderData()
-  {
-    if(this.readerFullName != "Nie ustawiono")
-    {
-      //aktualizacja
-      this.toastr.success('Pomyślnie zaktualizowano dane', 'Sukces!', { timeOut: 5000 });
+  changeReaderData() {
+    if (this.readerFullName != "Nie ustawiono") {
+      this.readerDetail.fullName = this.readerFullName
+      this.userService.updateUser(this.readerDetail).subscribe((res: any) => {
+        this.toastr.success('Pomyślnie zaktualizowano dane', 'Sukces!', { timeOut: 5000 });
+        this.activeModal.close('Success')
+      }, err => {
+        this.toastr.warning('Nie ustawiono parametru', 'Błąd', { timeOut: 5000 });
+      })
     }
+    else this.toastr.warning('Nie ustawiono parametru', 'Błąd', { timeOut: 5000 });
   }
-
 }

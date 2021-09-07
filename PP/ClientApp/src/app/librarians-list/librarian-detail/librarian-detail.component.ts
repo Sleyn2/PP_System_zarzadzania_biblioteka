@@ -11,7 +11,7 @@ import { LibrarianEditComponent } from './librarian-edit/librarian-edit.componen
   styles: []
 })
 export class LibrarianDetailComponent implements OnInit {
-  
+
   @Input() librarianId: String;
   public user;
   public userDetails;
@@ -28,59 +28,54 @@ export class LibrarianDetailComponent implements OnInit {
     else {
       this.canOpenDetail = false;
     }
-   }
+  }
 
   async ngOnInit() {
 
-    if(this.canOpenDetail==true)
-    {
-    this.userService.getUserProfile().subscribe(
-      res => {
-        this.userDetails = res
-      },
-      err => {
-        if (err.status === 401) {
-          this._router.navigateByUrl('/user/login');
-        }
-      });
-    
-    await this.route.params.subscribe(params => { this.librarianId = (params['librarianId']); });
-    await this.userService.getUserDetails(this.librarianId).toPromise().then(userDetails => this.user = userDetails);
-    if(this.user.email == null)
-    {
-      this.userEmail = "Nie ustawiono";
+    if (this.canOpenDetail == true) {
+      this.userService.getUserProfile().subscribe(
+        res => {
+          this.userDetails = res
+        },
+        err => {
+          if (err.status === 401) {
+            this._router.navigateByUrl('/user/login');
+          }
+        });
+
+      await this.route.params.subscribe(params => { this.librarianId = (params['librarianId']); });
+      await this.userService.getUserDetails(this.librarianId).toPromise().then(userDetails => this.user = userDetails);
+      if (this.user.email === null || this.user.email === '') {
+        this.userEmail = "Nie ustawiono";
+      }
+      else {
+        this.userEmail = this.user.email;
+      }
+      if (this.user.fullName === null || this.user.fullName === '') {
+        this.userFullName = "Nie ustawiono";
+      }
+      else {
+        this.userFullName = this.user.fullName;
+      }
+      this.userName = this.user.userName;
     }
-    else
-    {
-      this.userEmail = this.user.email;
-    }
-    if(this.user.fullName == null)
-    {
-      this.userFullName = "Nie ustawiono";
-    }
-    else
-    {
-      this.userFullName = this.user.fullName;
-    }
-    this.userName = this.user.userName;
-    }
-    else{
+    else {
       this._router.navigateByUrl('/books-list');
     }
   }
 
 
-  async editLibrarian(){
+  async editLibrarian() {
     const modalRef = this.modalService.open(LibrarianEditComponent);
-    //modalRef.componentInstance.librarianFullName = this.userFullName;
     modalRef.componentInstance.librarianDetail = this.user;
-    await modalRef.result.then(async (result) => 
-    {
-     if(result=='Success')
-      {
-        await this.userService.getUserDetails(this.librarianId).toPromise().then(userDetails => this.user = userDetails);
+    await modalRef.result.then(async (result) => {
+      if (result == 'Success') {
+        await this.userService.getUserDetails(this.librarianId).toPromise().then(userDetails => {
+          this.user = userDetails;
+          this.userFullName = userDetails.fullName;
+        });
       }
-    }).catch((result) => {});
+    }).catch((result) => { });
   }
 
 }

@@ -9,29 +9,33 @@ import { UserService } from 'src/app/shared/services/user.service';
   styles: []
 })
 export class LibrarianEditComponent implements OnInit {
-  
+
   @Input() librarianDetail;
   public librarianFullName;
 
   constructor(public activeModal: NgbActiveModal, private userService: UserService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    if(this.librarianDetail.fullName == null)
-    {
+    if (this.librarianDetail.fullName == null || this.librarianDetail.fullName === '') {
       this.librarianFullName = "Nie ustawiono";
     }
-    else{
+    else {
       this.librarianFullName = this.librarianDetail.fullName;
     }
   }
 
-  changeLibrarianData()
-  {
-    if(this.librarianFullName != "Nie ustawiono")
-    {
-      //aktualizacja
-      this.toastr.success('Pomyślnie zaktualizowano dane', 'Sukces!', { timeOut: 5000 });
+  changeLibrarianData() {
+    if (this.librarianFullName != "Nie ustawiono") {
+      this.librarianDetail.fullName = this.librarianFullName
+      this.userService.updateUser(this.librarianDetail).subscribe((res: any) => {
+        this.toastr.success('Pomyślnie zaktualizowano dane', 'Sukces!', { timeOut: 5000 });
+        this.activeModal.close('Success')
+      }, err => {
+        this.toastr.warning('Nie ustawiono parametru', 'Błąd', { timeOut: 5000 });
+      })
     }
+    else this.toastr.warning('Nie ustawiono parametru', 'Błąd', { timeOut: 5000 });
   }
-
 }
+
+

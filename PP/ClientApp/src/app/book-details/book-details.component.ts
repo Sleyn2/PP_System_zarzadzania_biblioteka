@@ -66,17 +66,15 @@ export class BookDetailsComponent implements OnInit {
     }
   }
 
-    async editBook(): Promise<void> {
+  async editBook(): Promise<void> {
     const modalRef = this.modalService.open(BookDetailsEditComponent);
     modalRef.componentInstance.bookDetails = this.cardData;
     modalRef.componentInstance.authorDetails = this.bookAuthor;
-    await modalRef.result.then(async (result) => 
-    {
-      if(result=='Success')
-      {
+    await modalRef.result.then(async (result) => {
+      if (result == 'Success') {
         await this.bookService.getBook(this.bookId).toPromise().then(book => this.cardData = book);
         await this.authorService.getAuthor(this.cardData.authorId).toPromise().then(author => this.bookAuthor = author);
       }
-    }).catch((result) => {});
+    }).catch((result) => { });
   }
 }

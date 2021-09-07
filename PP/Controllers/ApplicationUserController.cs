@@ -67,6 +67,28 @@ namespace PP.Controllers
             };
         }
 
+        [HttpPut]
+        [Route("update/{id}")]
+        public async Task<IActionResult> UpdateUser(string id, ApplicationUserModel model)
+        {
+            var user = (await _userManager.FindByIdAsync(id));
+            if (user != null)
+            {
+                //Nie ustawiono
+                user.FullName = model.FullName;
+            }
+
+            try
+            {
+                _userManager.UpdateAsync(user).Wait();
+                return Ok();
+            }
+            catch
+            {
+                return NoContent();
+            }
+        }
+
         [HttpPost]
         [Route("Register")]
         //POST : /api/ApplicationUser/Register
