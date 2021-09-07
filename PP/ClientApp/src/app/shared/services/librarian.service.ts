@@ -16,7 +16,7 @@ export class LibrarianService {
 
   getAllLibrarians()
   {
-    this.http.get(this.baseUrl)
+    this.http.get(this.baseUrl+ '/r/Bibliotekarz')
     .toPromise()
     .then(res => this.list = res as User[]);
   }
@@ -29,7 +29,7 @@ export class LibrarianService {
     } 
     else
     {
-    this.http.get(this.baseUrl+ '/s/' + name)
+    this.http.get(this.baseUrl+ '/r/Bibliotekarz'+ '/s/' + name)
     .toPromise()
     .then(res => this.list = res as User[]);
     }
